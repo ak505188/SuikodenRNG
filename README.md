@@ -5,7 +5,7 @@ events, such as future encounters and enemy drops(coming later).
 ## Known Mechanics
 This is all pseudocode. There is actual code in the repo.
 #### RNG call
-```
+```javascript
 // Since PS1 is a 32 bit system multiplication and division
 // sets registers mflo and mhi with the results
 // The & 0xFFFFFFFF simulates that
@@ -18,7 +18,7 @@ r2 = (rng >> 16) & 0x7FFF;
 ```
 
 #### Run Success
-```
+```javascript
 // On run attempt RNG call is made
 // r2 is set in RNG call
 if (r2 % 100 > 50)
@@ -27,7 +27,7 @@ return false;
 ```
 
 #### isBattle(World Map)
-```
+```javascript
 // r2 is set in RNG call
 r2 = r2 - (r2 & 0xFFFFFF00);
 if (r2 < 8)
@@ -36,7 +36,7 @@ return false;
 ```
 
 #### isBattle(Dungeon)
-```
+```javascript
 // r2 is set in RNG call
 r3 = 0x7F;
 // Division works like multiplication in that it uses mflo and mhi registers
@@ -54,7 +54,7 @@ return false;
 ```
 
 #### determineEncounter
-```
+```javascript
 // Once the game determines that you are getting a battle
 // It calls RNG again
 // r2 is set from RNG call
@@ -71,7 +71,7 @@ return Math.floor(r2/r3) + 1;
 ```
 
 #### Champion's Rune
-```
+```javascript
 // The way this works is
 // 1: if(isBattle)
 // 2: determineEncounter
@@ -84,8 +84,9 @@ return false;
 ```
 
 ## Other Sources
-[All things Suikoden](http://www.suikosource.com/)
+[Suikosource: All things Suikoden](http://www.suikosource.com/)
+
 [Google Sheet with useful technical data and links](https://docs.google.com/spreadsheets/d/1W8mEcTqByBVljRmb6CSyWFFkM-l3QIoeBds1c2qjGWs/edit?usp=sharing)
-[Google Doc Sheet with explanation of how the game uses
-RNG](https://docs.google.com/document/d/1ORCe1okh8RIpOGH8WegaFMKsi_aFC3QN5OZ96w3019Y/edit?usp=sharing)
+
+[Google Doc Sheet with explanation of how the game uses RNG](https://docs.google.com/document/d/1ORCe1okh8RIpOGH8WegaFMKsi_aFC3QN5OZ96w3019Y/edit?usp=sharing)
 
