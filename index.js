@@ -7,7 +7,7 @@ function tableMaker(encounters, partyLvl) {
     var row = table.insertRow(i);
     row.data = encounters[i];
     var columns = [];
-    for (var j = 0; j < 6; j++) {
+    for (var j = 0; j < 7; j++) {
       columns.push(row.insertCell(j));
     }
     columns[0].innerHTML = row.data.area;
@@ -16,6 +16,7 @@ function tableMaker(encounters, partyLvl) {
     columns[3].innerHTML = row.data.steps;
     columns[4].innerHTML = row.data.startingRNG.toString(16);
     columns[5].innerHTML = row.data.battleRNG.toString(16);
+    columns[6].innerHTML = row.data.index;
     if (partyLvl && row.data.enemies.champVal < partyLvl) {
       row.style.display = 'none';
     }

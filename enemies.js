@@ -597,7 +597,7 @@ var enemies = {
           "lvl": 21
         }
       },
-      "Kobold": {
+      "Kobold(sword)": {
         "bits": 200,
         "drops": [
           {
@@ -613,6 +613,29 @@ var enemies = {
           "PWR": 150,
           "SKL": 40,
           "SPD": 43,
+          "lvl": 20
+        }
+      },
+      "Kobold(bow)": {
+        "bits": 150,
+        "drops": [
+          {
+            "item:": "Necklace",
+            "rate": "0.92%"
+          },
+          {
+            "item:": "Medicinex6",
+            "rate": "1.17%"
+          }
+        ],
+        "stats": {
+          "DEF": 42,
+          "HP": 120,
+          "LUK": 35,
+          "MGC": 10,
+          "PWR": 140,
+          "SKL": 35,
+          "SPD": 45,
           "lvl": 20
         }
       }
@@ -1551,8 +1574,8 @@ var enemies = {
         "parseString": "3 Ninja 2 Magus" },
       { "name": "2 EliteSoldier 1 Ninja 2 Magus",
         "parseString": "2 EliteSoldier 1 Ninja 2 Magus" },
-      { "name": "3 Hellhound 2 EliteSoldier 1 WhipMaster",
-        "parseString": "3 Hellhound 2 EliteSoldier 1 WhipMaster" }],
+      { "name": "3 HellHound 2 EliteSoldier 1 WhipMaster",
+        "parseString": "3 HellHound 2 EliteSoldier 1 WhipMaster" }],
     "enemies": {
       "EliteSoldier": {
         "bits": 2800,
