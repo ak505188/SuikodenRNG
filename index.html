@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<head>
+	<script src="rngCalc.js"></script>
+	<script src="enemies.js"></script>
+	<script src="index.js"></script>
+</head>
+<body>
+	<form id="settings">
+		Starting RNG
+		<input id="startRNG" type="text" value="0x12">
+		Iterations
+		<input id="iterations" type="number" value="1000">
+		Party Level
+		<input id="partyLvl" type="number" value="0">
+		Area(s)
+		<select id="areas">
+		<input type="button" onclick="addArea();" value="Add Area">
+		<input type="button" onclick="run();" value="Run">
+	</form>
+	<table id="encounterTable"></table>
+</body>
