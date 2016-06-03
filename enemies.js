@@ -29,16 +29,16 @@ var enemies = {
         "bits": 2200,
         "drops": [
           {
-            "item:": "EscapeTalisman",
-            "rate": "1.96%"
+            "item": "EscapeTalisman",
+            "rate": 15
           },
           {
-            "item:": "Graffiti",
-            "rate": "0.78%"
+            "item": "Graffiti",
+            "rate": 6
           },
           {
-            "item:": "LandscapePainting",
-            "rate": "0.39%"
+            "item": "LandscapePainting",
+            "rate": 3
           }
         ],
         "stats": {
@@ -56,12 +56,12 @@ var enemies = {
         "bits": 1500,
         "drops": [
           {
-            "item:": "FullArmor",
-            "rate": "0.65%"
+            "item": "FullArmor",
+            "rate": 5
           },
           {
-            "item:": "MegaMedicinex3",
-            "rate": "0.92%"
+            "item": "MegaMedicinex3",
+            "rate": 7
           }
         ],
         "stats": {
@@ -79,8 +79,8 @@ var enemies = {
         "bits": 1300,
         "drops": [
           {
-            "item:": "SpeedRunePiece",
-            "rate": "0.65%"
+            "item": "SpeedRunePiece",
+            "rate": 5
           }
         ],
         "stats": {
@@ -121,16 +121,16 @@ var enemies = {
         "bits": 2000,
         "drops": [
           {
-            "item:": "HexDoll",
-            "rate": "0.78%"
+            "item": "HexDoll",
+            "rate": 6
           },
           {
-            "item:": "PeeingBoy",
-            "rate": "0.78%"
+            "item": "PeeingBoy",
+            "rate": 6
           },
           {
-            "item:": "KnightStatue",
-            "rate": "0.26%"
+            "item": "KnightStatue",
+            "rate": 2
           }
         ],
         "stats": {
@@ -148,8 +148,8 @@ var enemies = {
         "bits": 2400,
         "drops": [
           {
-            "item:": "SpeedRing",
-            "rate": "0.78%"
+            "item": "SpeedRing",
+            "rate": 6
           }
         ],
         "stats": {
@@ -167,12 +167,12 @@ var enemies = {
         "bits": 2000,
         "drops": [
           {
-            "item:": "Silverlet",
-            "rate": "1.31%"
+            "item": "Silverlet",
+            "rate": 10
           },
           {
-            "item:": "RoseBrooch",
-            "rate": "1.31%"
+            "item": "RoseBrooch",
+            "rate": 10
           }
         ],
         "stats": {
@@ -211,8 +211,8 @@ var enemies = {
         "bits": 1600,
         "drops": [
           {
-            "item:": "MagicRunePiece",
-            "rate": "0.65%"
+            "item": "MagicRunePiece",
+            "rate": 5
           }
         ],
         "stats": {
@@ -230,8 +230,8 @@ var enemies = {
         "bits": 2700,
         "drops": [
           {
-            "item:": "EarthShield",
-            "rate": "1.31%"
+            "item": "EarthShield",
+            "rate": 10
           }
         ],
         "stats": {
@@ -249,12 +249,12 @@ var enemies = {
         "bits": 6000,
         "drops": [
           {
-            "item:": "WindowSetting#3",
-            "rate": "1.96%"
+            "item": "WindowSetting#3",
+            "rate": 15
           },
           {
-            "item:": "CycloneRune",
-            "rate": "0.78%"
+            "item": "CycloneRune",
+            "rate": 6
           }
         ],
         "stats": {
@@ -307,12 +307,12 @@ var enemies = {
         "bits": 800,
         "drops": [
           {
-            "item:": "FurCape",
-            "rate": "1.31%"
+            "item": "FurCape",
+            "rate": 10
           },
           {
-            "item:": "BoarRune",
-            "rate": "0.52%"
+            "item": "BoarRune",
+            "rate": 4
           }
         ],
         "stats": {
@@ -330,8 +330,8 @@ var enemies = {
         "bits": 400,
         "drops": [
           {
-            "item:": "KarateUniform",
-            "rate": "1.31%"
+            "item": "KarateUniform",
+            "rate": 10
           }
         ],
         "stats": {
@@ -349,16 +349,16 @@ var enemies = {
         "bits": 550,
         "drops": [
           {
-            "item:": "Graffiti",
-            "rate": "0.78%"
+            "item": "Graffiti",
+            "rate": 6
           },
           {
-            "item:": "FlowerPainting",
-            "rate": "0.78%"
+            "item": "FlowerPainting",
+            "rate": 6
           },
           {
-            "item:": "LoversGarden",
-            "rate": "0.26%"
+            "item": "LoversGarden",
+            "rate": 2
           }
         ],
         "stats": {
@@ -411,12 +411,12 @@ var enemies = {
         "bits": 600,
         "drops": [
           {
-            "item:": "Medicinex6",
-            "rate": "1.57%"
+            "item": "Medicinex6",
+            "rate": 12
           },
           {
-            "item:": "EscapeTalisman",
-            "rate": "0.78%"
+            "item": "EscapeTalisman",
+            "rate": 6
           }
         ],
         "stats": {
@@ -434,12 +434,12 @@ var enemies = {
         "bits": 800,
         "drops": [
           {
-            "item:": "FurCape",
-            "rate": "1.31%"
+            "item": "FurCape",
+            "rate": 10
           },
           {
-            "item:": "BoarRune",
-            "rate": "0.52%"
+            "item": "BoarRune",
+            "rate": 4
           }
         ],
         "stats": {
@@ -457,8 +457,8 @@ var enemies = {
         "bits": 550,
         "drops": [
           {
-            "item:": "SteelShield",
-            "rate": "1.31%"
+            "item": "SteelShield",
+            "rate": 10
           }
         ],
         "stats": {
@@ -482,16 +482,16 @@ var enemies = {
         "bits": 250,
         "drops": [
           {
-            "item:": "Graffiti",
-            "rate": "0.78%"
+            "item": "Graffiti",
+            "rate": 6
           },
           {
-            "item:": "FlowerPainting",
-            "rate": "0.78%"
+            "item": "FlowerPainting",
+            "rate": 6
           },
           {
-            "item:": "LoversGarden",
-            "rate": "0.26%"
+            "item": "LoversGarden",
+            "rate": 2
           }
         ],
         "stats": {
@@ -509,8 +509,8 @@ var enemies = {
         "bits": 140,
         "drops": [
           {
-            "item:": "Headband",
-            "rate": "1.17%"
+            "item": "Headband",
+            "rate": 9
           }
         ],
         "stats": {
@@ -551,16 +551,16 @@ var enemies = {
         "bits": 150,
         "drops": [
           {
-            "item:": "Graffiti",
-            "rate": "0.78%"
+            "item": "Graffiti",
+            "rate": 6
           },
           {
-            "item:": "FlowerPainting",
-            "rate": "0.78%"
+            "item": "FlowerPainting",
+            "rate": 6
           },
           {
-            "item:": "LoversGarden",
-            "rate": "0.26%"
+            "item": "LoversGarden",
+            "rate": 2
           }
         ],
         "stats": {
@@ -578,12 +578,12 @@ var enemies = {
         "bits": 500,
         "drops": [
           {
-            "item:": "ToeShoes",
-            "rate": "1.31%"
+            "item": "ToeShoes",
+            "rate": 10
           },
           {
-            "item:": "Needlex4",
-            "rate": "1.96%"
+            "item": "Needlex4",
+            "rate": 15
           }
         ],
         "stats": {
@@ -601,8 +601,8 @@ var enemies = {
         "bits": 200,
         "drops": [
           {
-            "item:": "WoodenShield",
-            "rate": "0.92%"
+            "item": "WoodenShield",
+            "rate": 7
           }
         ],
         "stats": {
@@ -620,12 +620,12 @@ var enemies = {
         "bits": 150,
         "drops": [
           {
-            "item:": "Necklace",
-            "rate": "0.92%"
+            "item": "Necklace",
+            "rate": 7
           },
           {
-            "item:": "Medicinex6",
-            "rate": "1.17%"
+            "item": "Medicinex6",
+            "rate": 9
           }
         ],
         "stats": {
@@ -668,16 +668,16 @@ var enemies = {
         "bits": 70,
         "drops": [
           {
-            "item:": "FailureUrn",
-            "rate": "0.78%"
+            "item": "FailureUrn",
+            "rate": 6
           },
           {
-            "item:": "OctopusUrn",
-            "rate": "0.78%"
+            "item": "OctopusUrn",
+            "rate": 6
           },
           {
-            "item:": "CeladonUrn",
-            "rate": "0.26%"
+            "item": "CeladonUrn",
+            "rate": 2
           }
         ],
         "stats": {
@@ -695,8 +695,8 @@ var enemies = {
         "bits": 50,
         "drops": [
           {
-            "item:": "Bandanna",
-            "rate": "0.78%"
+            "item": "Bandanna",
+            "rate": 6
           }
         ],
         "stats": {
@@ -714,12 +714,12 @@ var enemies = {
         "bits": 20,
         "drops": [
           {
-            "item:": "Medicinex6",
-            "rate": "0.65%"
+            "item": "Medicinex6",
+            "rate": 5
           },
           {
-            "item:": "HolyRune",
-            "rate": "0.65%"
+            "item": "HolyRune",
+            "rate": 5
           }
         ],
         "stats": {
@@ -737,8 +737,8 @@ var enemies = {
         "bits": 60,
         "drops": [
           {
-            "item:": "PointedHat",
-            "rate": "1.31%"
+            "item": "PointedHat",
+            "rate": 10
           }
         ],
         "stats": {
@@ -756,8 +756,8 @@ var enemies = {
         "bits": 300,
         "drops": [
           {
-            "item:": "WindRunePiece",
-            "rate": "0.52%"
+            "item": "WindRunePiece",
+            "rate": 4
           }
         ],
         "stats": {
@@ -808,8 +808,8 @@ var enemies = {
         "bits": 5500,
         "drops": [
           {
-            "item:": "CrimsonCape",
-            "rate": "1.57%"
+            "item": "CrimsonCape",
+            "rate": 12
           }
         ],
         "stats": {
@@ -827,16 +827,16 @@ var enemies = {
         "bits": 7100,
         "drops": [
           {
-            "item:": "Graffiti",
-            "rate": "0.78%"
+            "item": "Graffiti",
+            "rate": 6
           },
           {
-            "item:": "LoversGarden",
-            "rate": "0.78%"
+            "item": "LoversGarden",
+            "rate": 6
           },
           {
-            "item:": "BeautiesofNature",
-            "rate": "0.26%"
+            "item": "BeautiesofNature",
+            "rate": 2
           }
         ],
         "stats": {
@@ -854,8 +854,8 @@ var enemies = {
         "bits": 6500,
         "drops": [
           {
-            "item:": "ThunderRune",
-            "rate": "1.04%"
+            "item": "ThunderRune",
+            "rate": 8
           }
         ],
         "stats": {
@@ -902,12 +902,12 @@ var enemies = {
         "bits": 15000,
         "drops": [
           {
-            "item:": "MotherEarthRune",
-            "rate": "0.78%"
+            "item": "MotherEarthRune",
+            "rate": 6
           },
           {
-            "item:": "PowerRing",
-            "rate": "1.7%"
+            "item": "PowerRing",
+            "rate": 13
           }
         ],
         "stats": {
@@ -925,8 +925,8 @@ var enemies = {
         "bits": 20000,
         "drops": [
           {
-            "item:": "WindspunArmor",
-            "rate": "1.04%"
+            "item": "WindspunArmor",
+            "rate": 8
           }
         ],
         "stats": {
@@ -958,8 +958,8 @@ var enemies = {
         "bits": 6500,
         "drops": [
           {
-            "item:": "EarthBoots",
-            "rate": "1.57%"
+            "item": "EarthBoots",
+            "rate": 12
           }
         ],
         "stats": {
@@ -998,12 +998,8 @@ var enemies = {
         "bits": 900,
         "drops": [
           {
-            "item:": "SilverNecklace",
-            "rate": "0.92%"
-          },
-          {
-            "item:": "Inv.",
-            "rate": "-"
+            "item": "SilverNecklace",
+            "rate": 7
           }
         ],
         "stats": {
@@ -1021,16 +1017,16 @@ var enemies = {
         "bits": 1300,
         "drops": [
           {
-            "item:": "FailureUrn",
-            "rate": "0.78%"
+            "item": "FailureUrn",
+            "rate": 6
           },
           {
-            "item:": "WideUrn",
-            "rate": "0.78%"
+            "item": "WideUrn",
+            "rate": 6
           },
           {
-            "item:": "BlackUrn",
-            "rate": "0.26%"
+            "item": "BlackUrn",
+            "rate": 2
           }
         ],
         "stats": {
@@ -1048,12 +1044,12 @@ var enemies = {
         "bits": 2000,
         "drops": [
           {
-            "item:": "Silverlet",
-            "rate": "1.31%"
+            "item": "Silverlet",
+            "rate": 10
           },
           {
-            "item:": "RoseBrooch",
-            "rate": "1.31%"
+            "item": "RoseBrooch",
+            "rate": 10
           }
         ],
         "stats": {
@@ -1096,12 +1092,12 @@ var enemies = {
         "bits": 1100,
         "drops": [
           {
-            "item:": "DragonArmor",
-            "rate": "1.17%"
+            "item": "DragonArmor",
+            "rate": 9
           },
           {
-            "item:": "WaterRune",
-            "rate": "0.78%"
+            "item": "WaterRune",
+            "rate": 6
           }
         ],
         "stats": {
@@ -1119,8 +1115,8 @@ var enemies = {
         "bits": 1200,
         "drops": [
           {
-            "item:": "HeadGear",
-            "rate": "1.31%"
+            "item": "HeadGear",
+            "rate": 10
           }
         ],
         "stats": {
@@ -1138,8 +1134,8 @@ var enemies = {
         "bits": 2000,
         "drops": [
           {
-            "item:": "ProsperityRune",
-            "rate": "0.78%"
+            "item": "ProsperityRune",
+            "rate": 6
           }
         ],
         "stats": {
@@ -1164,8 +1160,8 @@ var enemies = {
         "bits": 700,
         "drops": [
           {
-            "item:": "LeatherArmor",
-            "rate": "1.04%"
+            "item": "LeatherArmor",
+            "rate": 8
           }
         ],
         "stats": {
@@ -1190,8 +1186,8 @@ var enemies = {
         "bits": 300,
         "drops": [
           {
-            "item:": "BrassArmor",
-            "rate": "0.78%"
+            "item": "BrassArmor",
+            "rate": 6
           }
         ],
         "stats": {
@@ -1243,16 +1239,16 @@ var enemies = {
         "bits": 400,
         "drops": [
           {
-            "item:": "FailureUrn",
-            "rate": "0.78%"
+            "item": "FailureUrn",
+            "rate": 6
           },
           {
-            "item:": "Vase",
-            "rate": "0.78%"
+            "item": "Vase",
+            "rate": 6
           },
           {
-            "item:": "PersianLamp",
-            "rate": "0.26%"
+            "item": "PersianLamp",
+            "rate": 2
           }
         ],
         "stats": {
@@ -1270,16 +1266,16 @@ var enemies = {
         "bits": 700,
         "drops": [
           {
-            "item:": "FailureUrn",
-            "rate": "0.78%"
+            "item": "FailureUrn",
+            "rate": 6
           },
           {
-            "item:": "Vase",
-            "rate": "0.78%"
+            "item": "Vase",
+            "rate": 6
           },
           {
-            "item:": "PersianLamp",
-            "rate": "0.26%"
+            "item": "PersianLamp",
+            "rate": 2
           }
         ],
         "stats": {
@@ -1326,12 +1322,12 @@ var enemies = {
         "bits": 2000,
         "drops": [
           {
-            "item:": "FullHelmet",
-            "rate": "1.31%"
+            "item": "FullHelmet",
+            "rate": 10
           },
           {
-            "item:": "GuardRing",
-            "rate": "0.92%"
+            "item": "GuardRing",
+            "rate": 7
           }
         ],
         "stats": {
@@ -1363,8 +1359,8 @@ var enemies = {
         "bits": 3000,
         "drops": [
           {
-            "item:": "MasterRobe",
-            "rate": "1.31%"
+            "item": "MasterRobe",
+            "rate": 10
           }
         ],
         "stats": {
@@ -1382,8 +1378,8 @@ var enemies = {
         "bits": 2500,
         "drops": [
           {
-            "item:": "ResurrectionRune",
-            "rate": "0.65%"
+            "item": "ResurrectionRune",
+            "rate": 5
           }
         ],
         "stats": {
@@ -1408,12 +1404,12 @@ var enemies = {
         "bits": 50,
         "drops": [
           {
-            "item:": "WoodenShoes",
-            "rate": "0.78%"
+            "item": "WoodenShoes",
+            "rate": 6
           },
           {
-            "item:": "Medicinex6",
-            "rate": "1.04%"
+            "item": "Medicinex6",
+            "rate": 8
           }
         ],
         "stats": {
@@ -1431,12 +1427,12 @@ var enemies = {
         "bits": 10,
         "drops": [
           {
-            "item:": "Medicinex6",
-            "rate": "1.04%"
+            "item": "Medicinex6",
+            "rate": 8
           },
           {
-            "item:": "Robe",
-            "rate": "0.78%"
+            "item": "Robe",
+            "rate": 6
           }
         ],
         "stats": {
@@ -1485,8 +1481,8 @@ var enemies = {
         "bits": 3000,
         "drops": [
           {
-            "item:": "MasterGarb",
-            "rate": "1.31%"
+            "item": "MasterGarb",
+            "rate": 10
           }
         ],
         "stats": {
@@ -1504,8 +1500,8 @@ var enemies = {
         "bits": 2400,
         "drops": [
           {
-            "item:": "SpeedRing",
-            "rate": "0.78%"
+            "item": "SpeedRing",
+            "rate": 6
           }
         ],
         "stats": {
@@ -1523,8 +1519,8 @@ var enemies = {
         "bits": 2200,
         "drops": [
           {
-            "item:": "SacrificialBuddha",
-            "rate": "1.31%"
+            "item": "SacrificialBuddha",
+            "rate": 10
           }
         ],
         "stats": {
@@ -1581,8 +1577,8 @@ var enemies = {
         "bits": 2800,
         "drops": [
           {
-            "item:": "RageRune",
-            "rate": "0.78%"
+            "item": "RageRune",
+            "rate": 6
           }
         ],
         "stats": {
@@ -1614,8 +1610,8 @@ var enemies = {
         "bits": 7100,
         "drops": [
           {
-            "item:": "FortuneRune",
-            "rate": "0.78%"
+            "item": "FortuneRune",
+            "rate": 6
           }
         ],
         "stats": {
@@ -1633,12 +1629,12 @@ var enemies = {
         "bits": 5500,
         "drops": [
           {
-            "item:": "CapeOfDarkness",
-            "rate": "1.31%"
+            "item": "CapeOfDarkness",
+            "rate": 10
           },
           {
-            "item:": "WingBoots",
-            "rate": "0.78%"
+            "item": "WingBoots",
+            "rate": 6
           }
         ],
         "stats": {
@@ -1656,16 +1652,16 @@ var enemies = {
         "bits": 8000,
         "drops": [
           {
-            "item:": "HexDoll",
-            "rate": "0.78%"
+            "item": "HexDoll",
+            "rate": 6
           },
           {
-            "item:": "Bonsai",
-            "rate": "0.78%"
+            "item": "Bonsai",
+            "rate": 6
           },
           {
-            "item:": "GoddessStatue",
-            "rate": "0.26%"
+            "item": "GoddessStatue",
+            "rate": 2
           }
         ],
         "stats": {
@@ -1700,12 +1696,12 @@ var enemies = {
         "bits": 70,
         "drops": [
           {
-            "item:": "Medicinex6",
-            "rate": "0.92%"
+            "item": "Medicinex6",
+            "rate": 7
           },
           {
-            "item:": "Tunic",
-            "rate": "0.78%"
+            "item": "Tunic",
+            "rate": 6
           }
         ],
         "stats": {
@@ -1737,8 +1733,8 @@ var enemies = {
         "bits": 150,
         "drops": [
           {
-            "item:": "ShoulderPads",
-            "rate": "1.17%"
+            "item": "ShoulderPads",
+            "rate": 9
           }
         ],
         "stats": {
@@ -1756,8 +1752,8 @@ var enemies = {
         "bits": 300,
         "drops": [
           {
-            "item:": "WindRunePiece",
-            "rate": "0.26%"
+            "item": "WindRunePiece",
+            "rate": 2
           }
         ],
         "stats": {
@@ -1775,8 +1771,8 @@ var enemies = {
         "bits": 30,
         "drops": [
           {
-            "item:": "PointedHat",
-            "rate": "1.17%"
+            "item": "PointedHat",
+            "rate": 9
           }
         ],
         "stats": {
@@ -1811,8 +1807,8 @@ var enemies = {
         "bits": 250,
         "drops": [
           {
-            "item:": "DefenseRunePiece",
-            "rate": "0.78%"
+            "item": "DefenseRunePiece",
+            "rate": 6
           }
         ],
         "stats": {
@@ -1830,8 +1826,8 @@ var enemies = {
         "bits": 100,
         "drops": [
           {
-            "item:": "WaterRunePiece",
-            "rate": "1.31%"
+            "item": "WaterRunePiece",
+            "rate": 10
           }
         ],
         "stats": {
@@ -1849,8 +1845,8 @@ var enemies = {
         "bits": 70,
         "drops": [
           {
-            "item:": "KarateUniform",
-            "rate": "0.65%"
+            "item": "KarateUniform",
+            "rate": 5
           }
         ],
         "stats": {
@@ -1893,12 +1889,12 @@ var enemies = {
         "bits": 3500,
         "drops": [
           {
-            "item:": "WindRune",
-            "rate": "0.78%"
+            "item": "WindRune",
+            "rate": 6
           },
           {
-            "item:": "MegaMedicinex3",
-            "rate": "1.96%"
+            "item": "MegaMedicinex3",
+            "rate": 15
           }
         ],
         "stats": {
@@ -1916,8 +1912,8 @@ var enemies = {
         "bits": 5000,
         "drops": [
           {
-            "item:": "StarEarrings",
-            "rate": "0.78%"
+            "item": "StarEarrings",
+            "rate": 6
           }
         ],
         "stats": {
@@ -1935,16 +1931,16 @@ var enemies = {
         "bits": 2000,
         "drops": [
           {
-            "item:": "FailureUrn",
-            "rate": "0.78%"
+            "item": "FailureUrn",
+            "rate": 6
           },
           {
-            "item:": "BlueDragonUrn",
-            "rate": "0.78%"
+            "item": "BlueDragonUrn",
+            "rate": 6
           },
           {
-            "item:": "FineBoneChina",
-            "rate": "0.26%"
+            "item": "FineBoneChina",
+            "rate": 2
           }
         ],
         "stats": {
@@ -1985,8 +1981,8 @@ var enemies = {
         "bits": 500,
         "drops": [
           {
-            "item:": "SilverRing",
-            "rate": "0.78%"
+            "item": "SilverRing",
+            "rate": 6
           }
         ],
         "stats": {
@@ -2000,20 +1996,16 @@ var enemies = {
           "lvl": 21
         }
       },
-      "Kobold": {
+      "Kobold(mage)": {
         "bits": 250,
         "drops": [
           {
-            "item:": "GuardRobe",
-            "rate": "1.31%"
+            "item": "GuardRobe",
+            "rate": 10
           },
           {
-            "item:": "FireRune",
-            "rate": "0.78%"
-          },
-          {
-            "item:": "Inv.",
-            "rate": "-"
+            "item": "FireRune",
+            "rate": 6
           }
         ],
         "stats": {
@@ -2024,6 +2016,48 @@ var enemies = {
           "PWR": 100,
           "SKL": 70,
           "SPD": 60,
+          "lvl": 20
+        }
+      },
+      "Kobold(sword)": {
+        "bits": 200,
+        "drops": [
+          {
+            "item": "WoodenShield",
+            "rate": 7
+          }
+        ],
+        "stats": {
+          "DEF": 42,
+          "HP": 150,
+          "LUK": 35,
+          "MGC": 20,
+          "PWR": 150,
+          "SKL": 40,
+          "SPD": 43,
+          "lvl": 20
+        }
+      },
+      "Kobold(bow)": {
+        "bits": 150,
+        "drops": [
+          {
+            "item": "Necklace",
+            "rate": 7
+          },
+          {
+            "item": "Medicinex6",
+            "rate": 9
+          }
+        ],
+        "stats": {
+          "DEF": 42,
+          "HP": 120,
+          "LUK": 35,
+          "MGC": 10,
+          "PWR": 140,
+          "SKL": 35,
+          "SPD": 45,
           "lvl": 20
         }
       }
@@ -2056,8 +2090,8 @@ var enemies = {
         "bits": 1100,
         "drops": [
           {
-            "item:": "Mangosh",
-            "rate": "0.65%"
+            "item": "Mangosh",
+            "rate": 5
           }
         ],
         "stats": {
@@ -2075,8 +2109,8 @@ var enemies = {
         "bits": 700,
         "drops": [
           {
-            "item:": "ChaosShield",
-            "rate": "0.65%"
+            "item": "ChaosShield",
+            "rate": 5
           }
         ],
         "stats": {
@@ -2188,8 +2222,8 @@ var enemies = {
         "bits": 600,
         "drops": [
           {
-            "item:": "EarthRune",
-            "rate": "0.65%"
+            "item": "EarthRune",
+            "rate": 5
           }
         ],
         "stats": {
@@ -2207,16 +2241,16 @@ var enemies = {
         "bits": 800,
         "drops": [
           {
-            "item:": "NamelessUrn",
-            "rate": "1.7%"
+            "item": "NamelessUrn",
+            "rate": 13
           },
           {
-            "item:": "MagicRobe",
-            "rate": "0.92%"
+            "item": "MagicRobe",
+            "rate": 7
           },
           {
-            "item:": "Needlex4",
-            "rate": "1.7%"
+            "item": "Needlex4",
+            "rate": 13
           }
         ],
         "stats": {
@@ -2234,8 +2268,8 @@ var enemies = {
         "bits": 600,
         "drops": [
           {
-            "item:": "HeadGear",
-            "rate": "1.31%"
+            "item": "HeadGear",
+            "rate": 10
           }
         ],
         "stats": {
@@ -2270,8 +2304,8 @@ var enemies = {
         "bits": 600,
         "drops": [
           {
-            "item:": "EarthRune",
-            "rate": "0.65%"
+            "item": "EarthRune",
+            "rate": 5
           }
         ],
         "stats": {
@@ -2289,8 +2323,8 @@ var enemies = {
         "bits": 600,
         "drops": [
           {
-            "item:": "HeadGear",
-            "rate": "1.31%"
+            "item": "HeadGear",
+            "rate": 10
           }
         ],
         "stats": {
@@ -2308,8 +2342,8 @@ var enemies = {
         "bits": 1100,
         "drops": [
           {
-            "item:": "Opal",
-            "rate": "2.61%"
+            "item": "Opal",
+            "rate": 20
           }
         ],
         "stats": {
@@ -2358,16 +2392,16 @@ var enemies = {
         "bits": 2000,
         "drops": [
           {
-            "item:": "HexDoll",
-            "rate": "0.78%"
+            "item": "HexDoll",
+            "rate": 6
           },
           {
-            "item:": "PeeingBoy",
-            "rate": "0.78%"
+            "item": "PeeingBoy",
+            "rate": 6
           },
           {
-            "item:": "KnightStatue",
-            "rate": "0.26%"
+            "item": "KnightStatue",
+            "rate": 2
           }
         ],
         "stats": {
@@ -2385,8 +2419,8 @@ var enemies = {
         "bits": 6500,
         "drops": [
           {
-            "item:": "SilverHat",
-            "rate": "0.65%"
+            "item": "SilverHat",
+            "rate": 5
           }
         ],
         "stats": {
@@ -2404,12 +2438,12 @@ var enemies = {
         "bits": 2500,
         "drops": [
           {
-            "item:": "TaikiokuWear",
-            "rate": "1.31%"
+            "item": "TaikiokuWear",
+            "rate": 10
           },
           {
-            "item:": "MegaMedicinex3",
-            "rate": "1.96%"
+            "item": "MegaMedicinex3",
+            "rate": 15
           }
         ],
         "stats": {
@@ -2427,8 +2461,8 @@ var enemies = {
         "bits": 5500,
         "drops": [
           {
-            "item:": "PowerGloves",
-            "rate": "1.04%"
+            "item": "PowerGloves",
+            "rate": 8
           }
         ],
         "stats": {
@@ -2453,16 +2487,16 @@ var enemies = {
         "bits": 200,
         "drops": [
           {
-            "item:": "FailureUrn",
-            "rate": "0.78%"
+            "item": "FailureUrn",
+            "rate": 6
           },
           {
-            "item:": "Vase",
-            "rate": "0.65%"
+            "item": "Vase",
+            "rate": 5
           },
           {
-            "item:": "BlueDragonUrn",
-            "rate": "0.26%"
+            "item": "BlueDragonUrn",
+            "rate": 2
           }
         ],
         "stats": {
@@ -2503,12 +2537,12 @@ var enemies = {
         "bits": 200,
         "drops": [
           {
-            "item:": "BlueRibbon",
-            "rate": "1.17%"
+            "item": "BlueRibbon",
+            "rate": 9
           },
           {
-            "item:": "PheroRune",
-            "rate": "0.39%"
+            "item": "PheroRune",
+            "rate": 3
           }
         ],
         "stats": {
@@ -2526,8 +2560,8 @@ var enemies = {
         "bits": 100,
         "drops": [
           {
-            "item:": "HolyRune",
-            "rate": "0.65%"
+            "item": "HolyRune",
+            "rate": 5
           }
         ],
         "stats": {
@@ -2545,16 +2579,16 @@ var enemies = {
         "bits": 80,
         "drops": [
           {
-            "item:": "HexDoll",
-            "rate": "0.78%"
+            "item": "HexDoll",
+            "rate": 6
           },
           {
-            "item:": "JapaneseDish",
-            "rate": "0.78%"
+            "item": "JapaneseDish",
+            "rate": 6
           },
           {
-            "item:": "PeeingBoy",
-            "rate": "0.26%"
+            "item": "PeeingBoy",
+            "rate": 2
           }
         ],
         "stats": {
@@ -2572,8 +2606,8 @@ var enemies = {
         "bits": 70,
         "drops": [
           {
-            "item:": "Feather",
-            "rate": "1.17%"
+            "item": "Feather",
+            "rate": 9
           }
         ],
         "stats": {
@@ -2612,12 +2646,12 @@ var enemies = {
         "bits": 3500,
         "drops": [
           {
-            "item:": "HornedHelmet",
-            "rate": "1.31%"
+            "item": "HornedHelmet",
+            "rate": 10
           },
           {
-            "item:": "MegaMedicinex3",
-            "rate": "1.57%"
+            "item": "MegaMedicinex3",
+            "rate": 12
           }
         ],
         "stats": {
@@ -2635,12 +2669,8 @@ var enemies = {
         "bits": 4000,
         "drops": [
           {
-            "item:": "GoldNecklace",
-            "rate": "1.04%"
-          },
-          {
-            "item:": "Inv.",
-            "rate": "-"
+            "item": "GoldNecklace",
+            "rate": 8
           }
         ],
         "stats": {
@@ -2658,12 +2688,12 @@ var enemies = {
         "bits": 6000,
         "drops": [
           {
-            "item:": "SoundSetting#3",
-            "rate": "2.35%"
+            "item": "SoundSetting#3",
+            "rate": 18
           },
           {
-            "item:": "FlowingRune",
-            "rate": "0.78%"
+            "item": "FlowingRune",
+            "rate": 6
           }
         ],
         "stats": {
@@ -2718,8 +2748,8 @@ var enemies = {
         "bits": 1100,
         "drops": [
           {
-            "item:": "Opal",
-            "rate": "2.61%"
+            "item": "Opal",
+            "rate": 20
           }
         ],
         "stats": {
@@ -2737,16 +2767,16 @@ var enemies = {
         "bits": 400,
         "drops": [
           {
-            "item:": "HexDoll",
-            "rate": "0.78%"
+            "item": "HexDoll",
+            "rate": 6
           },
           {
-            "item:": "ChineseDish",
-            "rate": "0.78%"
+            "item": "ChineseDish",
+            "rate": 6
           },
           {
-            "item:": "Bonsai",
-            "rate": "0.26%"
+            "item": "Bonsai",
+            "rate": 2
           }
         ],
         "stats": {
@@ -2764,8 +2794,8 @@ var enemies = {
         "bits": 700,
         "drops": [
           {
-            "item:": "Emblem",
-            "rate": "0.78%"
+            "item": "Emblem",
+            "rate": 6
           }
         ],
         "stats": {
@@ -2783,12 +2813,12 @@ var enemies = {
         "bits": 900,
         "drops": [
           {
-            "item:": "Antitoxinx4",
-            "rate": "1.7%"
+            "item": "Antitoxinx4",
+            "rate": 13
           },
           {
-            "item:": "NinjaSuit",
-            "rate": "1.17%"
+            "item": "NinjaSuit",
+            "rate": 9
           }
         ],
         "stats": {
@@ -2813,8 +2843,8 @@ var enemies = {
         "bits": 600,
         "drops": [
           {
-            "item:": "BrassArmor",
-            "rate": "0.78%"
+            "item": "BrassArmor",
+            "rate": 6
           }
         ],
         "stats": {
@@ -2832,12 +2862,12 @@ var enemies = {
         "bits": 250,
         "drops": [
           {
-            "item:": "DefenseRunePiece",
-            "rate": "0.78%"
+            "item": "DefenseRunePiece",
+            "rate": 6
           },
           {
-            "item:": "Medicinex6",
-            "rate": "1.04%"
+            "item": "Medicinex6",
+            "rate": 8
           }
         ],
         "stats": {
@@ -2855,8 +2885,8 @@ var enemies = {
         "bits": 200,
         "drops": [
           {
-            "item:": "Antitoxinx4",
-            "rate": "1.83%"
+            "item": "Antitoxinx4",
+            "rate": 14
           }
         ],
         "stats": {

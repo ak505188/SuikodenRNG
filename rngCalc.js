@@ -133,18 +133,47 @@ function parseEncounterTable(area) {
   var encounters = [];
   for (var i in encounterTable) {
     var encounter = encounterTable[i].parseString;
-    var enemyGroup = [];
-    encounter = encounter.split(' ');
-    // console.log(encounter);
-    for (var j = 0; j < encounter.length; j = j + 2) {
-      for (var k = 0; k < parseInt(encounter[j]); k++) {
-        enemyGroup.push(area.enemies[encounter[j+1]]);
-      }
-    }
+    var enemyGroup = parseEncounter(encounter, area.enemies);
     var champVal = calcChampionVal(enemyGroup);
     encounters.push({'enemies': enemyGroup, 'champVal': champVal});
   }
   return encounters;
+}
+
+function parseEncounter(encounter, enemies) {
+  encounter = encounter.split(' ');
+  var enemyGroup = [];
+  for (var j = 0; j < encounter.length; j = j + 2) {
+    for (var k = 0; k < parseInt(encounter[j]); k++) {
+      enemyGroup.push(enemies[encounter[j+1]]);
+    }
+  }
+  return enemyGroup;
+}
+
+function calculateDrops(rng, enemyGroup, iterations) {
+  for (var i = 0; i < iterations; i++) {
+    var drop = calculateDrop(rng, enemyGroup);
+    console.log(rng.toString(16), drop);
+    rng = calculateRNG(rng);
+  }
+}
+
+function calculateDrop(rng, enemyGroup) {
+  for (var enemy in enemyGroup) {
+    rng = calculateRNG(rng);
+    var r2 = calcR2FromRng(rng);
+    var dropIndex = r2 % 3;
+    if (dropIndex < enemyGroup[enemy].drops.length) {
+      var dropRate = enemyGroup[enemy].drops[dropIndex].rate;
+      rng = calculateRNG(rng);
+      r2 = calcR2FromRng(rng);
+      if (r2 % 100 < dropRate) {
+        return enemyGroup[enemy].drops[dropIndex].item;
+      }
+    }
+  }
+  return null;
 }
 
 function calcChampionVal(group) {
