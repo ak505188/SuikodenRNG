@@ -37,15 +37,15 @@ function isRun(rng) {
   return r3 > 50 ? true : false;
 }
 
-function isBattle(rng, type) {
-  switch(type) {
+function isBattle(rng, area) {
+  switch(area.type) {
     case "World Map":
       if (isBattleWorldMap(rng)) {
         return true;
       }
       break;
     case "Dungeon":
-      if (isBattleDungeon(rng)) {
+      if (isBattleDungeon(rng, area.encounterRate)) {
         return true;
       }
       break;
@@ -64,19 +64,14 @@ function isBattleWorldMap(rng) {
   return r2 < 0x8 ? true : false;
 }
 
-function isBattleDungeon(rng) {
+function isBattleDungeon(rng, encounterRate) {
   var r2 = calcR2FromRng(rng);
   var r3 = 0x7F;
   var mflo = div32ulo(r2, r3);
   // There is some code here but it should never be called when determining battle
   r2 = mflo;
-  // Instructions here are
-  // lui r3, 0x8017
-  // lbu r3, 0x159d(r3)
-  // In my testing so far, this = 2
-  r3 = 2;
   r2 = r2 & 0xFF;
-  return r2 < r3 ? true : false;
+  return r2 < encounterRate ? true : false;
 }
 
 function getEncounter(rng, possibleEncounters) {
@@ -101,14 +96,14 @@ function Encounters(rng, iterations, areas, partyLvl, callback) {
     for (var j in areas) {
       var area = areas[j];
       steps[j]++;
-      var battle = isBattle(rng, area.type);
+      var battle = isBattle(rng, area);
       if (battle) {
         var encounterIndex = getEncounter(rng, Object.keys(area.encounters).length) - 1;
-        var encounter = area.encounters[encounterIndex];
-        if (encounter >= Object.keys(area.encounters).length) {
-          console.error('Encounter out of bounds. Encounter =', encounter, 'Length =', Object.keys(area.encounters).length);
-          encounter = encounter % Object.keys(area.encounters).length;
+        while (encounterIndex >= Object.keys(area.encounters).length) {
+          console.error('Encounter out of bounds. Index =', encounterIndex, 'Length =', Object.keys(area.encounters).length, 'RNG =', rng.toString(16));
+          encounterIndex--;
         }
+        var encounter = area.encounters[encounterIndex];
         var run = isRun(calculateRNG(rng)) ? 'Run' : 'Fail';
         var fight = {
           'area': area.name,

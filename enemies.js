@@ -1,6 +1,7 @@
 var enemies = {
   "CaveofthePast": {
     "name": "CaveofthePast",
+    "encounterRate": 2,
     "encounters": [
       { "name": "1 Banshee",
         "parseString": "1 Banshee" },
@@ -99,6 +100,7 @@ var enemies = {
   },
   "DragonKnightsArea": {
     "name": "DragonKnightsArea",
+    "encounterRate": 2,
     "encounters": [
       { "name": "1 Ivy",
         "parseString": "1 Ivy" },
@@ -191,6 +193,7 @@ var enemies = {
   },
   "DragonsDen": {
     "name": "DragonsDen",
+    "encounterRate": 2,
     "encounters": [
       { "name": "1 SunshineKing",
         "parseString": "1 SunshineKing" },
@@ -273,6 +276,7 @@ var enemies = {
   },
   "DwarvesTrail": {
     "name": "DwarvesTrail",
+    "encounterRate": 2,
     "encounters": [
       { "name": "3 Dwarf 2 EagleMan",
         "parseString": "3 Dwarf 2 EagleMan" },
@@ -377,6 +381,7 @@ var enemies = {
   },
   "DwarvesVault": {
     "name": "DwarvesVault",
+    "encounterRate": 2,
     "encounters": [
       { "name": "1 DeathMachine(sword)",
         "parseString": "1 DeathMachine(sword)" },
@@ -529,6 +534,7 @@ var enemies = {
   },
   "GreatForest": {
     "name": "GreatForest",
+    "encounterRate": 2,
     "encounters": [
       { "name": "1 Kobold",
         "parseString": "1 Kobold(sword)" },
@@ -644,6 +650,7 @@ var enemies = {
   },
   "GregminsterArea1": {
     "name": "GregminsterArea1",
+    "encounterRate": 2,
     "encounters": [
       { "name": "1 BonBon",
         "parseString": "1 BonBon" },
@@ -776,6 +783,7 @@ var enemies = {
   },
   "GregminsterArea2": {
     "name": "GregminsterArea2",
+    "encounterRate": 2,
     "encounters": [
       { "name": "3 NinjaMaster 1 Simurgh",
         "parseString": "3 NinjaMaster 1 Simurgh" },
@@ -874,13 +882,14 @@ var enemies = {
   },
   "GregminsterPalace": {
     "name": "GregminsterPalace",
+    "encounterRate": 2,
     "encounters": [
       { "name": "1 Colossus",
         "parseString": "1 Colossus" },
       { "name": "2 ImperialGuards(sabre)",
         "parseString": "2 ImperialGuards(sabre)" },
       { "name": "3 ImperialGuards",
-        "parseString": "3 ImperialGuards" },
+        "parseString": "2 ImperialGuards(sabre) 1 ImperialGuards(sword)" },
       { "name": "2 ImperialGuards(sword)",
         "parseString": "2 ImperialGuards(sword)" },
       { "name": "1 Phantom",
@@ -889,14 +898,14 @@ var enemies = {
         "parseString": "2 Phantom" },
       { "name": "3 Phantom",
         "parseString": "3 Phantom" },
-      { "name": "3 ImperialGuards 1 Ekidonna",
-        "parseString": "3 ImperialGuards 1 Ekidonna" },
+      { "name": "3 ImperialGuards(sabre) 1 Ekidonna",
+        "parseString": "3 ImperialGuards(sabre) 1 Ekidonna" },
       { "name": "3 Phantom 1 Ekidonna",
         "parseString": "3 Phantom 1 Ekidonna" },
-      { "name": "3 Phantom 1 Colussus",
-        "parseString": "3 Phantom 1 Colussus" },
-      { "name": "3 ImperialGuards 1 Colossus",
-        "parseString": "3 ImperialGuards 1 Colossus" }],
+      { "name": "3 Phantom 1 Colossus",
+        "parseString": "3 Phantom 1 Colossus" },
+      { "name": "3 ImperialGuards(sabre) 1 Colossus",
+        "parseString": "3 ImperialGuards(sabre) 1 Colossus" }],
     "enemies": {
       "Colossus": {
         "bits": 15000,
@@ -940,7 +949,7 @@ var enemies = {
           "lvl": 60
         }
       },
-      "ImperialGuards": {
+      "ImperialGuards(sabre)": {
         "bits": 5000,
         "drops": [],
         "stats": {
@@ -951,6 +960,25 @@ var enemies = {
           "PWR": 325,
           "SKL": 110,
           "SPD": 95,
+          "lvl": 56
+        }
+      },
+      "ImperialGuards(sword)": {
+        "bits": 4500,
+        "drops": [
+          {
+            "item": "MegaMedicinex3",
+            "rate": 15
+          }
+        ],
+        "stats": {
+          "DEF": 130,
+          "HP": 550,
+          "LUK": 110,
+          "MGC": 200,
+          "PWR": 330,
+          "SKL": 100,
+          "SPD": 90,
           "lvl": 56
         }
       },
@@ -978,6 +1006,7 @@ var enemies = {
   },
   "Kalekka": {
     "name": "Kalekka",
+    "encounterRate": 2,
     "encounters": [
       { "name": "1 DemonHound",
         "parseString": "1 DemonHound" },
@@ -1068,6 +1097,7 @@ var enemies = {
   },
   "KalekkaArea": {
     "name": "KalekkaArea",
+    "encounterRate": 2,
     "encounters": [
       { "name": "1 Dagon",
         "parseString": "1 Dagon" },
@@ -1154,6 +1184,7 @@ var enemies = {
   },
   "KoboldVillage": {
     "name": "KoboldVillage",
+    "encounterRate": 2,
     "encounters": [],
     "enemies": {
       "VeteranSoldier": {
@@ -1180,6 +1211,7 @@ var enemies = {
   },
   "KrazesMansion": {
     "name": "KrazesMansion",
+    "encounterRate": 2,
     "encounters": [],
     "enemies": {
       "EmpireSoldier": {
@@ -1206,6 +1238,7 @@ var enemies = {
   },
   "Lenankamp": {
     "name": "Lenankamp",
+    "encounterRate": 2,
     "encounters": [],
     "enemies": {
       "EmpireSoldier": {
@@ -1227,6 +1260,7 @@ var enemies = {
   },
   "LepantsMansion": {
     "name": "LepantsMansion",
+    "encounterRate": 2,
     "encounters": [
       { "name": "1 SlotMan",
         "parseString": "1 SlotMan" },
@@ -1294,6 +1328,7 @@ var enemies = {
   },
   "LorimarArea": {
     "name": "LorimarArea",
+    "encounterRate": 2,
     "encounters": [
       { "name": "1 WhipWolf 3 HellHound",
         "parseString": "1 WhipWolf 3 HellHound" },
@@ -1398,6 +1433,7 @@ var enemies = {
   },
   "MagiciansIsland": {
     "name": "MagiciansIsland",
+    "encounterRate": 2,
     "encounters": [],
     "enemies": {
       "FurFur": {
@@ -1451,6 +1487,7 @@ var enemies = {
   },
   "MoraviaArea": {
     "name": "MoraviaArea",
+    "encounterRate": 2,
     "encounters": [
       { "name": "1 RabbitBird",
         "parseString": "1 RabbitBird" },
@@ -1539,6 +1576,7 @@ var enemies = {
   },
   "MoraviaCastle": {
     "name": "MoraviaCastle",
+    "encounterRate": 3,
     "encounters": [
       { "name": "3 HellHound 1 WhipMaster",
         "parseString": "3 HellHound 1 WhipMaster" },
@@ -1680,6 +1718,7 @@ var enemies = {
   },
   "MtSeifu": {
     "name": "MtSeifu",
+    "encounterRate": 2,
     "encounters": [
       { "name": "6 SoldierAnt",
         "parseString": "6 SoldierAnt" },
@@ -1791,6 +1830,7 @@ var enemies = {
   },
   "MtTigerwolf": {
     "name": "MtTigerwolf",
+    "encounterRate": 2,
     "encounters": [
       { "name": "6 SlasherRabbit",
         "parseString": "6 SlasherRabbit" },
@@ -1865,6 +1905,7 @@ var enemies = {
   },
   "NeclordsCastle": {
     "name": "NeclordsCastle",
+    "encounterRate": 2,
     "encounters": [
       { "name": "1 DemonSorcerer",
         "parseString": "1 DemonSorcerer" },
@@ -1959,6 +2000,7 @@ var enemies = {
   },
   "PannaYakutaArea": {
     "name": "PannaYakutaArea",
+    "encounterRate": 2,
     "encounters": [
       { "name": "2 Kobold(bow)",
         "parseString": "2 Kobold(bow)" },
@@ -2066,6 +2108,7 @@ var enemies = {
   },
   "PannaYakutaCastle": {
     "name": "PannaYakutaCastle",
+    "encounterRate": 2,
     "encounters": [
       { "name": "3 VeteranSoldier(spear)",
         "parseString": "3 VeteranSoldier(spear)" },
@@ -2143,6 +2186,7 @@ var enemies = {
   },
   "Rockland": {
     "name": "Rockland",
+    "encounterRate": 2,
     "encounters": [],
     "enemies": {
       "EmpireSoldier(bow#1)": {
@@ -2192,6 +2236,7 @@ var enemies = {
   },
   "ScarleticiaArea": {
     "name": "ScarleticiaArea",
+    "encounterRate": 2,
     "encounters": [
       { "name": "1 HollyFairy",
         "parseString": "1 HollyFairy" },
@@ -2288,6 +2333,7 @@ var enemies = {
   },
   "ScarleticiaCastle": {
     "name": "ScarleticiaCastle",
+    "encounterRate": 2,
     "encounters": [
       { "name": "2 MadIvy",
         "parseString": "2 MadIvy" },
@@ -2362,6 +2408,7 @@ var enemies = {
   },
   "SeekValley": {
     "name": "SeekValley",
+    "encounterRate": 2,
     "encounters": [
       { "name": "1 Ivy",
         "parseString": "1 Ivy" },
@@ -2481,6 +2528,7 @@ var enemies = {
   },
   "Seika": {
     "name": "Seika",
+    "encounterRate": 2,
     "encounters": [],
     "enemies": {
       "EmpireSoldier": {
@@ -2515,6 +2563,7 @@ var enemies = {
   },
   "SeikaArea": {
     "name": "SeikaArea",
+    "encounterRate": 2,
     "encounters": [
       { "name": "3 FlyingSquirrel 1 BeastCommander ",
         "parseString": "3 FlyingSquirrel 1 BeastCommander " },
@@ -2626,6 +2675,7 @@ var enemies = {
   },
   "ShasarazadeFortress": {
     "name": "ShasarazadeFortress",
+    "encounterRate": 2,
     "encounters": [
       { "name": "4 EliteSoldier",
         "parseString": "4 EliteSoldier" },
@@ -2712,6 +2762,7 @@ var enemies = {
   },
   "SonierePrison": {
     "name": "SonierePrison",
+    "encounterRate": 2,
     "encounters": [
       { "name": "1 Delf 1 Viperman",
         "parseString": "1 Delf 1 Viperman" },
@@ -2837,6 +2888,7 @@ var enemies = {
   },
   "ToranLakeCastle": {
     "name": "ToranLakeCastle",
+    "encounterRate": 2,
     "encounters": [],
     "enemies": {
       "GhostArmor": {
