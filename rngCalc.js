@@ -23,12 +23,6 @@ function calculateRNG(prev_rng) {
   return r3;
 }
 
-function calcR2FromRng(rng) {
-  var r2 = rng >> 16;
-  r2 = r2 & 0x7FFF;
-  return r2;
-}
-
 function isRun(rng) {
   rng = calculateRNG(rng);
   var r2 = calcR2FromRng(rng);
@@ -37,63 +31,23 @@ function isRun(rng) {
   return r3 > 50 ? true : false;
 }
 
-function isBattle(rng, area) {
-  switch(area.type) {
-    case "World Map":
-      if (isBattleWorldMap(rng)) {
-        return true;
-      }
-      break;
-    case "Dungeon":
-      if (isBattleDungeon(rng, area.encounterRate)) {
-        return true;
-      }
-      break;
-    default:
-      return false;
-  }
-}
-
-function isBattleWorldMap(rng) {
-  var r3 = rng;
-  var r2 = calcR2FromRng(rng);
-  r3 = r2;
-  r2 = r2 >> 8;
-  r2 = r2 << 8;
-  r2 = r3 - r2;
-  return r2 < 0x8 ? true : false;
-}
-
-function isBattleDungeon(rng, encounterRate) {
-  encounterRate = encounterRate || this.encounterRate;
-  var r2 = calcR2FromRng(rng);
-  var r3 = 0x7F;
-  var mflo = div32ulo(r2, r3);
-  // There is some code here but it should never be called when determining battle
-  r2 = mflo;
-  r2 = r2 & 0xFF;
-  return r2 < encounterRate ? true : false;
+function calcR2FromRng(rng) {
+  var r2 = rng >> 16;
+  r2 = r2 & 0x7FFF;
+  return r2;
 }
 
 function Encounters(rng, iterations, areas, partyLvl, callback) {
   var steps = new Array(areas.length).fill(0);
-  var parsedEncounterTable = new Array(areas.length);
-  for (var x in areas)
-    parsedEncounterTable[x] = parseEncounterTable(areas[x]);
   var encounters = [];
   for (var i = 0; i < iterations; i++) {
     rng = calculateRNG(rng);
     for (var j in areas) {
       var area = areas[j];
       steps[j]++;
-      var battle = isBattle(rng, area);
+      var battle = area[j].isBattle(rng);
       if (battle) {
-        var encounterIndex = getEncounter(rng, Object.keys(area.encounters).length) - 1;
-        while (encounterIndex >= Object.keys(area.encounters).length) {
-          console.error('Encounter out of bounds. Index =', encounterIndex, 'Length =', Object.keys(area.encounters).length, 'RNG =', rng.toString(16));
-          encounterIndex--;
-        }
-        var encounter = area.encounters[encounterIndex];
+        var encounter = area.getEncounter(rng);
         var run = isRun(calculateRNG(rng)) ? 'Run' : 'Fail';
         var fight = {
           'area': area.name,
@@ -103,7 +57,8 @@ function Encounters(rng, iterations, areas, partyLvl, callback) {
           'startingRNG': rng,
           'battleRNG': calculateRNG(rng),
           'index': i,
-          'enemies': parsedEncounterTable[j][encounterIndex]
+          'enemies': encounter.enemies,
+          'champVal': encounter.champVal
         };
         encounters.push(fight);
         steps[j] = 0;
@@ -137,40 +92,6 @@ function parseEncounter(encounter, enemies) {
   return enemyGroup;
 }
 
-function calculateDrops(rng, enemyGroup, iterations) {
-  for (var i = 0; i < iterations; i++) {
-    var drop = calculateDrop(rng, enemyGroup);
-    console.log(rng.toString(16), drop);
-    rng = calculateRNG(rng);
-  }
-}
-
-function calculateDrop(rng, enemyGroup) {
-  for (var enemy in enemyGroup) {
-    rng = calculateRNG(rng);
-    var r2 = calcR2FromRng(rng);
-    var dropIndex = r2 % 3;
-    if (dropIndex < enemyGroup[enemy].drops.length) {
-      var dropRate = enemyGroup[enemy].drops[dropIndex].rate;
-      rng = calculateRNG(rng);
-      r2 = calcR2FromRng(rng);
-      if (r2 % 100 < dropRate) {
-        return enemyGroup[enemy].drops[dropIndex].item;
-      }
-    }
-  }
-  return null;
-}
-
-function calcChampionVal(group) {
-  var level = 0;
-  for (var i in group) {
-    level += group[i].stats.lvl;
-  }
-  level = (level << 4) - level;
-  return div32ulo(level, 0xa);
-}
-
 function printSequence(rng, iterations) {
   for (var i = 0; i < iterations; i++) {
     rng = calculateRNG(rng);
@@ -197,7 +118,8 @@ var enemyGroup = function(name, enemies) {
       }
     }
     return null;
-  }
+  };
+
   this.calculateDrops = function (rng, iterations) {
     var drops = [];
     for (var i = 0; i < iterations; i++) {
@@ -205,19 +127,55 @@ var enemyGroup = function(name, enemies) {
       drops.push({ 'rng': rng.toString(16), 'drop': drop });
       rng = calculateRNG(rng);
     }
+    return drops;
+  };
+
+  function calcChampionVal() {
+    var level = 0;
+    for (var i in this.enemies) {
+      level += this.enemies[i].stats.lvl;
+    }
+    level = (level << 4) - level;
+    return div32ulo(level, 0xa);
   }
-}
+};
 
 var area = function(area) {
   this.encounterTable = parseEncounters(area.encounters);
   this.encounterRate = area.encounterRate;
   this.isBattle = area.type === 'Dungeon' ? isBattleDungeon : isBattleWorldMap;
 
-  this.getEncounter = function getEncounter(rng) {
+  this.getEncounter = function(rng) {
     rng = calculateRNG(rng);
     var r2 = calcR2FromRng(rng);
     r3 = div32ulo(0x7FFF, this.encounterTable.length);
-    return div32ulo(r2, r3) + 1;
+    var encounterIndex = div32ulo(r2, r3) + 1;
+    while (encounterIndex >= Object.keys(area.encounters).length) {
+      console.error('Encounter out of bounds. Index =', encounterIndex, 'Length =', Object.keys(area.encounters).length, 'RNG =', rng.toString(16));
+      encounterIndex--;
+    }
+    return encounterIndex;
+  };
+
+  function isBattleWorldMap(rng) {
+    var r3 = rng;
+    var r2 = calcR2FromRng(rng);
+    r3 = r2;
+    r2 = r2 >> 8;
+    r2 = r2 << 8;
+    r2 = r3 - r2;
+    return r2 < 0x8 ? true : false;
   }
-}
+
+  function isBattleDungeon(rng, encounterRate) {
+    encounterRate = encounterRate || this.encounterRate;
+    var r2 = calcR2FromRng(rng);
+    var r3 = 0x7F;
+    var mflo = div32ulo(r2, r3);
+    // There is some code here but it should never be called when determining battle
+    r2 = mflo;
+    r2 = r2 & 0xFF;
+    return r2 < encounterRate ? true : false;
+  }
+};
 

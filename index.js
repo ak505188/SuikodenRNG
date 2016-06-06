@@ -17,7 +17,7 @@ function tableMaker(encounters, partyLvl) {
     columns[4].innerHTML = row.data.startingRNG.toString(16);
     columns[5].innerHTML = row.data.battleRNG.toString(16);
     columns[6].innerHTML = row.data.index;
-    if (partyLvl && row.data.enemies.champVal < partyLvl) {
+    if (partyLvl && row.data.champVal < partyLvl) {
       row.style.display = 'none';
     }
   }
