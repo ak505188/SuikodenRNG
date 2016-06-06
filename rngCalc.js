@@ -65,6 +65,7 @@ function isBattleWorldMap(rng) {
 }
 
 function isBattleDungeon(rng, encounterRate) {
+  encounterRate = encounterRate || this.encounterRate;
   var r2 = calcR2FromRng(rng);
   var r3 = 0x7F;
   var mflo = div32ulo(r2, r3);
@@ -72,17 +73,6 @@ function isBattleDungeon(rng, encounterRate) {
   r2 = mflo;
   r2 = r2 & 0xFF;
   return r2 < encounterRate ? true : false;
-}
-
-function getEncounter(rng, possibleEncounters) {
-  rng = calculateRNG(rng);
-  var r2 = calcR2FromRng(rng);
-  var r3 = 0x7FFF;
-  var r5 = possibleEncounters;
-  r3 = div32ulo(r3, r5);
-  r2 = div32ulo(r2, r3);
-  r19 = r2 + 1;
-  return r19;
 }
 
 function Encounters(rng, iterations, areas, partyLvl, callback) {
@@ -127,10 +117,11 @@ function parseEncounterTable(area) {
   var encounterTable = area.encounters;
   var encounters = [];
   for (var i in encounterTable) {
+    var name = encounterTable[i].name;
     var encounter = encounterTable[i].parseString;
     var enemyGroup = parseEncounter(encounter, area.enemies);
     var champVal = calcChampionVal(enemyGroup);
-    encounters.push({'enemies': enemyGroup, 'champVal': champVal});
+    encounters.push({'name': name, 'enemies': enemyGroup, 'champVal': champVal});
   }
   return encounters;
 }
@@ -186,3 +177,47 @@ function printSequence(rng, iterations) {
     console.log(rng.toString(16));
   }
 }
+
+var enemyGroup = function(name, enemies) {
+  this.name = name;
+  this.enemies = enemies;
+  this.champVal = calcChampionVal(this.enemies);
+  this.calculateDrop = function calculateDrop(rng) {
+    for (var enemy in this.enemies) {
+      rng = calculateRNG(rng);
+      var r2 = calcR2FromRng(rng);
+      var dropIndex = r2 % 3;
+      if (dropIndex < this.enemies[enemy].drops.length) {
+        var dropRate = this.enemies[enemy].drops[dropIndex].rate;
+        rng = calculateRNG(rng);
+        r2 = calcR2FromRng(rng);
+        if (r2 % 100 < dropRate) {
+          return this.enemies[enemy].drops[dropIndex].item;
+        }
+      }
+    }
+    return null;
+  }
+  this.calculateDrops = function (rng, iterations) {
+    var drops = [];
+    for (var i = 0; i < iterations; i++) {
+      var drop = calculateDrop(rng);
+      drops.push({ 'rng': rng.toString(16), 'drop': drop });
+      rng = calculateRNG(rng);
+    }
+  }
+}
+
+var area = function(area) {
+  this.encounterTable = parseEncounters(area.encounters);
+  this.encounterRate = area.encounterRate;
+  this.isBattle = area.type === 'Dungeon' ? isBattleDungeon : isBattleWorldMap;
+
+  this.getEncounter = function getEncounter(rng) {
+    rng = calculateRNG(rng);
+    var r2 = calcR2FromRng(rng);
+    r3 = div32ulo(0x7FFF, this.encounterTable.length);
+    return div32ulo(r2, r3) + 1;
+  }
+}
+
