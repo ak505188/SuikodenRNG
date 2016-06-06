@@ -395,22 +395,22 @@ var enemies = {
         "parseString": "2 DeathMachine(spear)" },
       { "name": "3 DeathMachine(spear)",
         "parseString": "3 DeathMachine(spear)" },
-      { "name": "1 Dwarf",
-        "parseString": "1 Dwarf" },
-      { "name": "2 Dwarf",
-        "parseString": "2 Dwarf" },
-      { "name": "3 Dwarf",
-        "parseString": "3 Dwarf" },
+      { "name": "1 CrimsonDwarf",
+        "parseString": "1 CrimsonDwarf" },
+      { "name": "2 CrimsonDwarf",
+        "parseString": "2 CrimsonDwarf" },
+      { "name": "3 CrimsonDwarf",
+        "parseString": "3 CrimsonDwarf" },
       { "name": "2 DeathBoar",
         "parseString": "2 DeathBoar" },
       { "name": "3 DeathBoar",
         "parseString": "3 DeathBoar" },
-      { "name": "3 Dwarf 1 DeathMachine(sword)",
-        "parseString": "3 Dwarf 1 DeathMachine(sword)" },
-      { "name": "3 Dwarf 2 DeathMachine(sword)",
-        "parseString": "3 Dwarf 2 DeathMachine(sword)" },
-      { "name": "3 Dwarf 3 DeathMachine(sword)",
-        "parseString": "3 Dwarf 3 DeathMachine(sword)" }],
+      { "name": "3 CrimsonDwarf 1 DeathMachine(sword)",
+        "parseString": "3 CrimsonDwarf 1 DeathMachine(sword)" },
+      { "name": "3 CrimsonDwarf 2 DeathMachine(sword)",
+        "parseString": "3 CrimsonDwarf 2 DeathMachine(sword)" },
+      { "name": "3 CrimsonDwarf 3 DeathMachine(sword)",
+        "parseString": "3 CrimsonDwarf 3 DeathMachine(sword)" }],
     "enemies": {
       "CrimsonDwarf": {
         "bits": 600,
@@ -458,7 +458,7 @@ var enemies = {
           "lvl": 17
         }
       },
-      "DeathMachine": {
+      "DeathMachine(sword)": {
         "bits": 550,
         "drops": [
           {
@@ -474,6 +474,25 @@ var enemies = {
           "PWR": 180,
           "SKL": 40,
           "SPD": 55,
+          "lvl": 25
+        }
+      },
+      "DeathMachine(spear)": {
+        "bits": 400,
+        "drops": [
+          {
+            "item": "SteelShield",
+            "rate": 10
+          }
+        ],
+        "stats": {
+          "DEF": 65,
+          "HP": 170,
+          "LUK": 0,
+          "MGC": 0,
+          "PWR": 185,
+          "SKL": 45,
+          "SPD": 50,
           "lvl": 25
         }
       }
