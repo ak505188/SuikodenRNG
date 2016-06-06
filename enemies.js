@@ -1206,7 +1206,7 @@ var enemies = {
     "encounterRate": 2,
     "encounters": [],
     "enemies": {
-      "VeteranSoldier": {
+      "VeteranSoldier(spear)": {
         "bits": 700,
         "drops": [
           {
@@ -2186,7 +2186,45 @@ var enemies = {
           "lvl": 27
         }
       },
-      "VeteranSoldier": {
+      "VeteranSoldier(spear)": {
+        "bits": 700,
+        "drops": [
+          {
+            "item": "Leather Armor",
+            "rate": 8
+          }
+        ],
+        "stats": {
+          "DEF": 55,
+          "HP": 270,
+          "LUK": 45,
+          "MGC": 40,
+          "PWR": 190,
+          "SKL": 55,
+          "SPD": 70,
+          "lvl": 26
+        }
+      },
+      "VeteranSoldier(bow)": {
+        "bits": 700,
+        "drops": [
+          {
+            "item": "Emblem",
+            "rate": 6
+          }
+        ],
+        "stats": {
+          "DEF": 45,
+          "HP": 250,
+          "LUK": 47,
+          "MGC": 38,
+          "PWR": 175,
+          "SKL": 50,
+          "SPD": 80,
+          "lvl": 26
+        }
+      },
+      "VeteranSoldier(sabre)": {
         "bits": 700,
         "drops": [],
         "stats": {
@@ -2860,7 +2898,7 @@ var enemies = {
           "lvl": 27
         }
       },
-      "VeteranSoldier": {
+      "VeteranSoldier(bow)": {
         "bits": 700,
         "drops": [
           {
@@ -2975,3 +3013,8 @@ var enemies = {
     "type": "Dungeon"
   }
 };
+
+var window;
+if (typeof window === 'undefined') {
+  module.exports = enemies;
+}

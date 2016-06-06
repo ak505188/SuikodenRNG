@@ -1,3 +1,6 @@
+var window;
+var enemies = (typeof window === 'undefined' ? require('./enemies.js') : enemies);
+
 function mult32ulo(n, m) {
   n >>>= 0;
   m >>>= 0;
@@ -38,21 +41,18 @@ function calcR2FromRng(rng) {
 }
 
 function Encounters(rng, iterations, areas, partyLvl, callback) {
-  var steps = new Array(areas.length).fill(0);
   var encounters = [];
   for (var i = 0; i < iterations; i++) {
     rng = calculateRNG(rng);
     for (var j in areas) {
       var area = areas[j];
-      steps[j]++;
-      var battle = area[j].isBattle(rng);
+      var battle = area.isBattle(rng);
       if (battle) {
         var encounter = area.getEncounter(rng);
         var run = isRun(calculateRNG(rng)) ? 'Run' : 'Fail';
         var fight = {
           'area': area.name,
           'name': encounter.name,
-          'steps': steps[j],
           'run': run,
           'startingRNG': rng,
           'battleRNG': calculateRNG(rng),
@@ -61,36 +61,12 @@ function Encounters(rng, iterations, areas, partyLvl, callback) {
           'champVal': encounter.champVal
         };
         encounters.push(fight);
-        steps[j] = 0;
       }
     }
   }
   callback(encounters, partyLvl);
 }
 
-function parseEncounterTable(area) {
-  var encounterTable = area.encounters;
-  var encounters = [];
-  for (var i in encounterTable) {
-    var name = encounterTable[i].name;
-    var encounter = encounterTable[i].parseString;
-    var enemyGroup = parseEncounter(encounter, area.enemies);
-    var champVal = calcChampionVal(enemyGroup);
-    encounters.push({'name': name, 'enemies': enemyGroup, 'champVal': champVal});
-  }
-  return encounters;
-}
-
-function parseEncounter(encounter, enemies) {
-  encounter = encounter.split(' ');
-  var enemyGroup = [];
-  for (var j = 0; j < encounter.length; j = j + 2) {
-    for (var k = 0; k < parseInt(encounter[j]); k++) {
-      enemyGroup.push(enemies[encounter[j+1]]);
-    }
-  }
-  return enemyGroup;
-}
 
 function printSequence(rng, iterations) {
   for (var i = 0; i < iterations; i++) {
@@ -99,7 +75,7 @@ function printSequence(rng, iterations) {
   }
 }
 
-var enemyGroup = function(name, enemies) {
+var EnemyGroup = function(name, enemies) {
   this.name = name;
   this.enemies = enemies;
   this.champVal = calcChampionVal(this.enemies);
@@ -130,18 +106,19 @@ var enemyGroup = function(name, enemies) {
     return drops;
   };
 
-  function calcChampionVal() {
+  function calcChampionVal(enemies) {
     var level = 0;
-    for (var i in this.enemies) {
-      level += this.enemies[i].stats.lvl;
+    for (var i in enemies) {
+      level += enemies[i].stats.lvl;
     }
     level = (level << 4) - level;
     return div32ulo(level, 0xa);
   }
 };
 
-var area = function(area) {
-  this.encounterTable = parseEncounters(area.encounters);
+var Area = function(name, area) {
+  this.name = name;
+  this.encounterTable = parseEncounterTable(area);
   this.encounterRate = area.encounterRate;
   this.isBattle = area.type === 'Dungeon' ? isBattleDungeon : isBattleWorldMap;
 
@@ -149,12 +126,12 @@ var area = function(area) {
     rng = calculateRNG(rng);
     var r2 = calcR2FromRng(rng);
     r3 = div32ulo(0x7FFF, this.encounterTable.length);
-    var encounterIndex = div32ulo(r2, r3) + 1;
+    var encounterIndex = div32ulo(r2, r3);
     while (encounterIndex >= Object.keys(area.encounters).length) {
       console.error('Encounter out of bounds. Index =', encounterIndex, 'Length =', Object.keys(area.encounters).length, 'RNG =', rng.toString(16));
       encounterIndex--;
     }
-    return encounterIndex;
+    return this.encounterTable[encounterIndex];
   };
 
   function isBattleWorldMap(rng) {
@@ -177,5 +154,40 @@ var area = function(area) {
     r2 = r2 & 0xFF;
     return r2 < encounterRate ? true : false;
   }
+
+  function parseEncounterTable(area) {
+    var encounterTable = [];
+    for (var i in area.encounters) {
+      var name = area.encounters[i].name;
+      var enemies = parseEncounter(area.encounters[i].parseString, area.enemies);
+      var enemyGroup = new EnemyGroup(name, enemies);
+      encounterTable.push(enemyGroup);
+    }
+    return encounterTable;
+  }
+
+  function parseEncounter(encounter, enemies) {
+    encounter = encounter.split(' ');
+    var enemyGroup = [];
+    for (var j = 0; j < encounter.length; j = j + 2) {
+      var name = encounter[j+1];
+      for (var k = 0; k < parseInt(encounter[j]); k++) {
+        var enemy = enemies[encounter[j+1]];
+        enemy.name = name;
+        enemyGroup.push(enemies[encounter[j+1]]);
+      }
+    }
+    return enemyGroup;
+  }
 };
+
+function initAreas(enemies) {
+  var areas = {};
+  for (var area in enemies) {
+    areas[area] = new Area(area, enemies[area]);
+  }
+  return areas;
+}
+
+areas = initAreas(enemies);
 
