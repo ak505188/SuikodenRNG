@@ -193,7 +193,7 @@ var enemies = {
   },
   "DragonsDen": {
     "name": "DragonsDen",
-    "encounterRate": 2,
+    "encounterRate": 3,
     "encounters": [
       { "name": "1 SunshineKing",
         "parseString": "1 SunshineKing" },
@@ -1849,7 +1849,7 @@ var enemies = {
   },
   "MtTigerwolf": {
     "name": "MtTigerwolf",
-    "encounterRate": 2,
+    "encounterRate": 3,
     "encounters": [
       { "name": "6 SlasherRabbit",
         "parseString": "6 SlasherRabbit" },
@@ -2311,8 +2311,8 @@ var enemies = {
         "parseString": "1 Creeper" },
       { "name": "2 Creeper",
         "parseString": "2 Creeper" },
-      { "name": "9 Creeper",
-        "parseString": "9 Creeper" },
+      { "name": "3 Creeper",
+        "parseString": "3 Creeper" },
       { "name": "3 HollyFairy 1 Creeper",
         "parseString": "3 HollyFairy 1 Creeper" },
       { "name": "3 HollyFairy 1 MadIvy",
