@@ -4,13 +4,13 @@ var EnemyGroup = function(name, enemies) {
   this.champVal = calcChampionVal(this.enemies);
   this.calculateDrop = function calculateDrop(rng) {
     for (var enemy in this.enemies) {
-      rng = calculateRNG(rng);
-      var r2 = calcR2FromRng(rng);
+      rng = lib.calculateRNG(rng);
+      var r2 = lib.calcR2FromRng(rng);
       var dropIndex = r2 % 3;
       if (dropIndex < this.enemies[enemy].drops.length) {
         var dropRate = this.enemies[enemy].drops[dropIndex].rate;
-        rng = calculateRNG(rng);
-        r2 = calcR2FromRng(rng);
+        rng = lib.calculateRNG(rng);
+        r2 = lib.calcR2FromRng(rng);
         if (r2 % 100 < dropRate) {
           return this.enemies[enemy].drops[dropIndex].item;
         }
@@ -24,7 +24,7 @@ var EnemyGroup = function(name, enemies) {
     for (var i = 0; i < iterations; i++) {
       var drop = calculateDrop(rng);
       drops.push({ 'rng': rng.toString(16), 'drop': drop });
-      rng = calculateRNG(rng);
+      rng = lib.calculateRNG(rng);
     }
     return drops;
   };
@@ -35,6 +35,6 @@ var EnemyGroup = function(name, enemies) {
       level += enemies[i].stats.lvl;
     }
     level = (level << 4) - level;
-    return div32ulo(level, 0xa);
+    return lib.div32ulo(level, 0xa);
   }
 };

@@ -1,20 +1,15 @@
-var window;
-if (typeof window === 'undefined') {
-  require('./lib.js');
-  var EnemyGroup = require('./EnemyGroup.js');
-}
-
 var Area = function(name, area) {
   this.name = name;
   this.encounterTable = parseEncounterTable(area);
   this.encounterRate = area.encounterRate;
+  this.type = area.type;
   this.isBattle = area.type === 'Dungeon' ? isBattleDungeon : isBattleWorldMap;
 
   this.getEncounter = function(rng) {
-    rng = calculateRNG(rng);
-    var r2 = calcR2FromRng(rng);
-    r3 = div32ulo(0x7FFF, this.encounterTable.length);
-    var encounterIndex = div32ulo(r2, r3);
+    rng = lib.calculateRNG(rng);
+    var r2 = lib.calcR2FromRng(rng);
+    r3 = lib.div32ulo(0x7FFF, this.encounterTable.length);
+    var encounterIndex = lib.div32ulo(r2, r3);
     while (encounterIndex >= Object.keys(area.encounters).length) {
       console.error('Encounter out of bounds. Index =', encounterIndex, 'Length =', Object.keys(area.encounters).length, 'RNG =', rng.toString(16));
       encounterIndex--;
@@ -24,23 +19,21 @@ var Area = function(name, area) {
 
   function isBattleWorldMap(rng) {
     var r3 = rng;
-    var r2 = calcR2FromRng(rng);
+    var r2 = lib.calcR2FromRng(rng);
     r3 = r2;
     r2 = r2 >> 8;
     r2 = r2 << 8;
     r2 = r3 - r2;
-    return r2 < 0x8 ? true : false;
+    return r2;
   }
 
-  function isBattleDungeon(rng, encounterRate) {
-    encounterRate = encounterRate || this.encounterRate;
-    var r2 = calcR2FromRng(rng);
+  function isBattleDungeon(rng) {
+    var r2 = lib.calcR2FromRng(rng);
     var r3 = 0x7F;
-    var mflo = div32ulo(r2, r3);
-    // There is some code here but it should never be called when determining battle
+    var mflo = lib.div32ulo(r2, r3);
     r2 = mflo;
     r2 = r2 & 0xFF;
-    return r2 < encounterRate ? true : false;
+    return r2;
   }
 
   function parseEncounterTable(area) {
@@ -68,8 +61,3 @@ var Area = function(name, area) {
     return enemyGroup;
   }
 };
-
-var window;
-if (typeof window === 'undefined') {
-  module.exports = Area;
-}

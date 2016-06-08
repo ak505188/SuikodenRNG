@@ -17,19 +17,11 @@ var lib = {
 
     r1 = r1 | 0x4e6d;
 
-    var lo = mult32ulo(r1, r3);
+    var lo = lib.mult32ulo(r1, r3);
 
     r3 = lo;
     r3 = r3 + 0x3039;
     return r3;
-  },
-
-  isRun: function(rng) {
-    rng = calculateRNG(rng);
-    var r2 = calcR2FromRng(rng);
-    var r3 = 100;
-    r3 = r2 % r3;
-    return r3 > 50 ? true : false;
   },
 
   calcR2FromRng: function(rng) {
@@ -37,10 +29,4 @@ var lib = {
     r2 = r2 & 0x7FFF;
     return r2;
   }
-}
-
-var window;
-if (typeof window === 'undefined') {
-  module.exports = lib;
-}
-
+};
