@@ -100,7 +100,7 @@ var enemies = {
   },
   "DragonKnightsArea": {
     "name": "DragonKnightsArea",
-    "encounterRate": 2,
+    "encounterRate": 8,
     "encounters": [
       { "name": "1 Ivy",
         "parseString": "1 Ivy" },
@@ -669,7 +669,7 @@ var enemies = {
   },
   "GregminsterArea1": {
     "name": "GregminsterArea1",
-    "encounterRate": 2,
+    "encounterRate": 8,
     "encounters": [
       { "name": "1 BonBon",
         "parseString": "1 BonBon" },
@@ -1116,7 +1116,7 @@ var enemies = {
   },
   "KalekkaArea": {
     "name": "KalekkaArea",
-    "encounterRate": 2,
+    "encounterRate": 8,
     "encounters": [
       { "name": "1 Dagon",
         "parseString": "1 Dagon" },
@@ -1203,7 +1203,7 @@ var enemies = {
   },
   "KoboldVillage": {
     "name": "KoboldVillage",
-    "encounterRate": 2,
+    "encounterRate": 0,
     "encounters": [],
     "enemies": {
       "VeteranSoldier(spear)": {
@@ -1257,7 +1257,7 @@ var enemies = {
   },
   "Lenankamp": {
     "name": "Lenankamp",
-    "encounterRate": 2,
+    "encounterRate": 0,
     "encounters": [],
     "enemies": {
       "EmpireSoldier": {
@@ -1347,7 +1347,7 @@ var enemies = {
   },
   "LorimarArea": {
     "name": "LorimarArea",
-    "encounterRate": 2,
+    "encounterRate": 8,
     "encounters": [
       { "name": "1 WhipWolf 3 HellHound",
         "parseString": "1 WhipWolf 3 HellHound" },
@@ -1506,7 +1506,7 @@ var enemies = {
   },
   "MoraviaArea": {
     "name": "MoraviaArea",
-    "encounterRate": 2,
+    "encounterRate": 8,
     "encounters": [
       { "name": "1 RabbitBird",
         "parseString": "1 RabbitBird" },
@@ -2019,7 +2019,7 @@ var enemies = {
   },
   "PannaYakutaArea": {
     "name": "PannaYakutaArea",
-    "encounterRate": 2,
+    "encounterRate": 8,
     "encounters": [
       { "name": "2 Kobold(bow)",
         "parseString": "2 Kobold(bow)" },
@@ -2243,7 +2243,7 @@ var enemies = {
   },
   "Rockland": {
     "name": "Rockland",
-    "encounterRate": 2,
+    "encounterRate": 0,
     "encounters": [],
     "enemies": {
       "EmpireSoldier(bow#1)": {
@@ -2293,7 +2293,7 @@ var enemies = {
   },
   "ScarleticiaArea": {
     "name": "ScarleticiaArea",
-    "encounterRate": 2,
+    "encounterRate": 8,
     "encounters": [
       { "name": "1 HollyFairy",
         "parseString": "1 HollyFairy" },
@@ -2585,7 +2585,7 @@ var enemies = {
   },
   "Seika": {
     "name": "Seika",
-    "encounterRate": 2,
+    "encounterRate": 0,
     "encounters": [],
     "enemies": {
       "EmpireSoldier": {
@@ -2620,7 +2620,7 @@ var enemies = {
   },
   "SeikaArea": {
     "name": "SeikaArea",
-    "encounterRate": 2,
+    "encounterRate": 8,
     "encounters": [
       { "name": "3 FlyingSquirrel 1 BeastCommander ",
         "parseString": "3 FlyingSquirrel 1 BeastCommander " },
@@ -3013,8 +3013,3 @@ var enemies = {
     "type": "Dungeon"
   }
 };
-
-var window;
-if (typeof window === 'undefined') {
-  module.exports = enemies;
-}

@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <head>
-	<script src="enemies.js"></script>
-	<script src="rngCalc.js"></script>
-	<script src="index.js"></script>
+	<script src="js/lib.js"></script>
+	<script src="js/Fight.js"></script>
+	<script src="js/EnemyGroup.js"></script>
+	<script src="js/Area.js"></script>
+	<script src="js/rngCalc.js"></script>
+	<script src="js/enemies.js"></script>
+	<script src="js/index.js"></script>
 </head>
 <body>
 	<form id="settings">
 		Starting RNG
 		<input id="startRNG" type="text" value="0x12">
 		Iterations
-		<input id="iterations" type="number" value="1000">
+		<input id="iterations" type="number" step="500" min="1" value="1000">
 		Party Level
 		<input id="partyLvl" type="number" value="0">
 		Area(s)
@@ -18,4 +22,7 @@
 		<input type="button" onclick="run();" value="Run">
 	</form>
 	<table id="encounterTable"></table>
+	<button onclick="download(generateCSVfromJSON(fightList), 'EncounterTable.csv')">
+		Export Table
+	</button>
 </body>
