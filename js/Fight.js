@@ -3,12 +3,12 @@ var Fight = function(_area, _EnemyGroup, rng, index, encounterVal) {
     name: _area.name,
     type: _area.type
   };
-  this.run = isRun(rng);
   this.startingRNG = rng;
   this.battleRNG = lib.calculateRNG(rng);
   this.index = index;
   this.EnemyGroup = _EnemyGroup;
   this.encounterValue = encounterVal;
+  this.run = isRun(this.battleRNG);
 
   function isRun(rng) {
     rng = lib.calculateRNG(rng);

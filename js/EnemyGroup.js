@@ -22,7 +22,7 @@ var EnemyGroup = function(name, enemies) {
   this.calculateDrops = function (rng, iterations) {
     var drops = [];
     for (var i = 0; i < iterations; i++) {
-      var drop = calculateDrop(rng);
+      var drop = this.calculateDrop(rng);
       drops.push({ 'rng': rng.toString(16), 'drop': drop });
       rng = lib.calculateRNG(rng);
     }

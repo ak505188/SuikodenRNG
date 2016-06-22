@@ -17,7 +17,7 @@ function Encounters(rng, iterations, areas, partyLvl, callback) {
 
 function printSequence(rng, iterations) {
   for (var i = 0; i < iterations; i++) {
-    rng = calculateRNG(rng);
+    rng = lib.calculateRNG(rng);
     console.log(rng.toString(16));
   }
 }

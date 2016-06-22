@@ -1,6 +1,6 @@
 var enemies = {
-  "CaveofthePast": {
-    "name": "CaveofthePast",
+  "Cave of the Past": {
+    "name": "Cave of the Past",
     "encounterRate": 2,
     "encounters": [
       { "name": "1 Banshee",
@@ -98,8 +98,8 @@ var enemies = {
     },
     "type": "Dungeon"
   },
-  "DragonKnightsArea": {
-    "name": "DragonKnightsArea",
+  "Dragon Knights Area": {
+    "name": "Dragon Knights Area",
     "encounterRate": 8,
     "encounters": [
       { "name": "1 Ivy",
@@ -191,8 +191,8 @@ var enemies = {
     },
     "type": "World Map"
   },
-  "DragonsDen": {
-    "name": "DragonsDen",
+  "Dragons Den": {
+    "name": "Dragons Den",
     "encounterRate": 3,
     "encounters": [
       { "name": "1 SunshineKing",
@@ -274,8 +274,8 @@ var enemies = {
     },
     "type": "Dungeon"
   },
-  "DwarvesTrail": {
-    "name": "DwarvesTrail",
+  "Dwarves Trail": {
+    "name": "Dwarves Trail",
     "encounterRate": 2,
     "encounters": [
       { "name": "3 Dwarf 2 EagleMan",
@@ -379,21 +379,21 @@ var enemies = {
     },
     "type": "Dungeon"
   },
-  "DwarvesVault": {
-    "name": "DwarvesVault",
+  "Dwarves Vault": {
+    "name": "Dwarves Vault",
     "encounterRate": 2,
     "encounters": [
-      { "name": "1 DeathMachine(sword)",
+      { "name": "1 RedMachine",
         "parseString": "1 DeathMachine(sword)" },
-      { "name": "2 DeathMachine(sword)",
+      { "name": "2 RedMachine",
         "parseString": "2 DeathMachine(sword)" },
-      { "name": "3 DeathMachine(sword)",
+      { "name": "3 RedMachine",
         "parseString": "3 DeathMachine(sword)" },
-      { "name": "1 DeathMachine(spear)",
+      { "name": "1 BlueMachine",
         "parseString": "1 DeathMachine(spear)" },
-      { "name": "2 DeathMachine(spear)",
+      { "name": "2 BlueMachine",
         "parseString": "2 DeathMachine(spear)" },
-      { "name": "3 DeathMachine(spear)",
+      { "name": "3 BlueMachine",
         "parseString": "3 DeathMachine(spear)" },
       { "name": "1 CrimsonDwarf",
         "parseString": "1 CrimsonDwarf" },
@@ -405,11 +405,11 @@ var enemies = {
         "parseString": "2 DeathBoar" },
       { "name": "3 DeathBoar",
         "parseString": "3 DeathBoar" },
-      { "name": "3 CrimsonDwarf 1 DeathMachine(sword)",
+      { "name": "3 CrimsonDwarf 1 RedMachine",
         "parseString": "3 CrimsonDwarf 1 DeathMachine(sword)" },
-      { "name": "3 CrimsonDwarf 2 DeathMachine(sword)",
+      { "name": "3 CrimsonDwarf 2 RedMachine",
         "parseString": "3 CrimsonDwarf 2 DeathMachine(sword)" },
-      { "name": "3 CrimsonDwarf 3 DeathMachine(sword)",
+      { "name": "3 CrimsonDwarf 3 RedMachine",
         "parseString": "3 CrimsonDwarf 3 DeathMachine(sword)" }],
     "enemies": {
       "CrimsonDwarf": {
@@ -499,7 +499,9 @@ var enemies = {
     },
     "type": "Dungeon"
   },
-  "GradysMansion": {
+  "Gradys Mansion": {
+    "name": "Gradys Mansion",
+    "encounterRate": 0,
     "encounters": [],
     "enemies": {
       "EmpireCaptain": {
@@ -551,8 +553,8 @@ var enemies = {
     },
     "type": null
   },
-  "GreatForest": {
-    "name": "GreatForest",
+  "Great Forest": {
+    "name": "Great Forest",
     "encounterRate": 2,
     "encounters": [
       { "name": "1 Kobold",
@@ -667,8 +669,8 @@ var enemies = {
     },
     "type": "Dungeon"
   },
-  "GregminsterArea1": {
-    "name": "GregminsterArea1",
+  "Gregminster Area 1": {
+    "name": "Gregminster Area 1",
     "encounterRate": 8,
     "encounters": [
       { "name": "1 BonBon",
@@ -800,8 +802,8 @@ var enemies = {
     },
     "type": "World Map"
   },
-  "GregminsterArea2": {
-    "name": "GregminsterArea2",
+  "Gregminster Area 2": {
+    "name": "Gregminster Area 2",
     "encounterRate": 2,
     "encounters": [
       { "name": "3 NinjaMaster 1 Simurgh",
@@ -899,8 +901,8 @@ var enemies = {
     },
     "type": "World Map"
   },
-  "GregminsterPalace": {
-    "name": "GregminsterPalace",
+  "Gregminster Palace": {
+    "name": "Gregminster Palace",
     "encounterRate": 2,
     "encounters": [
       { "name": "1 Colossus",
@@ -1114,8 +1116,8 @@ var enemies = {
     },
     "type": "Dungeon"
   },
-  "KalekkaArea": {
-    "name": "KalekkaArea",
+  "Kalekka Area": {
+    "name": "Kalekka Area",
     "encounterRate": 8,
     "encounters": [
       { "name": "1 Dagon",
@@ -1201,8 +1203,8 @@ var enemies = {
     },
     "type": "World Map"
   },
-  "KoboldVillage": {
-    "name": "KoboldVillage",
+  "Kobold Village": {
+    "name": "Kobold Village",
     "encounterRate": 0,
     "encounters": [],
     "enemies": {
@@ -1228,8 +1230,8 @@ var enemies = {
     },
     "type": null
   },
-  "KrazesMansion": {
-    "name": "KrazesMansion",
+  "Krazes Mansion": {
+    "name": "Krazes Mansion",
     "encounterRate": 2,
     "encounters": [],
     "enemies": {
@@ -1277,8 +1279,8 @@ var enemies = {
     },
     "type": null
   },
-  "LepantsMansion": {
-    "name": "LepantsMansion",
+  "Lepants Mansion": {
+    "name": "Lepants Mansion",
     "encounterRate": 2,
     "encounters": [
       { "name": "1 SlotMan",
@@ -1345,12 +1347,12 @@ var enemies = {
     },
     "type": "Dungeon"
   },
-  "LorimarArea": {
-    "name": "LorimarArea",
+  "Lorimar Area": {
+    "name": "Lorimar Area",
     "encounterRate": 8,
     "encounters": [
-      { "name": "1 WhipWolf 3 HellHound",
-        "parseString": "1 WhipWolf 3 HellHound" },
+      { "name": "3 HellHound 1 WhipWolf ",
+        "parseString": "3 HellHound 1 WhipWolf " },
       { "name": "1 GraveMaster",
         "parseString": "1 GraveMaster" },
       { "name": "2 GraveMaster",
@@ -1450,10 +1452,28 @@ var enemies = {
     },
     "type": "World Map"
   },
-  "MagiciansIsland": {
-    "name": "MagiciansIsland",
+  "Magicians Island": {
+    "name": "Magicians Island",
     "encounterRate": 2,
-    "encounters": [],
+    "encounters": [
+      { "name": "4 HollyBoy",
+        "parseString": "4 HollyBoy" },
+      { "name": "6 HollyBoy",
+        "parseString": "4 HollyBoy" },
+      { "name": "3 HollyBoy 2 FurFur",
+        "parseString": "4 HollyBoy" },
+      { "name": "2 FurFur",
+        "parseString": "4 HollyBoy" },
+      { "name": "4 HollyBoy",
+        "parseString": "4 HollyBoy" },
+      { "name": "6 HollyBoy",
+        "parseString": "4 HollyBoy" },
+      { "name": "3 HollyBoy 2 FurFur",
+        "parseString": "4 HollyBoy" },
+      { "name": "2 FurFur",
+        "parseString": "4 HollyBoy" },
+      { "name": "3 FurFur",
+        "parseString": "4 HollyBoy" }],
     "enemies": {
       "FurFur": {
         "bits": 50,
@@ -1504,8 +1524,8 @@ var enemies = {
     },
     "type": "Dungeon"
   },
-  "MoraviaArea": {
-    "name": "MoraviaArea",
+  "Moravia Area": {
+    "name": "Moravia Area",
     "encounterRate": 8,
     "encounters": [
       { "name": "1 RabbitBird",
@@ -1593,8 +1613,8 @@ var enemies = {
     },
     "type": "World Map"
   },
-  "MoraviaCastle": {
-    "name": "MoraviaCastle",
+  "Moravia Castle": {
+    "name": "Moravia Castle",
     "encounterRate": 3,
     "encounters": [
       { "name": "3 HellHound 1 WhipMaster",
@@ -1735,19 +1755,19 @@ var enemies = {
     },
     "type": "Dungeon"
   },
-  "MtSeifu": {
-    "name": "MtSeifu",
+  "Mt Seifu": {
+    "name": "Mt Seifu",
     "encounterRate": 2,
     "encounters": [
       { "name": "6 SoldierAnt",
         "parseString": "6 SoldierAnt" },
-      { "name": "2 Bandit(red)",
+      { "name": "2 RedBandit",
         "parseString": "2 Bandit(red)" },
-      { "name": "1 Bandit(yellow) 2 Bandit(green)",
+      { "name": "3 Bandit",
         "parseString": "1 Bandit(yellow) 2 Bandit(green)" },
       { "name": "2 BlackWildBoar",
         "parseString": "2 BlackWildBoar" },
-      { "name": "2 Bandit(green)",
+      { "name": "2 GreenBandit",
         "parseString": "2 Bandit(green)" }],
     "enemies": {
       "Bandit(green)": {
@@ -1847,8 +1867,8 @@ var enemies = {
     },
     "type": "Dungeon"
   },
-  "MtTigerwolf": {
-    "name": "MtTigerwolf",
+  "Mt Tigerwolf": {
+    "name": "Mt Tigerwolf",
     "encounterRate": 3,
     "encounters": [
       { "name": "6 SlasherRabbit",
@@ -1922,8 +1942,8 @@ var enemies = {
     },
     "type": "Dungeon"
   },
-  "NeclordsCastle": {
-    "name": "NeclordsCastle",
+  "Neclords Castle": {
+    "name": "Neclords Castle",
     "encounterRate": 2,
     "encounters": [
       { "name": "1 DemonSorcerer",
@@ -2017,13 +2037,13 @@ var enemies = {
     },
     "type": "Dungeon"
   },
-  "PannaYakutaArea": {
-    "name": "PannaYakutaArea",
+  "Panna Yakuta Area": {
+    "name": "Panna Yakuta Area",
     "encounterRate": 8,
     "encounters": [
-      { "name": "2 Kobold(bow)",
+      { "name": "2 Kobold",
         "parseString": "2 Kobold(bow)" },
-      { "name": "3 Kobold(sword)",
+      { "name": "3 Kobold",
         "parseString": "3 Kobold(sword)" },
       { "name": "3 Kobold(sword) 1 Kobold(mage)",
         "parseString": "3 Kobold(sword) 1 Kobold(mage)" },
@@ -2125,8 +2145,8 @@ var enemies = {
     },
     "type": "World Map"
   },
-  "PannaYakutaCastle": {
-    "name": "PannaYakutaCastle",
+  "Panna Yakuta": {
+    "name": "Panna Yakuta",
     "encounterRate": 2,
     "encounters": [
       { "name": "3 VeteranSoldier(spear)",
@@ -2291,8 +2311,8 @@ var enemies = {
     },
     "type": null
   },
-  "ScarleticiaArea": {
-    "name": "ScarleticiaArea",
+  "Scarleticia Area": {
+    "name": "Scarleticia Area",
     "encounterRate": 8,
     "encounters": [
       { "name": "1 HollyFairy",
@@ -2388,8 +2408,8 @@ var enemies = {
     },
     "type": "World Map"
   },
-  "ScarleticiaCastle": {
-    "name": "ScarleticiaCastle",
+  "Scarleticia Castle": {
+    "name": "Scarleticia Castle",
     "encounterRate": 2,
     "encounters": [
       { "name": "2 MadIvy",
@@ -2463,8 +2483,8 @@ var enemies = {
     },
     "type": "Dungeon"
   },
-  "SeekValley": {
-    "name": "SeekValley",
+  "Seek Valley": {
+    "name": "Seek Valley",
     "encounterRate": 2,
     "encounters": [
       { "name": "1 Ivy",
@@ -2618,8 +2638,8 @@ var enemies = {
     },
     "type": null
   },
-  "SeikaArea": {
-    "name": "SeikaArea",
+  "Seika Area": {
+    "name": "Seika Area",
     "encounterRate": 8,
     "encounters": [
       { "name": "3 FlyingSquirrel 1 BeastCommander ",
@@ -2730,8 +2750,8 @@ var enemies = {
     },
     "type": "World Map"
   },
-  "ShasarazadeFortress": {
-    "name": "ShasarazadeFortress",
+  "Shasarazade Fortress": {
+    "name": "Shasarazade Fortress",
     "encounterRate": 2,
     "encounters": [
       { "name": "4 EliteSoldier",
@@ -2817,8 +2837,8 @@ var enemies = {
     },
     "type": "Dungeon"
   },
-  "SonierePrison": {
-    "name": "SonierePrison",
+  "Soniere Prison": {
+    "name": "Soniere Prison",
     "encounterRate": 2,
     "encounters": [
       { "name": "1 Delf 1 Viperman",
@@ -2943,16 +2963,31 @@ var enemies = {
     },
     "type": "Dungeon"
   },
-  "ToranLakeCastle": {
-    "name": "ToranLakeCastle",
+  "Toran Lake Castle": {
+    "name": "Toran Lake Castle",
     "encounterRate": 2,
-    "encounters": [],
+    "encounters": [
+    { "name": "2 Oannes",
+      "parseString": "2 Oannes" },
+    { "name": "3 Oannes",
+      "parseString": "3 Oannes" },
+    { "name": "2 GiantSlug",
+      "parseString": "2 GiantSlug" },
+    { "name": "3 GiantSlug",
+      "parseString": "3 GiantSlug" },
+    { "name": "1 GhostArmor",
+      "parseString": "1 GhostArmor" },
+    { "name": "3 GiantSlug 1 GhostArmor",
+      "parseString": "3 GiantSlug 1 GhostArmor" },
+    { "name": "3 Oannes 1 GhostArmor",
+      "parseString": "3 Oannes 1 GhostArmor" }
+    ],
     "enemies": {
       "GhostArmor": {
         "bits": 600,
         "drops": [
           {
-            "item": "BrassArmor",
+            "item": "Brass Armor",
             "rate": 6
           }
         ],
@@ -2971,11 +3006,11 @@ var enemies = {
         "bits": 250,
         "drops": [
           {
-            "item": "DefenseRunePiece",
+            "item": "Defense Rune Piece",
             "rate": 6
           },
           {
-            "item": "Medicinex6",
+            "item": "Medicine x6",
             "rate": 8
           }
         ],
@@ -2994,7 +3029,7 @@ var enemies = {
         "bits": 200,
         "drops": [
           {
-            "item": "Antitoxinx4",
+            "item": "Antitoxin x4",
             "rate": 14
           }
         ],

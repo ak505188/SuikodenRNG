@@ -13,9 +13,7 @@ var lib = {
 
   calculateRNG: function(prev_rng) {
     var r3 = prev_rng;
-    var r1 = 0x41c60000;
-
-    r1 = r1 | 0x4e6d;
+    var r1 = 0x41c64e6d;
 
     var lo = lib.mult32ulo(r1, r3);
 
@@ -28,5 +26,17 @@ var lib = {
     var r2 = rng >> 16;
     r2 = r2 & 0x7FFF;
     return r2;
+  },
+
+  wheelSuccess: function(rng) {
+    var counter = 0;
+    var success = function(pos) {
+      return pos >= 0x7f && pos <= 0xa0;
+    };
+    do {
+      counter++;
+      rng = this.calculateRNG(rng);
+    } while (!success(this.div32ulo(this.calcR2FromRng(rng), 0x5a)));
+    return --counter;
   }
 };

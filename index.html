@@ -21,8 +21,9 @@
 		<input type="button" onclick="addArea();" value="Add Area">
 		<input type="button" onclick="run();" value="Run">
 	</form>
-	<table id="encounterTable"></table>
-	<button onclick="download(generateCSVfromJSON(fightList), 'EncounterTable.csv')">
+	<table id="encounterTable">
+	</table>
+	<button onclick="download(generateCSVFromJSON(fightList), 'EncounterTable.csv')">
 		Export Table
 	</button>
 </body>
