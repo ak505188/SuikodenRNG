@@ -3,44 +3,79 @@ var areas = [];
 var fightList;
 
 function encounterTableMaker(encounters, partyLvl) {
+  var headers = [
+    'Area Name',
+    'Enemy Group',
+    'Run?',
+    'RNG Index',
+    'Start RNG',
+    'Battle RNG',
+    'Encounter Value',
+    'Wheel Attempt'
+  ];
+
+  if (partyLvl > 0) {
+    encounters = encounters.filter(function(fight) {
+      return fight.EnemyGroup.champVal > partyLvl;
+    });
+  }
+
+  fightList = encounters.map(function(fight) {
+    var arr = [];
+    arr.push(fight.area.name);
+    arr.push(fight.EnemyGroup.name);
+    arr.push(fight.run ? 'Run' : 'Fail');
+    arr.push(fight.index);
+    arr.push(fight.startingRNG.toString(16));
+    arr.push(fight.battleRNG.toString(16));
+    arr.push(fight.encounterValue);
+    arr.push(lib.wheelSuccess(fight.battleRNG));
+    return arr;
+  });
+
+  tableMaker(fightList, headers);
+}
+
+function tableMaker(data, headers) {
   var table = document.getElementById('encounterTable');
-  fightList = encounters;
   table.innerHTML = '';
-  for (var i in encounters) {
-    var row = table.insertRow(i);
-    row.data = encounters[i];
-    var columns = [];
-    for (var j = 0; j < 8; j++) {
-      columns.push(row.insertCell(j));
+
+  if (headers) {
+    var header = table.createTHead();
+    var headerRow = header.insertRow();
+    var headerColumns = [];
+    for (var k in headers) {
+      headerColumns.push(headerRow.insertCell(k));
+      headerColumns[k].innerHTML = headers[k];
     }
-    columns[0].innerHTML = row.data.area.name;
-    columns[1].innerHTML = row.data.EnemyGroup.name;
-    columns[2].innerHTML = row.data.run ? 'Run' : 'Fail';
-    columns[3].innerHTML = row.data.index;
-    columns[4].innerHTML = row.data.startingRNG.toString(16);
-    columns[5].innerHTML = row.data.battleRNG.toString(16);
-    columns[6].innerHTML = row.data.encounterValue;
-    columns[7].innerHTML = lib.wheelSuccess(row.data.battleRNG);
-    if (partyLvl && row.data.champVal < partyLvl) {
-      row.style.display = 'none';
+  }
+
+  var body = table.appendChild(document.createElement('tbody'));
+  for (var i in data) {
+    var row = body.insertRow();
+    var columns = [];
+    for (var j in data[i]) {
+      columns.push(row.insertCell(j));
+      columns[j].innerHTML = data[i][j];
     }
   }
 }
 
 function dropTableMaker(group, rng, iterations) {
-  var table = document.getElementById('encounterTable');
-  table.innerHTML = '';
   var drops = group.calculateDrops(rng, iterations);
-  for (var i in drops) {
-    var row = table.insertRow(i);
-    var columns = [];
-    for (var j = 0; j < 3; j++) {
-      columns.push(row.insertCell(j));
-    }
-    columns[0].innerHTML = i;
-    columns[1].innerHTML = drops[i].rng;
-    columns[2].innerHTML = drops[i].drop ? drops[i].drop : '---';
-  }
+  var headers = [
+    'Index',
+    'RNG',
+    'Drop'
+  ];
+  drops = drops.map(function(drop, index) {
+    var arr = [];
+    arr.push(index);
+    arr.push(drop.rng);
+    arr.push(drop.drop === null ? '---' : drop.drop);
+    return arr;
+  });
+  tableMaker(drops, headers);
 }
 
 function createAreaSelector(enemies) {
@@ -53,26 +88,6 @@ function createAreaSelector(enemies) {
     select.appendChild(option);
   }
 }
-
-/* Replaced by more generic function
- * Left here for now if I need less generic solutions
-function generateEncounterCSVFromJSON(fightList) {
-  var CSV = '';
-  for (var row in fightList) {
-    var columns = [
-      fightList[row].area.name,
-      fightList[row].EnemyGroup.name,
-      fightList[row].run ? 'Run' : 'Fail',
-      fightList[row].index,
-      fightList[row].startingRNG.toString(16),
-      fightList[row].battleRNG.toString(16),
-      fightList[row].encounterValue
-    ];
-    CSV += generateCSVRow(columns);
-  }
-  return CSV;
-}
-*/
 
 function generateCSVFromJSON() {
   var CSV = '';

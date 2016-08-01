@@ -22,6 +22,13 @@ var lib = {
     return r3;
   },
 
+  advanceRNG: function(rng, iterations) {
+    for (var i = 0; i < iterations; i++) {
+      rng = lib.calculateRNG(rng);
+    }
+    return rng;
+  },
+
   calcR2FromRng: function(rng) {
     var r2 = rng >> 16;
     r2 = r2 & 0x7FFF;

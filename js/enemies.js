@@ -903,7 +903,7 @@ var enemies = {
   },
   "Gregminster Palace": {
     "name": "Gregminster Palace",
-    "encounterRate": 2,
+    "encounterRate": 3,
     "encounters": [
       { "name": "1 Colossus",
         "parseString": "1 Colossus" },

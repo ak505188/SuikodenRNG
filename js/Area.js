@@ -6,15 +6,35 @@ var Area = function(name, area) {
   this.isBattle = area.type === 'Dungeon' ? isBattleDungeon : isBattleWorldMap;
 
   this.getEncounter = function(rng) {
-    rng = lib.calculateRNG(rng);
-    var r2 = lib.calcR2FromRng(rng);
-    r3 = lib.div32ulo(0x7FFF, this.encounterTable.length);
-    var encounterIndex = lib.div32ulo(r2, r3);
-    while (encounterIndex >= Object.keys(area.encounters).length) {
-      console.error('Encounter out of bounds. Index =', encounterIndex, 'Length =', Object.keys(area.encounters).length, 'RNG =', rng.toString(16));
-      encounterIndex--;
+    return this.encounterTable[this.getEncounterIndex(rng)];
+  };
+
+  this.findRNG = function(rng, max_iterations, encounters) {
+    var steps = 0;
+    var current = 0;
+    var startRNG = rng;
+    for (var i = 0; i < max_iterations; i++) {
+      var prevRNG = rng;
+      rng = lib.calculateRNG(rng);
+      if (this.isBattle(rng) < this.encounterRate) {
+        if (this.getEncounterIndex(rng) === encounters[current].encounterIndex && (current === 0 || steps === encounters[current].steps)) {
+          if (current === 0) {
+            startRNG = rng;
+          }
+          if (++current >= encounters.length) {
+            return startRNG.toString(16);
+          }
+        } else {
+          if (current !== 0) {
+            rng = prevRNG;
+          }
+          current = 0;
+        }
+        steps = 0;
+      }
+      steps++;
     }
-    return this.encounterTable[encounterIndex];
+    return false;
   };
 
   function isBattleWorldMap(rng) {
@@ -35,6 +55,18 @@ var Area = function(name, area) {
     r2 = r2 & 0xFF;
     return r2;
   }
+
+  this.getEncounterIndex = function(rng) {
+    rng = lib.calculateRNG(rng);
+    var r2 = lib.calcR2FromRng(rng);
+    r3 = lib.div32ulo(0x7FFF, this.encounterTable.length);
+    var encounterIndex = lib.div32ulo(r2, r3);
+    while (encounterIndex >= Object.keys(area.encounters).length) {
+      console.error('Encounter out of bounds. Index =', encounterIndex, 'Length =', Object.keys(area.encounters).length, 'RNG =', rng.toString(16));
+      encounterIndex--;
+    }
+    return encounterIndex;
+  };
 
   function parseEncounterTable(area) {
     var encounterTable = [];
