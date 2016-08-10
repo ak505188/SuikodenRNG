@@ -8,6 +8,8 @@
 	<script src="js/rngCalc.js"></script>
 	<script src="js/enemies.js"></script>
 	<script src="js/index.js"></script>
+	<script src="js/tables.js"></script>
+	<script src="js/init.js"></script>
 </head>
 <body>
 	<div>
@@ -34,7 +36,7 @@
 				Area(s)
 				<select id="areas" onchange="createEnemyGroupSelector(enemies);"></select>
 				<input type="button" id="addAreaButton" onclick="addArea();" value="Add Area">
-			</span>	
+			</span>
 			<span id="enemyGroupContainer" style="display: none;">
 				EnemyGroup
 				<select id="enemyGroup"></select>
@@ -43,7 +45,7 @@
 			<input type="button" onclick="run();" value="Run">
 		</span>
 	</div>
-	<table id="encounterTable"></table>
+	<table id="table"></table>
 	<div>
 		<button onclick="download(generateCSVFromJSON(fightList), 'EncounterTable.csv')">
 			Export Table
