@@ -10,21 +10,43 @@
 	<script src="js/index.js"></script>
 </head>
 <body>
-	<form id="settings">
-		Starting RNG
-		<input id="startRNG" type="text" value="0x12">
-		Iterations
-		<input id="iterations" type="number" step="500" min="1" value="1000">
-		Party Level
-		<input id="partyLvl" type="number" value="0">
-		Area(s)
-		<select id="areas">
-		<input type="button" onclick="addArea();" value="Add Area">
-		<input type="button" onclick="run();" value="Run">
-	</form>
-	<table id="encounterTable">
-	</table>
-	<button onclick="download(generateCSVFromJSON(fightList), 'EncounterTable.csv')">
-		Export Table
-	</button>
+	<div>
+		<select id="mode" onchange="selectMode();">
+			<option value="encounters" selected>Encounters</option>
+			<option value="drops">Drops</option>
+			<option value="sequence">RNG Sequence</option>
+			<option value="findRNG">Find RNG Seed</option>
+		</select>
+		<span id="encountersForm">
+			<span id="startRNGContainer">
+				Starting RNG
+				<input id="startRNG" type="text" value="0x12">
+			</span>
+			<span id="iterationsContainer">
+				Iterations
+				<input id="iterations" type="number" step="500" min="1" value="1000">
+			</span>
+			<span id="partyLvlContainer">
+				Party Level
+				<input id="partyLvl" type="number" value="0">
+			</span>
+			<span id="areasContainer">
+				Area(s)
+				<select id="areas" onchange="createEnemyGroupSelector(enemies);"></select>
+				<input type="button" id="addAreaButton" onclick="addArea();" value="Add Area">
+			</span>	
+			<span id="enemyGroupContainer" style="display: none;">
+				EnemyGroup
+				<select id="enemyGroup"></select>
+				<input type="button" id="addEnemyGroupButton" onclick="addEnemyGroup();" value="Add Fight">
+			</span>
+			<input type="button" onclick="run();" value="Run">
+		</span>
+	</div>
+	<table id="encounterTable"></table>
+	<div>
+		<button onclick="download(generateCSVFromJSON(fightList), 'EncounterTable.csv')">
+			Export Table
+		</button>
+	</div>
 </body>

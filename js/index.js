@@ -78,14 +78,57 @@ function dropTableMaker(group, rng, iterations) {
   tableMaker(drops, headers);
 }
 
-function createAreaSelector(enemies) {
-  var select = document.getElementById('areas');
-  for (var area in areas) {
-    var option = document.createElement('option');
-    option.innerHTML = area;
-    option.value = area;
-    option.data = areas[area];
-    select.appendChild(option);
+
+function selectMode() {
+  var startRNG = document.getElementById('startRNGContainer');
+  var iterations = document.getElementById('iterationsContainer');
+  var partyLvl = document.getElementById('partyLvlContainer');
+  var areas = document.getElementById('areasContainer');
+  var addArea = document.getElementById('addAreaButton');
+  var enemyGroup = document.getElementById('enemyGroupContainer');
+  var addEnemyGroup = document.getElementById('addEnemyGroupButton');
+
+  var selected = document.getElementById('mode');
+  var mode = selected.options[selected.selectedIndex].value;
+  switch(mode) {
+    case 'encounters':
+      startRNG.style.display = 'inline-block';
+      iterations.style.display = 'inline-block';
+      partyLvl.style.display = 'inline-block';
+      areas.style.display = 'inline-block';
+      addArea.style.display = 'inline-block';
+      enemyGroup.style.display = 'none';
+      addEnemyGroup.style.display = 'none';
+      break;
+    case 'drops':
+      startRNG.style.display = 'inline-block';
+      iterations.style.display = 'inline-block';
+      partyLvl.style.display = 'none';
+      areas.style.display = 'inline-block';
+      addArea.style.display = 'none';
+      enemyGroup.style.display = 'inline-block';
+      addEnemyGroup.style.display = 'none';
+      break;
+    case 'sequence':
+      startRNG.style.display = 'inline-block';
+      iterations.style.display = 'inline-block';
+      partyLvl.style.display = 'none';
+      areas.style.display = 'none';
+      addArea.style.display = 'none';
+      enemyGroup.style.display = 'none';
+      addEnemyGroup.style.display = 'none';
+      break;
+    case 'findRNG':
+      startRNG.style.display = 'none';
+      iterations.style.display = 'none';
+      partyLvl.style.display = 'none';
+      areas.style.display = 'inline-block';
+      addArea.style.display = 'none';
+      enemyGroup.style.display = 'inline-block';
+      addEnemyGroup.style.display = 'inline-block';
+      break;
+    default:
+      console.error('Default switch should never be hit.');
   }
 }
 
@@ -133,14 +176,73 @@ function addArea(area) {
 }
 
 function run() {
+  var selected = document.getElementById('mode');
+  var mode = selected.options[selected.selectedIndex].value;
+
   var rng = parseInt(document.getElementById('startRNG').value);
   var iterations = document.getElementById('iterations').value;
   var partyLvl = document.getElementById('partyLvl').value;
-  Encounters(rng, iterations, selectedAreas, partyLvl, encounterTableMaker);
+  var enemyGroup = document.getElementById('enemyGroup');
+  enemyGroup = enemyGroup.options[enemyGroup.selectedIndex].data;
+
+  switch(mode) {
+    case 'encounters':
+      Encounters(rng, iterations, selectedAreas, partyLvl, encounterTableMaker);
+      break;
+    case 'drops':
+      dropTableMaker(enemyGroup, rng, iterations);
+      break;
+    case 'sequence':
+      sequence = generateRNGSequence(rng, iterations).map(function(data) {
+        var arr = [];
+        arr.push(data.index);
+        arr.push(data.rng.toString(16));
+        return arr;
+      });
+      tableMaker(sequence, ['Index', 'RNG']);
+      break;
+  }
+}
+
+function createAreaSelector(enemies) {
+  var select = document.getElementById('areas');
+  for (var area in areas) {
+    var option = document.createElement('option');
+    option.innerHTML = area;
+    option.value = area;
+    option.data = areas[area];
+    select.appendChild(option);
+  }
+}
+
+function createEnemyGroupSelector(enemies) {
+  var areasSelect = document.getElementById('areas');
+  var area = areasSelect.options[areasSelect.selectedIndex].value;
+  var select = document.getElementById('enemyGroup');
+  // Clear
+  while (select.options.length > 0) {
+      select.remove(0);
+  }
+  for (var enemyGroup in areas[area].encounterTable) {
+    var option = document.createElement('option');
+    option.innerHTML = areas[area].encounterTable[enemyGroup].name;
+    option.value = areas[area].encounterTable[enemyGroup].name;
+    option.data = areas[area].encounterTable[enemyGroup];
+    select.appendChild(option);
+  }
+}
+
+function initAreas(enemies) {
+  var areas = {};
+  for (var area in enemies) {
+    areas[area] = new Area(area, enemies[area]);
+  }
+  return areas;
 }
 
 window.onload = function() {
   areas = initAreas(enemies);
   createAreaSelector(enemies);
+  createEnemyGroupSelector(enemies);
 };
 

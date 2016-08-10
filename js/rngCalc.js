@@ -15,18 +15,12 @@ function Encounters(rng, iterations, areas, partyLvl, callback) {
   callback(encounters, partyLvl);
 }
 
-function printSequence(rng, iterations) {
+function generateRNGSequence(rng, iterations) {
+  var sequence = [];
   for (var i = 0; i < iterations; i++) {
     rng = lib.calculateRNG(rng);
-    console.log(rng.toString(16));
+    sequence.push({index: i, rng: lib.calculateRNG(rng)});
   }
-}
-
-function initAreas(enemies) {
-  var areas = {};
-  for (var area in enemies) {
-    areas[area] = new Area(area, enemies[area]);
-  }
-  return areas;
+  return sequence;
 }
 
