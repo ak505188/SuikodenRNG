@@ -37,6 +37,49 @@ var Area = function(name, area) {
     return false;
   };
 
+  this.findRNGBayerMooreSimple = function(rng, iterations, encounters) {
+    var fights = [];
+    var fightsRNG = [];
+    for (var i = 0; i < iterations; i++) {
+      if (this.isBattle(rng) < this.encounterRate) {
+        fights.push(this.getEncounterIndex(rng));
+        fightsRNG.push(rng);
+      }
+      rng = lib.calculateRNG(rng);
+      if (i % 100000 === 0) console.log(i.toString(16));
+    }
+    var result = bayerMoore(fights, encounters, this.encounterTable.length);
+    return result === false ? ('No match ' + rng.toString(16)) : fightsRNG[result].toString(16);
+  };
+
+  function bayerMoore(input, pattern, max) {
+    if (pattern.length > input.length) return false;
+
+    // Create bad char array
+    var badChar = new Array(max).fill(-1);
+    for (var j = 0; j < pattern.length - 1; j++) {
+      badChar[pattern[j]] = j;
+    }
+
+    // var pttrnIndx = pattern.length - 1;
+    var i = pattern.length - 1;
+    while (i < input.length) {
+      // check if match
+      var inputIndx = i;
+      var pttrnIndx = pattern.length - 1;
+      while (input[inputIndx] === pattern[pttrnIndx]) {
+        inputIndx--;
+        pttrnIndx--;
+        if (pttrnIndx === -1) return i - pattern.length + 1;
+      }
+      var badCharVal = badChar[input[inputIndx]];
+      // console.log('badCharVal:', badCharVal);
+      var jump = badCharVal === -1 ? pattern.length - 1 : pattern.length - badCharVal - 1;
+      i += jump;
+    }
+    return false;
+  }
+
   function isBattleWorldMap(rng) {
     var r3 = rng;
     var r2 = lib.calcR2FromRng(rng);
@@ -62,7 +105,7 @@ var Area = function(name, area) {
     r3 = lib.div32ulo(0x7FFF, this.encounterTable.length);
     var encounterIndex = lib.div32ulo(r2, r3);
     while (encounterIndex >= Object.keys(area.encounters).length) {
-      console.error('Encounter out of bounds. Index =', encounterIndex, 'Length =', Object.keys(area.encounters).length, 'RNG =', rng.toString(16));
+      // console.error('Encounter out of bounds. Index =', encounterIndex, 'Length =', Object.keys(area.encounters).length, 'RNG =', rng.toString(16));
       encounterIndex--;
     }
     return encounterIndex;
