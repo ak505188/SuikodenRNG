@@ -9,47 +9,35 @@ var Area = function(name, area) {
     return this.encounterTable[this.getEncounterIndex(rng)];
   };
 
-  this.findRNG = function(rng, max_iterations, encounters) {
-    var steps = 0;
-    var current = 0;
-    var startRNG = rng;
-    for (var i = 0; i < max_iterations; i++) {
-      var prevRNG = rng;
-      rng = lib.calculateRNG(rng);
+  this.findRNG = function(encounters, rng) {
+    // Smaller array size is slower but more space efficient. Performance drop should be negligable.
+    var arraySize = 0xffff;
+    var fights = new Array(arraySize);
+    var fightsRNG = new Array(arraySize);
+    rng = rng | 0x12;
+    var index = 0;
+    for (var i = 0; i < 0xffffffff; i++) {
       if (this.isBattle(rng) < this.encounterRate) {
-        if (this.getEncounterIndex(rng) === encounters[current].encounterIndex && (current === 0 || steps === encounters[current].steps)) {
-          if (current === 0) {
-            startRNG = rng;
+        fights[index] = this.getEncounterIndex(rng);
+        fightsRNG[index] = rng;
+        index++;
+        if (index === arraySize - 1) {
+          var result = bayerMoore(fights, encounters, this.encounterTable.length);
+          if (result !== false) return fightsRNG[result].toString(16);
+
+          // Takes end of fights and puts it in the beginning for next iteration
+          // Number of fight taken is length of pattern.
+          for (var j = arraySize - encounters.length, k = 0; j < encounters.length; j++, k++) {
+            fights[k] = fights[j];
+            fightsRNG[k] = fights[j];
           }
-          if (++current >= encounters.length) {
-            return startRNG.toString(16);
-          }
-        } else {
-          if (current !== 0) {
-            rng = prevRNG;
-          }
-          current = 0;
+          index = encounters.length;
         }
-        steps = 0;
       }
-      steps++;
+      rng = lib.calculateRNG(rng);
+      if (i % 42949672 === 0) console.log(Math.floor(i/42949662) + '%');
     }
     return false;
-  };
-
-  this.findRNGBayerMooreSimple = function(rng, iterations, encounters) {
-    var fights = [];
-    var fightsRNG = [];
-    for (var i = 0; i < iterations; i++) {
-      if (this.isBattle(rng) < this.encounterRate) {
-        fights.push(this.getEncounterIndex(rng));
-        fightsRNG.push(rng);
-      }
-      rng = lib.calculateRNG(rng);
-      if (i % 100000 === 0) console.log(i.toString(16));
-    }
-    var result = bayerMoore(fights, encounters, this.encounterTable.length);
-    return result === false ? ('No match ' + rng.toString(16)) : fightsRNG[result].toString(16);
   };
 
   function bayerMoore(input, pattern, max) {
