@@ -94,10 +94,19 @@ function addArea(area) {
   selectedAreas.push(data);
 }
 
+function addEnemyGroup(group) {
+  var areasSelect = document.getElementById('areas');
+  var area = areasSelect.options[areasSelect.selectedIndex].value;
+  var enemyGroup = document.getElementById('enemyGroup').selectedIndex;
+  fightList.push(enemyGroup);
+}
+
 function run() {
   var selected = document.getElementById('mode');
   var mode = selected.options[selected.selectedIndex].value;
 
+  var areasSelect = document.getElementById('areas');
+  var area = areasSelect.options[areasSelect.selectedIndex].value;
   var rng = parseInt(document.getElementById('startRNG').value);
   var iterations = document.getElementById('iterations').value;
   var partyLvl = document.getElementById('partyLvl').value;
@@ -114,6 +123,10 @@ function run() {
     case 'sequence':
       sequenceTableMaker(rng, iterations);
       break;
+    case 'findRNG':
+      alert('RNG found: ' + areas[area].findRNG(fightList));
+      break;
+
   }
 }
 

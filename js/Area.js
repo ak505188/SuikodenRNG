@@ -10,6 +10,7 @@ var Area = function(name, area) {
   };
 
   this.findRNG = function(encounters, rng) {
+    if (encounters.length <= 1) return false;
     // Smaller array size is slower but more space efficient. Performance drop should be negligable.
     var arraySize = 0xffff;
     var fights = new Array(arraySize);
@@ -41,8 +42,6 @@ var Area = function(name, area) {
   };
 
   function bayerMoore(input, pattern, max) {
-    if (pattern.length > input.length) return false;
-
     // Create bad char array
     var badChar = new Array(max).fill(-1);
     for (var j = 0; j < pattern.length - 1; j++) {

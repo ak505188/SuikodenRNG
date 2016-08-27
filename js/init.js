@@ -1,6 +1,6 @@
 var selectedAreas = [];
 var areas = [];
-var fightList;
+var fightList = [];
 
 function createAreaSelector(enemies) {
   var select = document.getElementById('areas');
