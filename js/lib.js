@@ -12,14 +12,7 @@ var lib = {
   },
 
   calculateRNG: function(prev_rng) {
-    var r3 = prev_rng;
-    var r1 = 0x41c64e6d;
-
-    var lo = lib.mult32ulo(r1, r3);
-
-    r3 = lo;
-    r3 = r3 + 0x3039;
-    return r3;
+    return lib.mult32ulo(0x41c64e6d, prev_rng) + 0x3039;
   },
 
   advanceRNG: function(rng, iterations) {

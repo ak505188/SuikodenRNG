@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <head>
 	<link rel="stylesheet" type="text/css" href="styles/styles.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script src="js/lib.js"></script>
 	<script src="js/Fight.js"></script>
 	<script src="js/EnemyGroup.js"></script>
@@ -12,43 +14,55 @@
 	<script src="js/init.js"></script>
 </head>
 <body>
-	<div>
-		<select id="mode" onchange="selectMode();">
-			<option value="encounters" selected>Encounters</option>
-			<option value="drops">Drops</option>
-			<option value="sequence">RNG Sequence</option>
-			<option value="findRNG">Find RNG Seed</option>
-		</select>
-		<span id="encountersForm">
-			<span id="startRNGContainer">
-				Starting RNG
-				<input id="startRNG" type="text" value="0x12">
-			</span>
-			<span id="iterationsContainer">
-				Iterations
-				<input id="iterations" type="number" step="500" min="1" value="1000">
-			</span>
-			<span id="partyLvlContainer">
-				Party Level
-				<input id="partyLvl" type="number" value="0">
-			</span>
-			<span id="areasContainer">
-				Area(s)
-				<select id="areas" onchange="createEnemyGroupSelector(enemies);"></select>
-				<input type="button" id="addAreaButton" onclick="addArea();" value="Add Area">
-			</span>
-			<span id="enemyGroupContainer" style="display: none;">
-				EnemyGroup
-				<select id="enemyGroup"></select>
-				<input type="button" id="addEnemyGroupButton" onclick="addEnemyGroup();" value="Add Fight">
-			</span>
-			<input type="button" onclick="run();" value="Run">
-		</span>
-	</div>
-	<table id="table"></table>
-	<div>
-		<button onclick="download(generateCSVFromJSON(fightList), 'EncounterTable.csv')">
-			Export Table
-		</button>
+	<div class="container">
+		<div class="jumbotron text-center">
+			This will be information about tool and crap.
+			This will be information about tool and crap.
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="btn-group btn-group-xs">
+					<button type="button" class="btn btn-primary" onclick="changeMode('encounters');">Encounters</button>
+					<button type="button" class="btn btn-primary" onclick="changeMode('drops');">Drops</button>
+					<button type="button" class="btn btn-primary" onclick="changeMode('sequence');">RNG Sequence</button>
+					<button type="button" class="btn btn-primary" onclick="changeMode('findRNG');">Find RNG Seed</button>
+				</div>
+				<form id="encountersForm">
+					<label class="rng" for="startRNG">Starting RNG</label>
+					<input class="rng" id="startRNG" type="text" value="0x12"><br>
+
+					<label class="iterations" for="iterations">Iterations</label>
+					<input class="iterations" id="iterations" type="number" step="500" value="1000"><br>
+
+					<label class="partyLvl" for="partyLvl">Party Level</label>
+					<input class="partyLvl" id="partyLvl" type="number" value="0">
+					<div id="areasContainer">
+						Area(s)
+						<select id="areas" onchange="createEnemyGroupSelector(enemies);"></select>
+						<input class="btn btn-default btn-sm" type="button" id="addAreaButton" onclick="addArea();" value="Add Area">
+					</div>
+					<div id="enemyGroupContainer" style="display: none;">
+						EnemyGroup
+						<select id="enemyGroup"></select>
+						<input class="btn btn-default btn-sm" type="button" id="addEnemyGroupButton" onclick="addEnemyGroup();" value="Add Fight">
+					</div>
+					<input class="btn btn-primary btn-sm" type="button" onclick="run();" value="Run">
+				</form>
+			</div>
+			<div class="col-md-4">
+				<h3>Addable options</h3>
+			</div>
+			<div class="col-md-4">
+				<h3>Currently Selected</h3>
+			</div>
+		</div>
+		<div class="table-responsive">
+			<table id="table"></table>
+		</div>
+		<div>
+			<button onclick="download(generateCSVFromJSON(fightList), 'EncounterTable.csv')">
+				Export Table
+			</button>
+		</div>
 	</div>
 </body>

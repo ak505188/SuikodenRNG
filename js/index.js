@@ -1,50 +1,50 @@
+function changeMode(_mode) {
+  mode = _mode;
+  selectMode();
+}
+
 function selectMode() {
-  var startRNG = document.getElementById('startRNGContainer');
-  var iterations = document.getElementById('iterationsContainer');
-  var partyLvl = document.getElementById('partyLvlContainer');
   var areas = document.getElementById('areasContainer');
   var addArea = document.getElementById('addAreaButton');
   var enemyGroup = document.getElementById('enemyGroupContainer');
   var addEnemyGroup = document.getElementById('addEnemyGroupButton');
 
-  var selected = document.getElementById('mode');
-  var mode = selected.options[selected.selectedIndex].value;
   switch(mode) {
     case 'encounters':
-      startRNG.style.display = 'inline-block';
-      iterations.style.display = 'inline-block';
-      partyLvl.style.display = 'inline-block';
-      areas.style.display = 'inline-block';
-      addArea.style.display = 'inline-block';
+      $('.rng').show();
+      $('.iterations').show();
+      $('.partyLvl').show();
+      areas.style.display = 'block';
+      addArea.style.display = 'block';
       enemyGroup.style.display = 'none';
       addEnemyGroup.style.display = 'none';
       break;
     case 'drops':
-      startRNG.style.display = 'inline-block';
-      iterations.style.display = 'inline-block';
-      partyLvl.style.display = 'none';
-      areas.style.display = 'inline-block';
+      $('.rng').show();
+      $('.iterations').show();
+      $('.partyLvl').hide();
+      areas.style.display = 'block';
       addArea.style.display = 'none';
-      enemyGroup.style.display = 'inline-block';
+      enemyGroup.style.display = 'block';
       addEnemyGroup.style.display = 'none';
       break;
     case 'sequence':
-      startRNG.style.display = 'inline-block';
-      iterations.style.display = 'inline-block';
-      partyLvl.style.display = 'none';
+      $('.rng').show();
+      $('.iterations').show();
+      $('.partyLvl').hide();
       areas.style.display = 'none';
       addArea.style.display = 'none';
       enemyGroup.style.display = 'none';
       addEnemyGroup.style.display = 'none';
       break;
     case 'findRNG':
-      startRNG.style.display = 'none';
-      iterations.style.display = 'none';
-      partyLvl.style.display = 'none';
-      areas.style.display = 'inline-block';
+      $('.rng').hide();
+      $('.iterations').hide();
+      $('.partyLvl').hide();
+      areas.style.display = 'block';
       addArea.style.display = 'none';
-      enemyGroup.style.display = 'inline-block';
-      addEnemyGroup.style.display = 'inline-block';
+      enemyGroup.style.display = 'block';
+      addEnemyGroup.style.display = 'block';
       break;
     default:
       console.error('Default switch should never be hit.');
@@ -57,7 +57,8 @@ function generateCSVFromJSON() {
   for (var row in table.rows) {
     var columns = [];
     for (var column = 0; column < table.rows[row].childElementCount; column++) {
-      columns.push(table.rows[row].cells[column].innerHTML);
+      columns
+        .push(table.rows[row].cells[column].innerHTML);
     }
     CSV += generateCSVRow(columns);
   }

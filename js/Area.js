@@ -10,6 +10,7 @@ var Area = function(name, area) {
   };
 
   this.findRNG = function(encounters, rng) {
+    var startTime = new Date().getTime();
     if (encounters.length <= 1) return false;
     // Smaller array size is slower but more space efficient. Performance drop should be negligable.
     var arraySize = 0xffff;
@@ -24,7 +25,10 @@ var Area = function(name, area) {
         index++;
         if (index === arraySize - 1) {
           var result = bayerMoore(fights, encounters, this.encounterTable.length);
-          if (result !== false) return fightsRNG[result].toString(16);
+          if (result !== false) {
+            console.log('Runtime: ' + (new Date().getTime() - startTime)/1000 + ' seconds.');
+            return fightsRNG[result].toString(16);
+          }
 
           // Takes end of fights and puts it in the beginning for next iteration
           // Number of fight taken is length of pattern.
