@@ -1,68 +1,89 @@
 <!DOCTYPE html>
 <head>
-	<link rel="stylesheet" type="text/css" href="styles/styles.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
-	<script src="js/lib.js"></script>
-	<script src="js/Fight.js"></script>
-	<script src="js/EnemyGroup.js"></script>
-	<script src="js/Area.js"></script>
-	<script src="js/rngCalc.js"></script>
-	<script src="js/enemies.js"></script>
-	<script src="js/index.js"></script>
-	<script src="js/tables.js"></script>
-	<script src="js/init.js"></script>
+  <link rel="stylesheet" type="text/css" href="styles/styles.css">
+  <link rel="stylesheet" href="./lib/bootstrap.min.css">
+  <script src="./lib/jquery-3.1.0.min.js"></script>
+  <script src="js/lib.js"></script>
+  <script src="js/Fight.js"></script>
+  <script src="js/EnemyGroup.js"></script>
+  <script src="js/Area.js"></script>
+  <script src="js/rngCalc.js"></script>
+  <script src="js/enemies.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/tables.js"></script>
+  <script src="js/init.js"></script>
 </head>
 <body>
-	<div class="container">
-		<div class="jumbotron text-center">
-			This will be information about tool and crap.
-			This will be information about tool and crap.
-		</div>
-		<div class="row">
-			<div class="col-md-4">
-				<div class="btn-group btn-group-xs">
-					<button type="button" class="btn btn-primary" onclick="changeMode('encounters');">Encounters</button>
-					<button type="button" class="btn btn-primary" onclick="changeMode('drops');">Drops</button>
-					<button type="button" class="btn btn-primary" onclick="changeMode('sequence');">RNG Sequence</button>
-					<button type="button" class="btn btn-primary" onclick="changeMode('findRNG');">Find RNG Seed</button>
-				</div>
-				<form id="encountersForm">
-					<label class="rng" for="startRNG">Starting RNG</label>
-					<input class="rng" id="startRNG" type="text" value="0x12"><br>
+  <div class="container">
+    <div class="jumbotron text-center">
+      This will be information about tool and crap.
+      This will be information about tool and crap.
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <p class="rng">Starting RNG: the RNG value to start calculations from.</p>
+        <p class="iterations">Iterations: How many RNG values to iterate through.</p>
+        <p class="partyLvl">Party Level: Used to calculate encounters with Champion's rune equipped. Sum of levels of whole party</p>
+        <p class="area">Area: Area used for calculations. Encounter calculations can have multiple areas.</p>
+        <p class="enemyGroup">Enemy Group: Enemy group fought/fighting for drops.</p>
+      </div>
+      <div class="col-md-6">
+        <div class="btn-group btn-group-xs">
+          <button type="button" class="btn btn-primary" onclick="changeMode('encounters');">Encounters</button>
+          <button type="button" class="btn btn-primary" onclick="changeMode('drops');">Drops</button>
+          <button type="button" class="btn btn-primary" onclick="changeMode('sequence');">RNG Sequence</button>
+          <button type="button" class="btn btn-primary" onclick="changeMode('findRNG');">Find RNG Seed</button>
+        </div>
+        <form id="encountersForm">
+          <div class="rng">
+            <label class="rng" for="startRNG">Starting RNG</label>
+            <input class="rng" id="startRNG" type="text" value="0x12">
+          </div>
 
-					<label class="iterations" for="iterations">Iterations</label>
-					<input class="iterations" id="iterations" type="number" step="500" value="1000"><br>
+          <div class="iterations">
+            <label class="iterations" for="iterations">Iterations</label>
+            <input class="iterations" id="iterations" type="number" step="500" value="1000">
+          </div>
 
-					<label class="partyLvl" for="partyLvl">Party Level</label>
-					<input class="partyLvl" id="partyLvl" type="number" value="0">
-					<div id="areasContainer">
-						Area(s)
-						<select id="areas" onchange="createEnemyGroupSelector(enemies);"></select>
-						<input class="btn btn-default btn-sm" type="button" id="addAreaButton" onclick="addArea();" value="Add Area">
-					</div>
-					<div id="enemyGroupContainer" style="display: none;">
-						EnemyGroup
-						<select id="enemyGroup"></select>
-						<input class="btn btn-default btn-sm" type="button" id="addEnemyGroupButton" onclick="addEnemyGroup();" value="Add Fight">
-					</div>
-					<input class="btn btn-primary btn-sm" type="button" onclick="run();" value="Run">
-				</form>
-			</div>
-			<div class="col-md-4">
-				<h3>Addable options</h3>
-			</div>
-			<div class="col-md-4">
-				<h3>Currently Selected</h3>
-			</div>
-		</div>
-		<div class="table-responsive">
-			<table id="table"></table>
-		</div>
-		<div>
-			<button onclick="download(generateCSVFromJSON(fightList), 'EncounterTable.csv')">
-				Export Table
-			</button>
-		</div>
-	</div>
+          <div class="partyLvl">
+            <label class="partyLvl" for="partyLvl">Party Level</label>
+            <input class="partyLvl" id="partyLvl" type="number" value="0">
+          </div>
+
+          <div class="area">
+            <label class="area" for="area">Area(s)</label>
+            <select class="area" id="area" onchange="createEnemyGroupSelector(enemies);"></select>
+            <input class="btn btn-default btn-sm area" type="button" id="addAreaButton" onclick="addArea();" value="Add Area">
+          </div>
+
+          <div class="enemyGroup">
+            <label class="enemyGroup" for="enemyGroup">Enemy Group</label>
+            <select class ="enemyGroup" id="enemyGroup"></select>
+            <input class="btn btn-default btn-sm enemyGroup" type="button" id="addEnemyGroupButton" onclick="addEnemyGroup();" value="Add Fight">
+          </div>
+
+          <input class="btn btn-primary btn-sm" type="button" onclick="run();" value="Run">
+        </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-9" id="addable_options">
+        <h3>Addable options</h3>
+        <div class="col-md-3 addable"></div>
+        <div class="col-md-3 addable"></div>
+        <div class="col-md-3 addable"></div>
+      </div>
+      <div class="col-md-3">
+        <h3>Currently Selected</h3>
+      </div>
+    </div>
+    <div>
+      <div class="table-responsive">
+        <table id="table"></table>
+      </div>
+      <button onclick="download(generateCSVFromJSON(fightList), 'EncounterTable.csv')">
+        Export Table
+      </button>
+    </div>
+  </div>
 </body>

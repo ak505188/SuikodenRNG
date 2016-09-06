@@ -4,47 +4,42 @@ function changeMode(_mode) {
 }
 
 function selectMode() {
-  var areas = document.getElementById('areasContainer');
-  var addArea = document.getElementById('addAreaButton');
-  var enemyGroup = document.getElementById('enemyGroupContainer');
-  var addEnemyGroup = document.getElementById('addEnemyGroupButton');
-
   switch(mode) {
     case 'encounters':
       $('.rng').show();
       $('.iterations').show();
       $('.partyLvl').show();
-      areas.style.display = 'block';
-      addArea.style.display = 'block';
-      enemyGroup.style.display = 'none';
-      addEnemyGroup.style.display = 'none';
+      $('.area').show();
+      $('#addAreaButton').show();
+      $('.enemyGroup').hide();
+      $('#addEnemyGroup').hide();
       break;
     case 'drops':
       $('.rng').show();
       $('.iterations').show();
       $('.partyLvl').hide();
-      areas.style.display = 'block';
-      addArea.style.display = 'none';
-      enemyGroup.style.display = 'block';
-      addEnemyGroup.style.display = 'none';
+      $('.area').show();
+      $('#addAreaButton').hide();
+      $('.enemyGroup').show();
+      $('#addEnemyGroup').hide();
       break;
     case 'sequence':
       $('.rng').show();
       $('.iterations').show();
       $('.partyLvl').hide();
-      areas.style.display = 'none';
-      addArea.style.display = 'none';
-      enemyGroup.style.display = 'none';
-      addEnemyGroup.style.display = 'none';
+      $('.area').hide();
+      $('#addAreaButton').hide();
+      $('.enemyGroup').hide();
+      $('#addEnemyGroup').hide();
       break;
     case 'findRNG':
       $('.rng').hide();
       $('.iterations').hide();
       $('.partyLvl').hide();
-      areas.style.display = 'block';
-      addArea.style.display = 'none';
-      enemyGroup.style.display = 'block';
-      addEnemyGroup.style.display = 'block';
+      $('.area').show();
+      $('#addAreaButton').hide();
+      $('.enemyGroup').show();
+      $('#addEnemyGroup').show();
       break;
     default:
       console.error('Default switch should never be hit.');
@@ -90,8 +85,8 @@ function generateCSVRow(arr) {
 }
 
 function addArea(area) {
-  var select = document.getElementById('areas');
-  var data = select.options[select.selectedIndex].data;
+  var select = document.getElementById('area');
+  var data = area !== undefined ? area.data : select.options[select.selectedIndex].data;
   selectedAreas.push(data);
 }
 
@@ -104,9 +99,8 @@ function addEnemyGroup(group) {
 
 function run() {
   var selected = document.getElementById('mode');
-  var mode = selected.options[selected.selectedIndex].value;
 
-  var areasSelect = document.getElementById('areas');
+  var areasSelect = document.getElementById('area');
   var area = areasSelect.options[areasSelect.selectedIndex].value;
   var rng = parseInt(document.getElementById('startRNG').value);
   var iterations = document.getElementById('iterations').value;

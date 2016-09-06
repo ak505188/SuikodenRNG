@@ -4,7 +4,7 @@ var fightList = [];
 var mode = '';
 
 function createAreaSelector(enemies) {
-  var select = document.getElementById('areas');
+  var select = document.getElementById('area');
   for (var area in areas) {
     var option = document.createElement('option');
     option.innerHTML = area;
@@ -15,7 +15,7 @@ function createAreaSelector(enemies) {
 }
 
 function createEnemyGroupSelector(enemies) {
-  var areasSelect = document.getElementById('areas');
+  var areasSelect = document.getElementById('area');
   var area = areasSelect.options[areasSelect.selectedIndex].value;
   var select = document.getElementById('enemyGroup');
   // Clear
@@ -31,6 +31,25 @@ function createEnemyGroupSelector(enemies) {
   }
 }
 
+function fillAddableAreas() {
+  var divs = $('.addable').empty();
+  var index = 0;
+  var count = 0;
+  var cap = Math.ceil(Object.keys(areas).length / divs.length);
+
+  for (var area in areas) {
+    var div = $('<div></div>');
+    var button = $('<button></button>').text('Add');
+    var data = areas[area];
+    $(div).text(area);
+    $(button).click(data, addArea);
+    $(div).append(button);
+    $(divs[index]).append(div);
+    index = ++count > cap * (index + 1) ? index + 1 : index;
+    console.log(count, cap, index);
+  }
+}
+
 function initAreas(enemies) {
   var areas = {};
   for (var area in enemies) {
@@ -43,4 +62,5 @@ window.onload = function() {
   areas = initAreas(enemies);
   createAreaSelector(enemies);
   createEnemyGroupSelector(enemies);
+  changeMode('encounters');
 };
