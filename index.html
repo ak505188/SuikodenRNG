@@ -53,28 +53,26 @@
           <div class="area">
             <label class="area" for="area">Area(s)</label>
             <select class="area" id="area" onchange="createEnemyGroupSelector(enemies);"></select>
-            <input class="btn btn-default btn-sm area" type="button" id="addAreaButton" onclick="addArea();" value="Add Area">
           </div>
 
           <div class="enemyGroup">
             <label class="enemyGroup" for="enemyGroup">Enemy Group</label>
             <select class ="enemyGroup" id="enemyGroup"></select>
-            <input class="btn btn-default btn-sm enemyGroup" type="button" id="addEnemyGroupButton" onclick="addEnemyGroup();" value="Add Fight">
           </div>
 
           <input class="btn btn-primary btn-sm" type="button" onclick="run();" value="Run">
         </form>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-9" id="addable_options">
-        <h3>Addable options</h3>
-        <div class="col-md-3 addable"></div>
-        <div class="col-md-3 addable"></div>
-        <div class="col-md-3 addable"></div>
+    <div class="row" id="addable_and_selected">
+      <div class="col-md-8" id="addable_options">
+        <h3 class="text-center">Addable options</h3>
+        <div class="col-md-6 addable"></div>
+        <div class="col-md-6 addable"></div>
       </div>
-      <div class="col-md-3">
-        <h3>Currently Selected</h3>
+      <div class="col-md-4" >
+        <h3 class="text-center">Currently Selected</h3>
+        <div id="currently_selected"></div>
       </div>
     </div>
     <div>
