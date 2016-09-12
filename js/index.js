@@ -14,6 +14,7 @@ function selectMode() {
       $('#addEnemyGroup').hide();
       $('#addable_and_selected').show();
       fillAddableAreas();
+      fillCurrentlySelectedAreas();
       break;
     case 'drops':
       $('.rng').show();
@@ -42,10 +43,23 @@ function selectMode() {
       $('#addEnemyGroup').show();
       $('#addable_and_selected').show();
       fillAddableEnemies();
+      fillCurrentlySelectedEnemies();
       break;
     default:
       console.error('Default switch should never be hit.');
   }
+}
+
+function modify() {
+  $('#table-container').hide();
+  $('#form-container').show();
+  selectMode();
+}
+
+function reset() {
+  selectedAreas = [];
+  fightList = [];
+  modify();
 }
 
 function addArea(area) {
@@ -228,5 +242,7 @@ function run() {
       alert('RNG found: ' + areas[area].findRNG(fightList));
       break;
   }
+  $('#form-container').hide();
+  $('#table-container').show();
 }
 

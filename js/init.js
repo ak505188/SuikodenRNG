@@ -43,5 +43,6 @@ window.onload = function() {
   areas = initAreas(enemies);
   createAreaSelector(enemies);
   createEnemyGroupSelector(enemies);
+  $('#table-container').hide();
   changeMode('encounters');
 };
