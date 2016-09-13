@@ -6,47 +6,45 @@ function changeMode(_mode) {
 function selectMode() {
   switch(mode) {
     case 'encounters':
-      $('.rng').show();
-      $('.iterations').show();
-      $('.partyLvl').show();
-      $('.area').hide();
-      $('.enemyGroup').hide();
-      $('#addEnemyGroup').hide();
-      $('#addable_and_selected').show();
+      showElements(['.rng', '.iterations', '.partyLvl', '#addable_and_selected']);
+      hideElements(['.area', '.enemyGroup']);
       fillAddableAreas();
       fillCurrentlySelectedAreas();
       break;
     case 'drops':
+      showElements(['.rng', '.iterations', '.area', '.enemyGroup']);
+      hideElements(['.partyLvl', '#addable_and_selected']);
       $('.rng').show();
       $('.iterations').show();
       $('.partyLvl').hide();
       $('.area').show();
       $('.enemyGroup').show();
-      $('#addEnemyGroup').hide();
       $('#addable_and_selected').hide();
       break;
     case 'sequence':
-      $('.rng').show();
-      $('.iterations').show();
-      $('.partyLvl').hide();
-      $('.area').hide();
-      $('.enemyGroup').hide();
-      $('#addEnemyGroup').hide();
-      $('#addable_and_selected').hide();
+      showElements(['.rng', '.iterations']);
+      hideElements(['.partyLvl', '.area', '.enemyGroup', '#addable_and_selected']);
       break;
     case 'findRNG':
-      $('.rng').hide();
-      $('.iterations').hide();
-      $('.partyLvl').hide();
-      $('.area').show();
-      $('.enemyGroup').show();
-      $('#addEnemyGroup').show();
-      $('#addable_and_selected').show();
+      showElements(['.rng', '.area', '#addable_and_selected']);
+      hideElements(['.iterations', '.partyLvl', '.enemyGroup']);
       fillAddableEnemies();
       fillCurrentlySelectedEnemies();
       break;
     default:
       console.error('Default switch should never be hit.');
+  }
+}
+
+function showElements(element_ids) {
+  for (var id in element_ids) {
+    $(element_ids[id]).show();
+  }
+}
+
+function hideElements(element_ids) {
+  for (var id in element_ids) {
+    $(element_ids[id]).hide();
   }
 }
 
@@ -242,7 +240,9 @@ function run() {
       alert('RNG found: ' + areas[area].findRNG(fightList));
       break;
   }
-  $('#form-container').hide();
-  $('#table-container').show();
+  if (mode != 'findRNG') {
+    $('#form-container').hide();
+    $('#table-container').show();
+  }
 }
 

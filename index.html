@@ -21,58 +21,63 @@
     </div>
     <div id="form-container">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
+          <form id="encountersForm">
+            <div class="text-center">
+              <div class="btn-group btn-group-xs text-center form-group">
+                <button type="button" class="btn btn-primary" onclick="changeMode('encounters');">Encounters</button>
+                <button type="button" class="btn btn-primary" onclick="changeMode('drops');">Drops</button>
+                <button type="button" class="btn btn-primary" onclick="changeMode('sequence');">RNG Sequence</button>
+                <button type="button" class="btn btn-primary" onclick="changeMode('findRNG');">Find RNG Seed</button>
+              </div>
+            </div>
+
+            <div class="rng form-group">
+              <label class="rng" for="startRNG">Starting RNG</label>
+              <input class="rng form-control" id="startRNG" type="text" value="0x12">
+            </div>
+
+            <div class="iterations form-group">
+              <label class="iterations" for="iterations">Iterations</label>
+              <input class="iterations form-control" id="iterations" type="number" step="500" value="1000">
+            </div>
+
+            <div class="partyLvl form-group">
+              <label class="partyLvl" for="partyLvl">Party Level</label>
+              <input class="partyLvl form-control" id="partyLvl" type="number" value="0">
+            </div>
+
+            <div class="area form-group">
+              <label class="area" for="area">Area(s)</label>
+              <select class="area form-control" id="area" onchange="createEnemyGroupSelector(enemies); fillAddableEnemies();"></select>
+            </div>
+
+            <div class="enemyGroup form-group">
+              <label class="enemyGroup" for="enemyGroup">Enemy Group</label>
+              <select class="enemyGroup form-control" id="enemyGroup"></select>
+            </div>
+
+            <div class="text-center">
+              <input class="btn btn-primary btn-md" type="button" onclick="run();" value="Run">
+            </div>
+          </form>
+        </div>
+        <div class="col-md-8">
+          <div class="row" id="addable_options">
+            <div class="col-md-6 addable"></div>
+            <div class="col-md-6 addable"></div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
           <p class="rng">Starting RNG: the RNG value to start calculations from.</p>
           <p class="iterations">Iterations: How many RNG values to iterate through.</p>
           <p class="partyLvl">Party Level: Used to calculate encounters with Champion's rune equipped. Sum of levels of whole party</p>
           <p class="area">Area: Area used for calculations. Encounter calculations can have multiple areas.</p>
-          <p class="enemyGroup">Enemy Group: Enemy group fought/fighting for drops.</p>
         </div>
-        <div class="col-md-6">
-          <div class="btn-group btn-group-xs">
-            <button type="button" class="btn btn-primary" onclick="changeMode('encounters');">Encounters</button>
-            <button type="button" class="btn btn-primary" onclick="changeMode('drops');">Drops</button>
-            <button type="button" class="btn btn-primary" onclick="changeMode('sequence');">RNG Sequence</button>
-            <button type="button" class="btn btn-primary" onclick="changeMode('findRNG');">Find RNG Seed</button>
-          </div>
-          <form id="encountersForm">
-            <div class="rng">
-              <label class="rng" for="startRNG">Starting RNG</label>
-              <input class="rng" id="startRNG" type="text" value="0x12">
-            </div>
-
-            <div class="iterations">
-              <label class="iterations" for="iterations">Iterations</label>
-              <input class="iterations" id="iterations" type="number" step="500" value="1000">
-            </div>
-
-            <div class="partyLvl">
-              <label class="partyLvl" for="partyLvl">Party Level</label>
-              <input class="partyLvl" id="partyLvl" type="number" value="0">
-            </div>
-
-            <div class="area">
-              <label class="area" for="area">Area(s)</label>
-              <select class="area" id="area" onchange="createEnemyGroupSelector(enemies);"></select>
-            </div>
-
-            <div class="enemyGroup">
-              <label class="enemyGroup" for="enemyGroup">Enemy Group</label>
-              <select class ="enemyGroup" id="enemyGroup"></select>
-            </div>
-
-            <input class="btn btn-primary btn-sm" type="button" onclick="run();" value="Run">
-          </form>
-        </div>
-      </div>
-      <div class="row" id="addable_and_selected">
-        <div class="col-md-8" id="addable_options">
-          <h3 class="text-center">Addable options</h3>
-          <div class="col-md-6 addable"></div>
-          <div class="col-md-6 addable"></div>
-        </div>
-        <div class="col-md-4" >
-          <h3 class="text-center">Currently Selected</h3>
+        <div class="col-md-8">
+          <h4 class="text-center">Selected</h4>
           <div id="currently_selected"></div>
         </div>
       </div>
@@ -83,3 +88,7 @@
         <input class="btn btn-success btn-large" onclick="download(generateCSVFromJSON(fightList), 'EncounterTable.csv')" value="Export Table">
         <input class="btn btn-success btn-large" onclick="modify()" value="Modify">
         <input class="btn btn-success btn-large" onclick="reset()" value="Reset">
+      </div>
+    </div>
+  </div>
+</body>
