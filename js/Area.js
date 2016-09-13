@@ -39,7 +39,7 @@ var Area = function(name, area) {
           index = encounters.length;
         }
       }
-      rng = lib.calculateRNG(rng);
+      rng = calculateRNG(rng);
       if (i % 42949672 === 0) console.log(Math.floor(i/42949662) + '%');
     }
     return false;
@@ -73,7 +73,7 @@ var Area = function(name, area) {
 
   function isBattleWorldMap(rng) {
     var r3 = rng;
-    var r2 = lib.calcR2FromRng(rng);
+    var r2 = calcR2FromRng(rng);
     r3 = r2;
     r2 = r2 >> 8;
     r2 = r2 << 8;
@@ -82,19 +82,19 @@ var Area = function(name, area) {
   }
 
   function isBattleDungeon(rng) {
-    var r2 = lib.calcR2FromRng(rng);
+    var r2 = calcR2FromRng(rng);
     var r3 = 0x7F;
-    var mflo = lib.div32ulo(r2, r3);
+    var mflo = div32ulo(r2, r3);
     r2 = mflo;
     r2 = r2 & 0xFF;
     return r2;
   }
 
   this.getEncounterIndex = function(rng) {
-    rng = lib.calculateRNG(rng);
-    var r2 = lib.calcR2FromRng(rng);
-    r3 = lib.div32ulo(0x7FFF, this.encounterTable.length);
-    var encounterIndex = lib.div32ulo(r2, r3);
+    rng = calculateRNG(rng);
+    var r2 = calcR2FromRng(rng);
+    r3 = div32ulo(0x7FFF, this.encounterTable.length);
+    var encounterIndex = div32ulo(r2, r3);
     while (encounterIndex >= Object.keys(area.encounters).length) {
       // console.error('Encounter out of bounds. Index =', encounterIndex, 'Length =', Object.keys(area.encounters).length, 'RNG =', rng.toString(16));
       encounterIndex--;

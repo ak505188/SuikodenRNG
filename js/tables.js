@@ -25,7 +25,7 @@ function encounterTableMaker(encounters, partyLvl) {
     arr.push(fight.startingRNG.toString(16));
     arr.push(fight.battleRNG.toString(16));
     arr.push(fight.encounterValue);
-    arr.push(lib.wheelSuccess(fight.battleRNG));
+    arr.push(fight.wheel);
     return arr;
   });
 
