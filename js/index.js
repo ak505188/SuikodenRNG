@@ -6,27 +6,21 @@ function changeMode(_mode) {
 function selectMode() {
   switch(mode) {
     case 'encounters':
-      showElements(['.rng', '.iterations', '.partyLvl', '#addable_and_selected']);
+      showElements(['.rng', '.iterations', '.partyLvl', '#addable_options', '#currently_selected']);
       hideElements(['.area', '.enemyGroup']);
       fillAddableAreas();
       fillCurrentlySelectedAreas();
       break;
     case 'drops':
       showElements(['.rng', '.iterations', '.area', '.enemyGroup']);
-      hideElements(['.partyLvl', '#addable_and_selected']);
-      $('.rng').show();
-      $('.iterations').show();
-      $('.partyLvl').hide();
-      $('.area').show();
-      $('.enemyGroup').show();
-      $('#addable_and_selected').hide();
+      hideElements(['.partyLvl', '#addable_options', '#currently_selected']);
       break;
     case 'sequence':
       showElements(['.rng', '.iterations']);
-      hideElements(['.partyLvl', '.area', '.enemyGroup', '#addable_and_selected']);
+      hideElements(['.partyLvl', '.area', '.enemyGroup','#addable_options', '#currently_selected']);
       break;
     case 'findRNG':
-      showElements(['.rng', '.area', '#addable_and_selected']);
+      showElements(['.rng', '.area', '#addable_options', '#currently_selected']);
       hideElements(['.iterations', '.partyLvl', '.enemyGroup']);
       fillAddableEnemies();
       fillCurrentlySelectedEnemies();
@@ -61,8 +55,7 @@ function reset() {
 }
 
 function addArea(area) {
-  var select = document.getElementById('area');
-  var data = area !== undefined ? area.data : select.options[select.selectedIndex].data;
+  var data = area.data;
   if ($.inArray(data, selectedAreas) === -1) {
     selectedAreas.push(data);
     fillCurrentlySelectedAreas();
@@ -170,26 +163,24 @@ function removeArea(area) {
   }
 }
 
-function generateCSVFromJSON() {
-  var CSV = '';
-  var table = document.getElementById('table');
-  for (var row in table.rows) {
-    var columns = [];
-    for (var column = 0; column < table.rows[row].childElementCount; column++) {
-      columns
-        .push(table.rows[row].cells[column].innerHTML);
-    }
-    CSV += generateCSVRow(columns);
-  }
-  return CSV;
-}
-
 function removeEnemy(data) {
   index = data.data;
   fightList.splice(index, 1);
   fillCurrentlySelectedEnemies();
 }
 
+function generateCSVFromJSON() {
+  var CSV = '';
+  var table = document.getElementById('table');
+  for (var row in table.rows) {
+    var columns = [];
+    for (var column = 0; column < table.rows[row].childElementCount; column++) {
+      columns.push(table.rows[row].cells[column].innerHTML);
+    }
+    CSV += generateCSVRow(columns);
+  }
+  return CSV;
+}
 
 function download(item, filename) {
   // http://stackoverflow.com/questions/3665115/create-a-file-in-memory-for-user-to-download-not-through-server

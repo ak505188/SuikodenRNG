@@ -16,7 +16,7 @@ function encounterTableMaker(encounters, partyLvl) {
     });
   }
 
-  fightList = encounters.map(function(fight) {
+  var fights = encounters.map(function(fight) {
     var arr = [];
     arr.push(fight.area.name);
     arr.push(fight.EnemyGroup.name);
@@ -29,7 +29,7 @@ function encounterTableMaker(encounters, partyLvl) {
     return arr;
   });
 
-  tableMaker(fightList, headers);
+  tableMaker(fights, headers);
 }
 
 function dropTableMaker(group, rng, iterations) {
