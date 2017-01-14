@@ -1,54 +1,172 @@
-function selectMode() {
-  var startRNG = document.getElementById('startRNGContainer');
-  var iterations = document.getElementById('iterationsContainer');
-  var partyLvl = document.getElementById('partyLvlContainer');
-  var areas = document.getElementById('areasContainer');
-  var addArea = document.getElementById('addAreaButton');
-  var enemyGroup = document.getElementById('enemyGroupContainer');
-  var addEnemyGroup = document.getElementById('addEnemyGroupButton');
+function changeMode(_mode) {
+  mode = _mode;
+  selectMode();
+}
 
-  var selected = document.getElementById('mode');
-  var mode = selected.options[selected.selectedIndex].value;
+function selectMode() {
   switch(mode) {
     case 'encounters':
-      startRNG.style.display = 'inline-block';
-      iterations.style.display = 'inline-block';
-      partyLvl.style.display = 'inline-block';
-      areas.style.display = 'inline-block';
-      addArea.style.display = 'inline-block';
-      enemyGroup.style.display = 'none';
-      addEnemyGroup.style.display = 'none';
+      showElements(['.rng', '.iterations', '.partyLvl', '#addable_options', '#currently_selected']);
+      hideElements(['.area', '.enemyGroup']);
+      fillAddableAreas();
+      fillCurrentlySelectedAreas();
       break;
     case 'drops':
-      startRNG.style.display = 'inline-block';
-      iterations.style.display = 'inline-block';
-      partyLvl.style.display = 'none';
-      areas.style.display = 'inline-block';
-      addArea.style.display = 'none';
-      enemyGroup.style.display = 'inline-block';
-      addEnemyGroup.style.display = 'none';
+      showElements(['.rng', '.iterations', '.area', '.enemyGroup']);
+      hideElements(['.partyLvl', '#addable_options', '#currently_selected']);
       break;
     case 'sequence':
-      startRNG.style.display = 'inline-block';
-      iterations.style.display = 'inline-block';
-      partyLvl.style.display = 'none';
-      areas.style.display = 'none';
-      addArea.style.display = 'none';
-      enemyGroup.style.display = 'none';
-      addEnemyGroup.style.display = 'none';
+      showElements(['.rng', '.iterations']);
+      hideElements(['.partyLvl', '.area', '.enemyGroup','#addable_options', '#currently_selected']);
       break;
     case 'findRNG':
-      startRNG.style.display = 'none';
-      iterations.style.display = 'none';
-      partyLvl.style.display = 'none';
-      areas.style.display = 'inline-block';
-      addArea.style.display = 'none';
-      enemyGroup.style.display = 'inline-block';
-      addEnemyGroup.style.display = 'inline-block';
+      showElements(['.rng', '.area', '#addable_options', '#currently_selected']);
+      hideElements(['.iterations', '.partyLvl', '.enemyGroup']);
+      fillAddableEnemies();
+      fillCurrentlySelectedEnemies();
       break;
     default:
       console.error('Default switch should never be hit.');
   }
+}
+
+function showElements(element_ids) {
+  for (var id in element_ids) {
+    $(element_ids[id]).show();
+  }
+}
+
+function hideElements(element_ids) {
+  for (var id in element_ids) {
+    $(element_ids[id]).hide();
+  }
+}
+
+function modify() {
+  $('#table-container').hide();
+  $('#form-container').show();
+  selectMode();
+}
+
+function reset() {
+  selectedAreas = [];
+  fightList = [];
+  modify();
+}
+
+function addArea(area) {
+  var data = area.data;
+  if ($.inArray(data, selectedAreas) === -1) {
+    selectedAreas.push(data);
+    fillCurrentlySelectedAreas();
+  }
+}
+
+function addEnemyGroup(data) {
+  fightList.push(data.data);
+  fillCurrentlySelectedEnemies();
+}
+
+function fillAddableEnemies() {
+  var area = areas[$('#area').val()];
+  var divs = $('.addable').empty();
+  var index = 0;
+  var count = 0;
+
+  for (var i in area.encounterTable) {
+    var div = $('<div></div>', {
+      'class': 'clearfix',
+      text: area.encounterTable[i].name
+    });
+    var button = $('<button></button>', {
+      'class': 'btn btn-primary btn-xs pull-right',
+      text:  'Add'
+    });
+    $(button).click(parseInt(i), addEnemyGroup);
+    $(div).append(button);
+    $(divs[index]).append(div);
+    index = Math.floor(++count/(Object.keys(area.encounterTable).length/divs.length));
+  }
+}
+
+function fillAddableAreas() {
+  var divs = $('.addable').empty();
+  var index = 0;
+  var count = 0;
+  var invalid = 0;
+
+  for (var i in areas) {
+    if (areas[i].type === null) invalid++;
+  }
+
+  for (var area in areas) {
+    var div = $('<div></div>', {
+      'class': 'clearfix'
+    });
+    var button = $('<button></button>', {
+      'class': 'btn btn-primary btn-xs pull-right',
+      text:  'Add'
+    });
+    var data = areas[area];
+    if (data.type !== null) {
+      $(div).text(area);
+      $(button).click(data, addArea);
+      $(div).append(button);
+      $(divs[index]).append(div);
+      index = Math.floor(++count/((Object.keys(areas).length - invalid)/divs.length));
+    }
+  }
+}
+
+function fillCurrentlySelectedAreas() {
+  var currently_selected = $('#currently_selected').empty();
+
+  for (var i = 0; i < selectedAreas.length; i++) {
+    var div = $('<div></div>', {
+      'class': 'clearfix'
+    });
+    var button = $('<button></button>', {
+      'class': 'btn btn-danger btn-xs pull-right',
+      text:  'Remove'
+    });
+    $(div).text(selectedAreas[i].name);
+    $(button).click(selectedAreas[i], removeArea);
+    $(div).append(button);
+    $(currently_selected).append(div);
+  }
+}
+
+function fillCurrentlySelectedEnemies() {
+  var currently_selected = $('#currently_selected').empty();
+  var area = areas[$('#area').val()];
+
+  for (var i = 0; i < fightList.length; i++) {
+    var div = $('<div></div>', {
+      'class': 'clearfix'
+    });
+    var button = $('<button></button>', {
+      'class': 'btn btn-danger btn-xs pull-right',
+      text:  'Remove'
+    });
+    $(div).text(area.encounterTable[fightList[i]].name);
+    $(button).click(i, removeEnemy);
+    $(div).append(button);
+    $(currently_selected).append(div);
+  }
+}
+
+function removeArea(area) {
+  index = $.inArray(area.data, selectedAreas);
+  if (index !== -1) {
+    selectedAreas.splice(index, 1);
+    fillCurrentlySelectedAreas();
+  }
+}
+
+function removeEnemy(data) {
+  index = data.data;
+  fightList.splice(index, 1);
+  fillCurrentlySelectedEnemies();
 }
 
 function generateCSVFromJSON() {
@@ -88,16 +206,11 @@ function generateCSVRow(arr) {
   return row;
 }
 
-function addArea(area) {
-  var select = document.getElementById('areas');
-  var data = select.options[select.selectedIndex].data;
-  selectedAreas.push(data);
-}
-
 function run() {
   var selected = document.getElementById('mode');
-  var mode = selected.options[selected.selectedIndex].value;
 
+  var areasSelect = document.getElementById('area');
+  var area = areasSelect.options[areasSelect.selectedIndex].value;
   var rng = parseInt(document.getElementById('startRNG').value);
   var iterations = document.getElementById('iterations').value;
   var partyLvl = document.getElementById('partyLvl').value;
@@ -114,6 +227,13 @@ function run() {
     case 'sequence':
       sequenceTableMaker(rng, iterations);
       break;
+    case 'findRNG':
+      alert('RNG found: ' + areas[area].findRNG(fightList));
+      break;
+  }
+  if (mode != 'findRNG') {
+    $('#form-container').hide();
+    $('#table-container').show();
   }
 }
 

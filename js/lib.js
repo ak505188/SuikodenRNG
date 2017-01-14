@@ -1,56 +1,35 @@
-var lib = {
-  mult32ulo: function(n, m) {
-    n >>>= 0;
-    m >>>= 0;
-    var nlo = n & 0xffff;
-    var nhi = n - nlo;
-    return (((nhi * m >>> 0) + (nlo * m)) & 0xFFFFFFFF) >>> 0;
-  },
+function mult32ulo(n, m) {
+  n >>>= 0;
+  m >>>= 0;
+  var nlo = n & 0xffff;
+  var nhi = n - nlo;
+  return (((nhi * m >>> 0) + (nlo * m)) & 0xFFFFFFFF) >>> 0;
+}
 
-  mult32uhi: function(n, m) {
-    n >>>= 0;
-    m >>>= 0;
+function mult32uhi(n, m) {
+  n >>>= 0;
+  m >>>= 0;
 
-    return ((n * m) - this.mult32ulo(n, m)) / Math.pow(2, 32);
-  },
+  return ((n * m) - this.mult32ulo(n, m)) / Math.pow(2, 32);
+}
 
-  div32ulo: function(n, m) {
-    return Math.floor(n/m) >>> 0;
-  },
+function div32ulo(n, m) {
+  return Math.floor(n/m) >>> 0;
+}
 
-  calculateRNG: function(prev_rng) {
-    var r3 = prev_rng;
-    var r1 = 0x41c64e6d;
+function calculateRNG(prev_rng) {
+  return mult32ulo(0x41c64e6d, prev_rng) + 0x3039;
+}
 
-    var lo = lib.mult32ulo(r1, r3);
-
-    r3 = lo;
-    r3 = r3 + 0x3039;
-    return r3;
-  },
-
-  advanceRNG: function(rng, iterations) {
-    for (var i = 0; i < iterations; i++) {
-      rng = lib.calculateRNG(rng);
-    }
-    return rng;
-  },
-
-  calcR2FromRng: function(rng) {
-    var r2 = rng >> 16;
-    r2 = r2 & 0x7FFF;
-    return r2;
-  },
-
-  wheelSuccess: function(rng) {
-    var counter = 0;
-    var success = function(pos) {
-      return pos >= 0x7f && pos <= 0xa0;
-    };
-    do {
-      counter++;
-      rng = this.calculateRNG(rng);
-    } while (!success(this.div32ulo(this.calcR2FromRng(rng), 0x5a)));
-    return --counter;
+function advanceRNG(rng, iterations) {
+  for (var i = 0; i < iterations; i++) {
+    rng = calculateRNG(rng);
   }
-};
+  return rng;
+}
+
+function calcR2FromRng(rng) {
+  var r2 = rng >> 16;
+  r2 = r2 & 0x7FFF;
+  return r2;
+}

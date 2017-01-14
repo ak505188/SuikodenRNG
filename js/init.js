@@ -1,9 +1,10 @@
 var selectedAreas = [];
 var areas = [];
-var fightList;
+var fightList = [];
+var mode = '';
 
 function createAreaSelector(enemies) {
-  var select = document.getElementById('areas');
+  var select = document.getElementById('area');
   for (var area in areas) {
     var option = document.createElement('option');
     option.innerHTML = area;
@@ -14,7 +15,7 @@ function createAreaSelector(enemies) {
 }
 
 function createEnemyGroupSelector(enemies) {
-  var areasSelect = document.getElementById('areas');
+  var areasSelect = document.getElementById('area');
   var area = areasSelect.options[areasSelect.selectedIndex].value;
   var select = document.getElementById('enemyGroup');
   // Clear
@@ -42,4 +43,6 @@ window.onload = function() {
   areas = initAreas(enemies);
   createAreaSelector(enemies);
   createEnemyGroupSelector(enemies);
+  $('#table-container').hide();
+  changeMode('encounters');
 };

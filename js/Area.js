@@ -9,37 +9,71 @@ var Area = function(name, area) {
     return this.encounterTable[this.getEncounterIndex(rng)];
   };
 
-  this.findRNG = function(rng, max_iterations, encounters) {
-    var steps = 0;
-    var current = 0;
-    var startRNG = rng;
-    for (var i = 0; i < max_iterations; i++) {
-      var prevRNG = rng;
-      rng = lib.calculateRNG(rng);
+  this.findRNG = function(encounters, rng) {
+    var startTime = new Date().getTime();
+    if (encounters.length <= 1) return false;
+    // Smaller array size is slower but more space efficient. Performance drop should be negligable.
+    var arraySize = 0xffff;
+    var fights = new Array(arraySize);
+    var fightsRNG = new Array(arraySize);
+    rng = rng | 0x12;
+    var index = 0;
+    for (var i = 0; i < 0xffffffff; i++) {
       if (this.isBattle(rng) < this.encounterRate) {
-        if (this.getEncounterIndex(rng) === encounters[current].encounterIndex && (current === 0 || steps === encounters[current].steps)) {
-          if (current === 0) {
-            startRNG = rng;
+        fights[index] = this.getEncounterIndex(rng);
+        fightsRNG[index] = rng;
+        index++;
+        if (index === arraySize - 1) {
+          var result = bayerMoore(fights, encounters, this.encounterTable.length);
+          if (result !== false) {
+            console.log('Runtime: ' + (new Date().getTime() - startTime)/1000 + ' seconds.');
+            return fightsRNG[result].toString(16);
           }
-          if (++current >= encounters.length) {
-            return startRNG.toString(16);
+
+          // Takes end of fights and puts it in the beginning for next iteration
+          // Number of fight taken is length of pattern.
+          for (var j = arraySize - encounters.length, k = 0; j < encounters.length; j++, k++) {
+            fights[k] = fights[j];
+            fightsRNG[k] = fights[j];
           }
-        } else {
-          if (current !== 0) {
-            rng = prevRNG;
-          }
-          current = 0;
+          index = encounters.length;
         }
-        steps = 0;
       }
-      steps++;
+      rng = calculateRNG(rng);
+      if (i % 42949672 === 0) console.log(Math.floor(i/42949662) + '%');
     }
     return false;
   };
 
+  function bayerMoore(input, pattern, max) {
+    // Create bad char array
+    var badChar = new Array(max).fill(-1);
+    for (var j = 0; j < pattern.length - 1; j++) {
+      badChar[pattern[j]] = j;
+    }
+
+    // var pttrnIndx = pattern.length - 1;
+    var i = pattern.length - 1;
+    while (i < input.length) {
+      // check if match
+      var inputIndx = i;
+      var pttrnIndx = pattern.length - 1;
+      while (input[inputIndx] === pattern[pttrnIndx]) {
+        inputIndx--;
+        pttrnIndx--;
+        if (pttrnIndx === -1) return i - pattern.length + 1;
+      }
+      var badCharVal = badChar[input[inputIndx]];
+      // console.log('badCharVal:', badCharVal);
+      var jump = badCharVal === -1 ? pattern.length - 1 : pattern.length - badCharVal - 1;
+      i += jump;
+    }
+    return false;
+  }
+
   function isBattleWorldMap(rng) {
     var r3 = rng;
-    var r2 = lib.calcR2FromRng(rng);
+    var r2 = calcR2FromRng(rng);
     r3 = r2;
     r2 = r2 >> 8;
     r2 = r2 << 8;
@@ -48,21 +82,21 @@ var Area = function(name, area) {
   }
 
   function isBattleDungeon(rng) {
-    var r2 = lib.calcR2FromRng(rng);
+    var r2 = calcR2FromRng(rng);
     var r3 = 0x7F;
-    var mflo = lib.div32ulo(r2, r3);
+    var mflo = div32ulo(r2, r3);
     r2 = mflo;
     r2 = r2 & 0xFF;
     return r2;
   }
 
   this.getEncounterIndex = function(rng) {
-    rng = lib.calculateRNG(rng);
-    var r2 = lib.calcR2FromRng(rng);
-    r3 = lib.div32ulo(0x7FFF, this.encounterTable.length);
-    var encounterIndex = lib.div32ulo(r2, r3);
+    rng = calculateRNG(rng);
+    var r2 = calcR2FromRng(rng);
+    r3 = div32ulo(0x7FFF, this.encounterTable.length);
+    var encounterIndex = div32ulo(r2, r3);
     while (encounterIndex >= Object.keys(area.encounters).length) {
-      console.error('Encounter out of bounds. Index =', encounterIndex, 'Length =', Object.keys(area.encounters).length, 'RNG =', rng.toString(16));
+      // console.error('Encounter out of bounds. Index =', encounterIndex, 'Length =', Object.keys(area.encounters).length, 'RNG =', rng.toString(16));
       encounterIndex--;
     }
     return encounterIndex;
