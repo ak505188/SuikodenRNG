@@ -7,6 +7,13 @@ var lib = {
     return (((nhi * m >>> 0) + (nlo * m)) & 0xFFFFFFFF) >>> 0;
   },
 
+  mult32uhi: function(n, m) {
+    n >>>= 0;
+    m >>>= 0;
+
+    return ((n * m) - this.mult32ulo(n, m)) / Math.pow(2, 32);
+  },
+
   div32ulo: function(n, m) {
     return Math.floor(n/m) >>> 0;
   },
