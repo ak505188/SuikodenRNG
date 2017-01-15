@@ -8,8 +8,7 @@ var EnemyGroup = function(name, enemies) {
       var dropIndex = r2 % 3;
       if (dropIndex < this.enemies[enemy].drops.length) {
         var dropRate = this.enemies[enemy].drops[dropIndex].rate;
-        r = rng.getNext();
-        r2 = rng.getNext(r.rng, r.rng2).rng2;
+        r2 = rng.getNext(2).rng2;
         if (r2 % 100 < dropRate) {
           return this.enemies[enemy].drops[dropIndex].item;
         }
