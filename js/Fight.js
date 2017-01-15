@@ -3,17 +3,15 @@ var Fight = function(_area, _EnemyGroup, rng, index, encounterVal) {
     name: _area.name,
     type: _area.type
   };
-  this.startingRNG = rng;
-  this.battleRNG = calculateRNG(rng);
+  this.startingRNG = rng.getRNG();
+  this.battleRNG = rng.getNext().rng;
   this.index = index;
   this.EnemyGroup = _EnemyGroup;
   this.encounterValue = encounterVal;
-  this.run = isRun(this.battleRNG);
-  this.wheel = wheelSuccess(this.battleRNG);
+  this.run = isRun(rng.getNext().rng2);
+  this.wheel = wheelSuccess(rng.clone().next());
 
-  function isRun(rng) {
-    rng = calculateRNG(rng);
-    var r2 = calcR2FromRng(rng);
+  function isRun(r2) {
     var r3 = 100;
     r3 = r2 % r3;
     return r3 > 50 ? true : false;
@@ -26,9 +24,9 @@ var Fight = function(_area, _EnemyGroup, rng, index, encounterVal) {
     };
     do {
       counter++;
-      rng = calculateRNG(rng);
-    } while (!success(div32ulo(calcR2FromRng(rng), 0x5a)));
-    return --counter
+      rng.next();
+    } while (!success(div32ulo(rng.getRNG2(), 0x5a)));
+    return --counter;
   }
 };
 

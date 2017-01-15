@@ -1,7 +1,6 @@
 function Encounters(rng, iterations, areas, partyLvl, callback) {
   var encounters = [];
   for (var i = 0; i < iterations; i++) {
-    rng = calculateRNG(rng);
     for (var j in areas) {
       var area = areas[j];
       var encounterVal = area.isBattle(rng);
@@ -11,6 +10,7 @@ function Encounters(rng, iterations, areas, partyLvl, callback) {
         encounters.push(fight);
       }
     }
+    rng.next();
   }
   callback(encounters, partyLvl);
 }
@@ -18,8 +18,8 @@ function Encounters(rng, iterations, areas, partyLvl, callback) {
 function generateRNGSequence(rng, iterations) {
   var sequence = [];
   for (var i = 0; i < iterations; i++) {
-    rng = calculateRNG(rng);
-    sequence.push({index: i, rng: calculateRNG(rng)});
+    sequence.push({index: i, rng: rng.getRNG()});
+    rng.next();
   }
   return sequence;
 }

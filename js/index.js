@@ -219,13 +219,13 @@ function run() {
 
   switch(mode) {
     case 'encounters':
-      Encounters(rng, iterations, selectedAreas, partyLvl, encounterTableMaker);
+      Encounters(new RNG(rng), iterations, selectedAreas, partyLvl, encounterTableMaker);
       break;
     case 'drops':
-      dropTableMaker(enemyGroup, rng, iterations);
+      dropTableMaker(enemyGroup, new RNG(rng), iterations);
       break;
     case 'sequence':
-      sequenceTableMaker(rng, iterations);
+      sequenceTableMaker(new RNG(rng), iterations);
       break;
     case 'findRNG':
       alert('RNG found: ' + areas[area].findRNG(fightList));

@@ -16,12 +16,12 @@ var Area = function(name, area) {
     var arraySize = 0xffff;
     var fights = new Array(arraySize);
     var fightsRNG = new Array(arraySize);
-    rng = rng | 0x12;
+    rng = rng === undefined ? new RNG(0x12) : rng;
     var index = 0;
     for (var i = 0; i < 0xffffffff; i++) {
       if (this.isBattle(rng) < this.encounterRate) {
         fights[index] = this.getEncounterIndex(rng);
-        fightsRNG[index] = rng;
+        fightsRNG[index] = rng.getRNG();
         index++;
         if (index === arraySize - 1) {
           var result = bayerMoore(fights, encounters, this.encounterTable.length);
@@ -39,7 +39,7 @@ var Area = function(name, area) {
           index = encounters.length;
         }
       }
-      rng = calculateRNG(rng);
+      rng.next();
       if (i % 42949672 === 0) console.log(Math.floor(i/42949662) + '%');
     }
     return false;
@@ -72,8 +72,8 @@ var Area = function(name, area) {
   }
 
   function isBattleWorldMap(rng) {
-    var r3 = rng;
-    var r2 = calcR2FromRng(rng);
+    var r3 = rng.getRNG();
+    var r2 = rng.getRNG2();
     r3 = r2;
     r2 = r2 >> 8;
     r2 = r2 << 8;
@@ -82,7 +82,7 @@ var Area = function(name, area) {
   }
 
   function isBattleDungeon(rng) {
-    var r2 = calcR2FromRng(rng);
+    var r2 = rng.getRNG2();
     var r3 = 0x7F;
     var mflo = div32ulo(r2, r3);
     r2 = mflo;
@@ -91,8 +91,7 @@ var Area = function(name, area) {
   }
 
   this.getEncounterIndex = function(rng) {
-    rng = calculateRNG(rng);
-    var r2 = calcR2FromRng(rng);
+    var r2 = rng.getNext().rng2;
     r3 = div32ulo(0x7FFF, this.encounterTable.length);
     var encounterIndex = div32ulo(r2, r3);
     while (encounterIndex >= Object.keys(area.encounters).length) {

@@ -4,13 +4,12 @@ var EnemyGroup = function(name, enemies) {
   this.champVal = calcChampionVal(this.enemies);
   this.calculateDrop = function calculateDrop(rng) {
     for (var enemy in this.enemies) {
-      rng = calculateRNG(rng);
-      var r2 = calcR2FromRng(rng);
+      var r2 = rng.getNext().rng2;
       var dropIndex = r2 % 3;
       if (dropIndex < this.enemies[enemy].drops.length) {
         var dropRate = this.enemies[enemy].drops[dropIndex].rate;
-        rng = calculateRNG(rng);
-        r2 = calcR2FromRng(rng);
+        r = rng.getNext();
+        r2 = rng.getNext(r.rng, r.rng2).rng2;
         if (r2 % 100 < dropRate) {
           return this.enemies[enemy].drops[dropIndex].item;
         }
@@ -23,8 +22,8 @@ var EnemyGroup = function(name, enemies) {
     var drops = [];
     for (var i = 0; i < iterations; i++) {
       var drop = this.calculateDrop(rng);
-      drops.push({ 'rng': rng.toString(16), 'drop': drop });
-      rng = calculateRNG(rng);
+      drops.push({ 'rng': rng.getRNG().toString(16), 'drop': drop });
+      rng.next();
     }
     return drops;
   };
