@@ -8,8 +8,9 @@ export default class RNG {
   private count: number;
 
   constructor(rng: number) {
-    this.rng = rng;
-    this.rng2 = this.calcRNG2(rng);
+    this.rng   = rng;
+    this.rng2  = this.calcRNG2(rng);
+    this.count = 0;
   }
 
   public clone(): RNG {
