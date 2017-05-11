@@ -1,26 +1,27 @@
-function Encounters(rng, iterations, areas, partyLvl, callback) {
-  var encounters = [];
-  for (var i = 0; i < iterations; i++) {
-    for (var j in areas) {
-      var area = areas[j];
-      var encounterVal = area.isBattle(rng);
-      if (encounterVal < area.encounterRate) {
-        var encounter = area.getEncounter(rng);
-        var fight = new Fight(areas[j], encounter, rng, i, encounterVal);
+import Area from './Area';
+import Fight from './Fight';
+import RNG from './rng';
+
+export function Encounters(areas: Area[], rng: RNG, iterations: number, partyLvl?: number) {
+  const encounters = [];
+  for (let i = 0; i < iterations; i++) {
+    for (const j in areas) {
+      const area = areas[j];
+      if (area.isBattle(rng)) {
+        const fight = area.getEncounter(rng);
         encounters.push(fight);
       }
     }
     rng.next();
   }
-  callback(encounters, partyLvl);
+  return encounters;
 }
 
-function generateRNGSequence(rng, iterations) {
-  var sequence = [];
-  for (var i = 0; i < iterations; i++) {
+export function generateRNGSequence(rng: RNG, iterations: number) {
+  const sequence = [];
+  for (let i = 0; i < iterations; i++) {
     sequence.push({index: i, rng: rng.getRNG()});
     rng.next();
   }
   return sequence;
 }
-
