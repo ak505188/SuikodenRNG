@@ -1,12 +1,15 @@
-var selectedAreas = [];
-var areas = [];
-var fightList = [];
-var mode = '';
+import Area from './Area';
+import { enemies } from './enemies';
 
-function createAreaSelector(enemies) {
-  var select = document.getElementById('area');
-  for (var area in areas) {
-    var option = document.createElement('option');
+const selectedAreas = [];
+const Areas = [];
+const fightList = [];
+const mode = 'encounters';
+
+function createAreaSelector(areas: Area[]) {
+  const select = document.getElementById('area');
+  for (const area in areas) {
+    const option = document.createElement('option');
     option.innerHTML = area;
     option.value = area;
     option.data = areas[area];
@@ -14,16 +17,16 @@ function createAreaSelector(enemies) {
   }
 }
 
-function createEnemyGroupSelector(enemies) {
-  var areasSelect = document.getElementById('area');
-  var area = areasSelect.options[areasSelect.selectedIndex].value;
-  var select = document.getElementById('enemyGroup');
+function createEnemyGroupSelector(enemies, areas: Area[]) {
+  const areasSelect = document.getElementById('area');
+  const area = areasSelect.options[areasSelect.selectedIndex].value;
+  const select = document.getElementById('enemyGroup');
   // Clear
   while (select.options.length > 0) {
       select.remove(0);
   }
-  for (var enemyGroup in areas[area].encounterTable) {
-    var option = document.createElement('option');
+  for (const enemyGroup in areas[area].encounterTable) {
+    const option = document.createElement('option');
     option.innerHTML = areas[area].encounterTable[enemyGroup].name;
     option.value = areas[area].encounterTable[enemyGroup].name;
     option.data = areas[area].encounterTable[enemyGroup];
@@ -32,17 +35,13 @@ function createEnemyGroupSelector(enemies) {
 }
 
 function initAreas(enemies) {
-  var areas = {};
-  for (var area in enemies) {
+  const areas = {};
+  for (const area in enemies) {
     areas[area] = new Area(area, enemies[area]);
   }
   return areas;
 }
 
-window.onload = function() {
-  areas = initAreas(enemies);
-  createAreaSelector(enemies);
-  createEnemyGroupSelector(enemies);
-  $('#table-container').hide();
-  changeMode('encounters');
-};
+Areas = initAreas(enemies);
+createAreaSelector(Areas);
+createEnemyGroupSelector(enemies, Areas);
