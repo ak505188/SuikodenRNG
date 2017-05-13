@@ -1,86 +1,67 @@
-function encounterTableMaker(encounters, partyLvl) {
-  var headers = [
-    'Area Name',
-    'Enemy Group',
-    'Run?',
-    'RNG Index',
-    'Start RNG',
-    'Battle RNG',
-    'Encounter Value',
-    'Wheel Attempt'
-  ];
+interface IHeader {
+  key: string;
+  name: string;
+}
 
-  if (partyLvl > 0) {
-    encounters = encounters.filter(function(fight) {
-      return fight.EnemyGroup.champVal > partyLvl;
+export default class Table {
+  public data: object[];
+  public headers: IHeader[];
+
+  constructor(headers: IHeader[], data: object[]) {
+    this.headers = headers;
+    this.data = data;
+  }
+
+  public generateHTMLTable(): HTMLTableElement {
+    const table = document.createElement('table');
+
+    const header = table.createTHead();
+    const headerRow = header.insertRow();
+    const headerColumns = [];
+    for (let i = 0; i < this.headers.length; i++) {
+      headerColumns.push(headerRow.insertCell(i));
+      headerColumns[i].innerHTML = this.headers[i].name;
+    }
+
+    const body = document.createElement('tbody');
+    table.appendChild(body);
+    for (let j = 0; j < this.data.length; j++) {
+      const row = body.insertRow();
+      const columns = [];
+      for (let k = 0; k < this.headers.length; k++) {
+        columns.push(row.insertCell(k));
+        columns[j].innerHTML = this.data[j][this.headers[k].key];
+      }
+    }
+    return table;
+  }
+
+  public generateCSV(): string {
+    let CSV = '';
+    const headers = this.headers.map((header) => {
+      return header.name;
     });
-  }
+    CSV += this.generateCSVRow(headers);
 
-  var fights = encounters.map(function(fight) {
-    var arr = [];
-    arr.push(fight.area.name);
-    arr.push(fight.EnemyGroup.name);
-    arr.push(fight.run ? 'Run' : 'Fail');
-    arr.push(fight.index);
-    arr.push(fight.startingRNG.toString(16));
-    arr.push(fight.battleRNG.toString(16));
-    arr.push(fight.encounterValue);
-    arr.push(fight.wheel);
-    return arr;
-  });
-
-  tableMaker(fights, headers);
-}
-
-function dropTableMaker(group, rng, iterations) {
-  var drops = group.calculateDrops(rng, iterations);
-  var headers = [
-    'Index',
-    'RNG',
-    'Drop'
-  ];
-  drops = drops.map(function(drop, index) {
-    var arr = [];
-    arr.push(index);
-    arr.push(drop.rng);
-    arr.push(drop.drop === null ? '---' : drop.drop);
-    return arr;
-  });
-  tableMaker(drops, headers);
-}
-
-function sequenceTableMaker(rng, iterations) {
-  sequence = generateRNGSequence(rng, iterations).map(function(data) {
-    var arr = [];
-    arr.push(data.index);
-    arr.push(data.rng.toString(16));
-    return arr;
-  });
-  tableMaker(sequence, ['Index', 'RNG']);
-}
-
-function tableMaker(data, headers) {
-  var table = document.getElementById('table');
-  table.innerHTML = '';
-
-  if (headers) {
-    var header = table.createTHead();
-    var headerRow = header.insertRow();
-    var headerColumns = [];
-    for (var k in headers) {
-      headerColumns.push(headerRow.insertCell(k));
-      headerColumns[k].innerHTML = headers[k];
+    for (let i = 0; i < this.data.length; i++) {
+      const columns = [];
+      for (let j = 0; j < this.headers.length; j++) {
+        columns.push(this.data[i][this.headers[j].key]);
+      }
+      CSV += this.generateCSVRow(columns);
     }
+    return CSV;
   }
 
-  var body = table.appendChild(document.createElement('tbody'));
-  for (var i in data) {
-    var row = body.insertRow();
-    var columns = [];
-    for (var j in data[i]) {
-      columns.push(row.insertCell(j));
-      columns[j].innerHTML = data[i][j];
+  private generateCSVRow(arr) {
+    let row = '';
+    for (let i  = 0; i < arr.length; i++) {
+      row += '"' + arr[i] + '"';
+      if (i < arr.length - 1) {
+        row += ',';
+      }
     }
+    row += String.fromCharCode(13);
+    return row;
   }
 }
-
