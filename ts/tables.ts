@@ -53,6 +53,17 @@ export default class Table {
     return CSV;
   }
 
+  // Used for node only.
+  public printToConsole(): void {
+    for (const row of this.data) {
+      let line = '| ';
+      for (const k of this.headers) {
+        line += row[k.key] + ' | ';
+      }
+      console.log(line);
+    }
+  }
+
   private generateCSVRow(arr) {
     let row = '';
     for (let i  = 0; i < arr.length; i++) {
