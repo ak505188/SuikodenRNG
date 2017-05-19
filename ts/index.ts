@@ -1,10 +1,28 @@
-function changeMode(_mode) {
-  mode = _mode;
+import * as $ from 'jquery';
+import Area from './Area';
+import { enemies } from './enemies';
+import Fight from './Fight';
+import { initAreas } from './init';
+import RNG from './rng';
+import { Encounters } from './rngCalc';
+import Table from './tables';
+
+interface IAreas {
+  [key: string]: Area;
+}
+
+const Areas: IAreas = initAreas(enemies);
+let mode: string = 'encounters';
+let selectedAreas: string[] = [];
+let fightList: Fight[] = [];
+
+function changeMode(m: string): void {
+  mode = m;
   selectMode();
 }
 
-function selectMode() {
-  switch(mode) {
+function selectMode(): void {
+  switch (mode) {
     case 'encounters':
       showElements(['.rng', '.iterations', '.partyLvl', '#addable_options', '#currently_selected']);
       hideElements(['.area', '.enemyGroup']);
@@ -17,7 +35,7 @@ function selectMode() {
       break;
     case 'sequence':
       showElements(['.rng', '.iterations']);
-      hideElements(['.partyLvl', '.area', '.enemyGroup','#addable_options', '#currently_selected']);
+      hideElements(['.partyLvl', '.area', '.enemyGroup', '#addable_options', '#currently_selected']);
       break;
     case 'findRNG':
       showElements(['.rng', '.area', '#addable_options', '#currently_selected']);
@@ -30,34 +48,34 @@ function selectMode() {
   }
 }
 
-function showElements(element_ids) {
-  for (var id in element_ids) {
-    $(element_ids[id]).show();
+function showElements(ids: string[]): void {
+  for (const id of ids) {
+    // for (const id of ids) {
+    $(id).show();
   }
 }
 
-function hideElements(element_ids) {
-  for (var id in element_ids) {
-    $(element_ids[id]).hide();
+function hideElements(ids: string[]): void {
+  for (const id of ids) {
+    $(id).hide();
   }
 }
 
-function modify() {
+function modify(): void {
   $('#table-container').hide();
   $('#form-container').show();
   selectMode();
 }
 
-function reset() {
+function reset(): void {
   selectedAreas = [];
   fightList = [];
   modify();
 }
 
-function addArea(area) {
-  var data = area.data;
-  if ($.inArray(data, selectedAreas) === -1) {
-    selectedAreas.push(data);
+function addArea(area: string) {
+  if ($.inArray(area, selectedAreas) === -1) {
+    selectedAreas.push(area);
     fillCurrentlySelectedAreas();
   }
 }
@@ -68,95 +86,92 @@ function addEnemyGroup(data) {
 }
 
 function fillAddableEnemies() {
-  var area = areas[$('#area').val()];
-  var divs = $('.addable').empty();
-  var index = 0;
-  var count = 0;
+  const area: Area = Areas[$('#area').val()];
+  const divs = $('.addable').empty();
+  let count = 0;
+  let index = 0;
 
-  for (var i in area.encounterTable) {
-    var div = $('<div></div>', {
-      'class': 'clearfix',
+  for (const i in area.encounterTable) {
+    const div = $('<div></div>', {
+      class: 'clearfix',
       text: area.encounterTable[i].name
     });
-    var button = $('<button></button>', {
-      'class': 'btn btn-primary btn-xs pull-right',
+    const button = $('<button></button>', {
+      class: 'btn btn-primary btn-xs pull-right',
       text:  'Add'
     });
-    $(button).click(parseInt(i), addEnemyGroup);
+    $(button).click(parseInt(i, 10), addEnemyGroup);
     $(div).append(button);
     $(divs[index]).append(div);
-    index = Math.floor(++count/(Object.keys(area.encounterTable).length/divs.length));
+    index = Math.floor(++count / (Object.keys(area.encounterTable).length / divs.length));
   }
 }
 
 function fillAddableAreas() {
-  var divs = $('.addable').empty();
-  var index = 0;
-  var count = 0;
-  var invalid = 0;
+  const divs = $('.addable').empty();
+  let index = 0;
+  let count = 0;
+  let invalid = 0;
 
-  for (var i in areas) {
-    if (areas[i].type === null) invalid++;
+  for (const area in Areas) {
+    if (Areas[area].areaType === null)  {
+      invalid++;
+    }
   }
 
-  for (var area in areas) {
-    var div = $('<div></div>', {
-      'class': 'clearfix'
-    });
-    var button = $('<button></button>', {
-      'class': 'btn btn-primary btn-xs pull-right',
+  for (const area in Areas) {
+    const div = $('<div></div>', { class: 'clearfix' });
+    const button = $('<button></button>', {
+      class: 'btn btn-primary btn-xs pull-right',
       text:  'Add'
     });
-    var data = areas[area];
-    if (data.type !== null) {
+    if (Areas[area].areaType !== null) {
       $(div).text(area);
-      $(button).click(data, addArea);
+      $(button).click(() => { addArea(area); });
       $(div).append(button);
       $(divs[index]).append(div);
-      index = Math.floor(++count/((Object.keys(areas).length - invalid)/divs.length));
+      index = Math.floor(++count / ((Object.keys(Areas).length - invalid) / divs.length));
     }
   }
 }
 
 function fillCurrentlySelectedAreas() {
-  var currently_selected = $('#currently_selected').empty();
+  const currentlySelected = $('#currently_selected').empty();
 
-  for (var i = 0; i < selectedAreas.length; i++) {
-    var div = $('<div></div>', {
+  for (const area of selectedAreas) {
+    const div = $('<div></div>', {
       'class': 'clearfix'
     });
-    var button = $('<button></button>', {
-      'class': 'btn btn-danger btn-xs pull-right',
+    const button = $('<button></button>', {
+      class: 'btn btn-danger btn-xs pull-right',
       text:  'Remove'
     });
-    $(div).text(selectedAreas[i].name);
-    $(button).click(selectedAreas[i], removeArea);
+    $(div).text(Areas[area].name);
+    $(button).click(area, removeArea);
     $(div).append(button);
-    $(currently_selected).append(div);
+    $(currentlySelected).append(div);
   }
 }
 
 function fillCurrentlySelectedEnemies() {
-  var currently_selected = $('#currently_selected').empty();
-  var area = areas[$('#area').val()];
+  const currentlySelected = $('#currently_selected').empty();
+  const area = Areas[$('#area').val()];
 
-  for (var i = 0; i < fightList.length; i++) {
-    var div = $('<div></div>', {
-      'class': 'clearfix'
-    });
-    var button = $('<button></button>', {
-      'class': 'btn btn-danger btn-xs pull-right',
+  for (const fight in fightList) {
+    const div = $('<div></div>', { class: 'clearfix' });
+    const button = $('<button></button>', {
+      class: 'btn btn-danger btn-xs pull-right',
       text:  'Remove'
     });
-    $(div).text(area.encounterTable[fightList[i]].name);
-    $(button).click(i, removeEnemy);
+    $(div).text(fightList[fight].enemyGroup.name);
+    $(button).click(fight, removeEnemy);
     $(div).append(button);
-    $(currently_selected).append(div);
+    $(currentlySelected).append(div);
   }
 }
 
 function removeArea(area) {
-  index = $.inArray(area.data, selectedAreas);
+  const index = $.inArray(area.data, selectedAreas);
   if (index !== -1) {
     selectedAreas.splice(index, 1);
     fillCurrentlySelectedAreas();
@@ -164,27 +179,14 @@ function removeArea(area) {
 }
 
 function removeEnemy(data) {
-  index = data.data;
+  const index = data.data;
   fightList.splice(index, 1);
   fillCurrentlySelectedEnemies();
 }
 
-function generateCSVFromJSON() {
-  var CSV = '';
-  var table = document.getElementById('table');
-  for (var row in table.rows) {
-    var columns = [];
-    for (var column = 0; column < table.rows[row].childElementCount; column++) {
-      columns.push(table.rows[row].cells[column].innerHTML);
-    }
-    CSV += generateCSVRow(columns);
-  }
-  return CSV;
-}
-
 function download(item, filename) {
   // http://stackoverflow.com/questions/3665115/create-a-file-in-memory-for-user-to-download-not-through-server
-  var element = document.createElement('a');
+  const element = document.createElement('a');
   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(item));
   element.setAttribute('download', filename);
 
@@ -196,44 +198,52 @@ function download(item, filename) {
   document.body.removeChild(element);
 }
 
-function generateCSVRow(arr) {
-  var row = '';
-  for (var index in arr) {
-    row += '"' + arr[index] + '"';
-    if (index < arr.length - 1) row += ',';
-  }
-  row += String.fromCharCode(13);
-  return row;
-}
-
 function run() {
-  var selected = document.getElementById('mode');
+  const area: string = $('#area').find(':selected').text();
+  const rng: number = parseInt($('#startRNG').val());
+  const iterations: number= parseInt($('#iterations').val());
+  const partyLvl: number = parseInt($('#partyLvl').val());
+  const enemyGroup: string = $('#enemyGroup').find(':selected').text();
 
-  var areasSelect = document.getElementById('area');
-  var area = areasSelect.options[areasSelect.selectedIndex].value;
-  var rng = parseInt(document.getElementById('startRNG').value);
-  var iterations = document.getElementById('iterations').value;
-  var partyLvl = document.getElementById('partyLvl').value;
-  var enemyGroup = document.getElementById('enemyGroup');
-  enemyGroup = enemyGroup.options[enemyGroup.selectedIndex].data;
-
-  switch(mode) {
+  switch (mode) {
     case 'encounters':
-      Encounters(new RNG(rng), iterations, selectedAreas, partyLvl, encounterTableMaker);
+      const areas: Area[] = selectedAreas.map((i) => {
+        return Areas[i];
+      });
+      const encounters = Encounters(areas, new RNG(rng), iterations, partyLvl);
+      const data = encounters.map((enc) => {
+        const e = {};
+        e['area'] = enc.area.name;
+        e['enemyGroup'] = enc.enemyGroup.name;
+        e['index'] = enc.index;
+        e['run'] = enc.run ? 'Run' : 'Fail';
+        return e;
+      });
+      const headers = [
+        { key: 'area', name: 'Area' },
+        { key: 'enemyGroup', name: 'Enemy Group' },
+        { key: 'index', name: 'Index' },
+        { key: 'run', name: 'Run?' }
+      ];
+      const table = new Table(headers, data);
+      $('#table').append(table.generateHTMLTable());
       break;
     case 'drops':
-      dropTableMaker(enemyGroup, new RNG(rng), iterations);
+      // dropTableMaker(enemyGroup, new RNG(rng), iterations);
       break;
     case 'sequence':
-      sequenceTableMaker(new RNG(rng), iterations);
+      // sequenceTableMaker(new RNG(rng), iterations);
       break;
     case 'findRNG':
       alert('RNG found: ' + areas[area].findRNG(fightList));
       break;
   }
-  if (mode != 'findRNG') {
+  if (mode !== 'findRNG') {
     $('#form-container').hide();
     $('#table-container').show();
   }
 }
 
+selectMode();
+modify();
+window.run = run;
