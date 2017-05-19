@@ -11,10 +11,10 @@ interface IAreas {
 }
 
 const Areas: IAreas = initAreas(enemies);
-
 let selectedAreas: string[] = [];
 let fightList: Fight[] = [];
 let mode: string = 'encounters';
+let table: Table = null;
 
 function initAreas(enemies) {
   const areas = {};
@@ -26,34 +26,22 @@ function initAreas(enemies) {
   return areas;
 }
 
-function createAreaSelector(areas: IAreas) {
-  const select = document.getElementById('area');
-  for (const area in areas) {
-    if (areas.hasOwnProperty(area)) {
-      const option = document.createElement('option');
-      option.innerHTML = area;
-      option.value = area;
-      select.appendChild(option);
-    }
-  }
+function createAreaSelector() {
+  $.each(Areas, (name, area) => {
+    $('#area').append($('<option>', { value: name }).text(name));
+  });
 }
 
-function createEnemyGroupSelector(enemies, areas: Area) {
-  const areasSelect = document.getElementById('area') as HTMLSelectElement;
-  const area = areasSelect.options[areasSelect.selectedIndex].value;
-  const select = document.getElementById('enemyGroup') as HTMLSelectElement;
-  // Clear
-  while (select.options.length > 0) {
-      select.remove(0);
-  }
-  for (const enemyGroup in areas[area].encounterTable) {
-    if (areas[area].encounterTable.hasOwnProperty(enemyGroup)) {
-      const option = document.createElement('option');
-      option.innerHTML = areas[area].encounterTable[enemyGroup].name;
-      option.value = areas[area].encounterTable[enemyGroup].name;
-      select.appendChild(option);
-    }
-  }
+function createEnemyGroupSelector() {
+  const area: string = $('#area').find(':selected').text();
+  const encounterTable = Areas[area].encounterTable;
+
+  // Clear select element
+  $('#enemyGroup').find('option').remove().end();
+
+  $.each(encounterTable, (index, enemyGroup) => {
+    $('#enemyGroup').append($('<option>', { value: index }).text(enemyGroup.name));
+  });
 }
 
 function changeMode(m: string): void {
@@ -229,16 +217,13 @@ function download(item, filename) {
   const element = document.createElement('a');
   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(item));
   element.setAttribute('download', filename);
-
   element.style.display = 'none';
   document.body.appendChild(element);
-
   element.click();
-
   document.body.removeChild(element);
 }
 
-function run() {
+function run(): void {
   const area: string = $('#area').find(':selected').text();
   const rng: number = parseInt($('#startRNG').val());
   const iterations: number= parseInt($('#iterations').val());
@@ -251,14 +236,13 @@ function run() {
         return Areas[i];
       });
       const encounters = Encounters(areas, new RNG(rng), iterations, partyLvl);
-      console.log(encounters);
       const data = encounters.map((enc) => {
-        const e = {};
-        e['area'] = enc.area.name;
-        e['enemyGroup'] = enc.enemyGroup.name;
-        e['index'] = enc.index;
-        e['run'] = enc.run ? 'Run' : 'Fail';
-        return e;
+        return {
+          area: enc.area.name,
+          enemyGroup: enc.enemyGroup.name,
+          index: enc.index,
+          run: enc.run ? 'Run' : 'Fail'
+        };
       });
       const headers = [
         { key: 'area', name: 'Area' },
@@ -266,7 +250,7 @@ function run() {
         { key: 'index', name: 'Index' },
         { key: 'run', name: 'Run?' }
       ];
-      const table = new Table(headers, data);
+      table = new Table(headers, data);
       $('#table').append(table.generateHTMLTable());
       break;
     case 'drops':
@@ -286,11 +270,29 @@ function run() {
 }
 
 $(document).ready(() => {
-  // Bind events
+  selectMode();
+  modify();
+
+  createAreaSelector();
+  createEnemyGroupSelector();
+
+  // Bind events to buttons
+  $('#modeEncounters').click(() => { changeMode('encounters'); });
+  $('#modeDrops').click(() => { changeMode('drops'); });
+  $('#modeSequence').click(() =>  { changeMode('sequence'); });
+  $('#modeFindRNG').click(() => { changeMode('findRNG'); });
+  $('#area').change(() => {
+    createEnemyGroupSelector();
+    fillAddableEnemies();
+  });
   $('#run').click(run);
   $('#modify').click(modify);
   $('#reset').click(reset);
-
-  selectMode();
-  modify();
+  $('#download').click(() => {
+    if (table !== null) {
+      download(table.generateCSV(), 'table.csv');
+    } else {
+      alert('No table to download!');
+    }
+  });
 });

@@ -15,10 +15,18 @@
           <form id="encountersForm">
             <div class="text-center">
               <div class="btn-group btn-group-xs text-center form-group">
-                <button type="button" class="btn btn-primary" onclick="changeMode('encounters');">Encounters</button>
-                <button type="button" class="btn btn-primary" onclick="changeMode('drops');">Drops</button>
-                <button type="button" class="btn btn-primary" onclick="changeMode('sequence');">RNG Sequence</button>
-                <button type="button" class="btn btn-primary" onclick="changeMode('findRNG');">Find RNG Seed</button>
+                <button type="button" class="btn btn-primary" id="modeEncounters">
+                  Encounters
+                </button>
+                <button type="button" class="btn btn-primary" id="modeDrops">
+                  Drops
+                </button>
+                <button type="button" class="btn btn-primary" id="modeSequence">
+                  RNG Sequence
+                </button>
+                <button type="button" class="btn btn-primary" id="modeFindRNG">
+                  Find RNG Seed
+                </button>
               </div>
             </div>
 
@@ -39,7 +47,7 @@
 
             <div class="area form-group">
               <label class="area" for="area">Area(s)</label>
-              <select class="area form-control" id="area" onchange="createEnemyGroupSelector(enemies); fillAddableEnemies();"></select>
+              <select class="area form-control" id="area"></select>
             </div>
 
             <div class="enemyGroup form-group">
@@ -71,7 +79,7 @@
     <div>
       <div class="table-responsive" id="table-container">
         <table class="table" id="table"></table>
-        <input class="btn btn-success btn-large" onclick="download(generateCSVFromJSON(fightList), 'EncounterTable.csv')" value="Export Table">
+        <input class="btn btn-success btn-large" id="download" value="Export Table">
         <input class="btn btn-success btn-large" id="modify" value="Modify">
         <input class="btn btn-success btn-large" id="reset" value="Reset">
       </div>

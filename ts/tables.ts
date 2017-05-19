@@ -30,7 +30,7 @@ export default class Table {
       const columns = [];
       for (let k = 0; k < this.headers.length; k++) {
         columns.push(row.insertCell(k));
-        columns[j].innerHTML = this.data[j][this.headers[k].key];
+        columns[k].innerHTML = this.data[j][this.headers[k].key];
       }
     }
     return table;
@@ -43,10 +43,10 @@ export default class Table {
     });
     CSV += this.generateCSVRow(headers);
 
-    for (let i = 0; i < this.data.length; i++) {
+    for (const row of this.data) {
       const columns = [];
-      for (let j = 0; j < this.headers.length; j++) {
-        columns.push(this.data[i][this.headers[j].key]);
+      for (const h of this.headers) {
+        columns.push(row[h.key]);
       }
       CSV += this.generateCSVRow(columns);
     }
@@ -60,6 +60,7 @@ export default class Table {
       for (const k of this.headers) {
         line += row[k.key] + ' | ';
       }
+      // tslint:disable-next-line
       console.log(line);
     }
   }
