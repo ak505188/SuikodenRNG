@@ -2,7 +2,6 @@ import * as $ from 'jquery';
 import Area from './Area';
 import { enemies } from './enemies';
 import Fight from './Fight';
-import { initAreas } from './init';
 import RNG from './rng';
 import { Encounters } from './rngCalc';
 import Table from './tables';
@@ -12,9 +11,50 @@ interface IAreas {
 }
 
 const Areas: IAreas = initAreas(enemies);
-let mode: string = 'encounters';
+
 let selectedAreas: string[] = [];
 let fightList: Fight[] = [];
+let mode: string = 'encounters';
+
+function initAreas(enemies) {
+  const areas = {};
+  for (const area in enemies) {
+    if (enemies.hasOwnProperty(area)) {
+      areas[area] = new Area(area, enemies[area]);
+    }
+  }
+  return areas;
+}
+
+function createAreaSelector(areas: IAreas) {
+  const select = document.getElementById('area');
+  for (const area in areas) {
+    if (areas.hasOwnProperty(area)) {
+      const option = document.createElement('option');
+      option.innerHTML = area;
+      option.value = area;
+      select.appendChild(option);
+    }
+  }
+}
+
+function createEnemyGroupSelector(enemies, areas: Area) {
+  const areasSelect = document.getElementById('area') as HTMLSelectElement;
+  const area = areasSelect.options[areasSelect.selectedIndex].value;
+  const select = document.getElementById('enemyGroup') as HTMLSelectElement;
+  // Clear
+  while (select.options.length > 0) {
+      select.remove(0);
+  }
+  for (const enemyGroup in areas[area].encounterTable) {
+    if (areas[area].encounterTable.hasOwnProperty(enemyGroup)) {
+      const option = document.createElement('option');
+      option.innerHTML = areas[area].encounterTable[enemyGroup].name;
+      option.value = areas[area].encounterTable[enemyGroup].name;
+      select.appendChild(option);
+    }
+  }
+}
 
 function changeMode(m: string): void {
   mode = m;
@@ -67,7 +107,7 @@ function modify(): void {
   selectMode();
 }
 
-function reset(): void {
+function reset() {
   selectedAreas = [];
   fightList = [];
   modify();
@@ -211,6 +251,7 @@ function run() {
         return Areas[i];
       });
       const encounters = Encounters(areas, new RNG(rng), iterations, partyLvl);
+      console.log(encounters);
       const data = encounters.map((enc) => {
         const e = {};
         e['area'] = enc.area.name;
@@ -244,6 +285,12 @@ function run() {
   }
 }
 
-selectMode();
-modify();
-window.run = run;
+$(document).ready(() => {
+  // Bind events
+  $('#run').click(run);
+  $('#modify').click(modify);
+  $('#reset').click(reset);
+
+  selectMode();
+  modify();
+});
