@@ -3,7 +3,7 @@ import Area from './Area';
 import { enemies } from './enemies';
 import Fight from './Fight';
 import RNG from './rng';
-import { Encounters } from './rngCalc';
+import { Encounters, generateRNGSequence } from './rngCalc';
 import Table from './tables';
 
 interface IAreas {
@@ -257,7 +257,16 @@ function run(): void {
       // dropTableMaker(enemyGroup, new RNG(rng), iterations);
       break;
     case 'sequence':
-      // sequenceTableMaker(new RNG(rng), iterations);
+      const sequence = generateRNGSequence(new RNG(rng), iterations);
+      const h = [
+        { key: 'index', name: 'Index' },
+        { key: 'rng', name: 'RNG' }
+      ];
+      const d = sequence.map((r, index) => {
+        return { index: index, rng: r.toString(16) };
+      });
+      table = new Table(h, d);
+      $('#table').append(table.generateHTMLTable());
       break;
     case 'findRNG':
       alert('RNG found: ' + areas[area].findRNG(fightList));
