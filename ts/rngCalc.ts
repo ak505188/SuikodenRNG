@@ -19,10 +19,10 @@ export function Encounters(areas: Area[], rng: RNG, iterations: number, partyLvl
   return encounters;
 }
 
-export function generateRNGSequence(rng: RNG, iterations: number) {
+export function generateRNGSequence(rng: RNG, iterations: number): number[] {
   const sequence = [];
   for (let i = 0; i < iterations; i++) {
-    sequence.push({index: i, rng: rng.getRNG()});
+    sequence.push(rng.getRNG());
     rng.next();
   }
   return sequence;
