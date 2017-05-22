@@ -6,11 +6,13 @@ export default class RNG {
   private rng: number;
   private rng2: number;
   private count: number;
+  private originalRNG: number;
 
   constructor(rng: number) {
-    this.rng   = rng;
-    this.rng2  = this.calcRNG2(rng);
-    this.count = 0;
+    this.rng         = rng;
+    this.rng2        = this.calcRNG2(rng);
+    this.originalRNG = rng;
+    this.count       = 0;
   }
 
   public clone(): RNG {
@@ -27,6 +29,12 @@ export default class RNG {
 
   public getCount() {
     return this.count;
+  }
+
+  public reset() {
+    this.rng   = this.originalRNG;
+    this.rng2  = this.calcRNG2(this.rng);
+    this.count = 0;
   }
 
   // Returns the next set of RNG values
