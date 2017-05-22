@@ -17,6 +17,8 @@ export default class EncounterTool {
   public encounterIndex: number = 0;
   public currentArea: string;
   public areas: IAreaMap;
+  public encIndxStck: number[];
+  public rngIndxStck: number[];
 
   // TODO: Table will only display one area at a time.
   // Therefore only need to manipulate one area at a time.
@@ -34,6 +36,8 @@ export default class EncounterTool {
   }
 
   public incrementRNG(jump: number) {
+    this.encIndxStck.push(this.encounterIndex);
+
     while (this.getSelectedFight().index < this.rngIndex + jump
       || this.encounterIndex === this.fights.length - 1) {
       this.encounterIndex++;
@@ -43,6 +47,8 @@ export default class EncounterTool {
   }
 
   public decrementRNG(jump: number) {
+    this.encIndxStck.push(this.encounterIndex);
+
     if (this.rngIndex - jump <= 0) {
       this.rngIndex = 0;
       this.encounterIndex = 0;
@@ -51,13 +57,14 @@ export default class EncounterTool {
     while (this.getSelectedFight().index > this.rngIndex - jump) {
       this.encounterIndex--;
     }
-    this.incrementFight();
-    this.rngIndex = this.fights[this.encounterIndex].index;
+    this.encounterIndex++;
+    this.rngIndex = this.getSelectedFight().index;
     return this;
-
   }
 
   public incrementFight(battles: number = 1) {
+    this.encIndxStck.push(this.encounterIndex);
+
     if (this.encounterIndex + battles > this.fights.length) {
       this.encounterIndex = this.fights.length - 1;
       return this;
@@ -68,12 +75,40 @@ export default class EncounterTool {
   }
 
   public decrementFight(battles: number = 1) {
+    this.encIndxStck.push(this.encounterIndex);
+
     if (this.encounterIndex - battles < 0) {
       this.encounterIndex = 0;
       return this;
     }
     this.encounterIndex -= battles;
     this.rngIndex = this.getSelectedFight().index;
+    return this;
+  }
+
+  public undo() {
+    this.encounterIndex = this.encIndxStck.pop();
+    this.rngIndex = this.getSelectedFight().index;
+    return this;
+  }
+
+  public getEncounterIndex(): number {
+    return this.encounterIndex;
+  }
+
+  public getEncounterIndexDiff(): number {
+    return this.encounterIndex - this.encIndxStck[this.encIndxStck.length - 1];
+  }
+
+  // Rudimentary implementation that just advances forward
+  // until it finds an matching fight
+  public findFight(enemyGroup: string) {
+    const index = this.encounterIndex;
+    while (index < this.fights.length) {
+      if (fights.enemyGroup.name === enemyGroup) {
+        return incrementFight(index - this.encounterIndex);
+      }
+    }
     return this;
   }
 
@@ -84,6 +119,7 @@ export default class EncounterTool {
 
     this.currentArea = area;
     this.fights = this.fightAreaMap[area];
+    this.encIndxStck.push(this.encounterIndex);
 
     if (this.encounterIndex >= this.fights.length) {
       this.encounterIndex = this.fights.length - 1;
