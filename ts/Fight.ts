@@ -22,7 +22,7 @@ export default class Fight {
     this.startRNG   = rng.getRNG();
     this.battleRNG  = rng.getNext().rng;
     this.index      = rng.getCount();
-    this.run        = this.isRun(rng.getNext().rng2);
+    this.run        = this.isRun(rng.getNext(2).rng2);
     this.wheel      = this.wheelSuccess(rng.clone().next());
   }
 
