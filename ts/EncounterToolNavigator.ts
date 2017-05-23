@@ -84,17 +84,21 @@ export default class EncounterToolNavigator {
         });
       div.append(button);
     });
+
     const undo = $('<button>Undo</button>').click(() => {
       this.encounterTool.undo();
       this.table.selectRow(this.encounterTool.getEncounterIndex());
     });
     undo.addClass('btn').addClass('btn-success').addClass('btn-sm');
+    div.append(undo);
+
     const next = $('<button>Next</button>').click(() => {
       this.encounterTool.incrementFight();
       this.table.selectRow(this.encounterTool.getEncounterIndex());
     });
     next.addClass('btn').addClass('btn-success').addClass('btn-md');
     div.append(next);
+
     $(this.containerId).append(div);
   }
 }
