@@ -24,5 +24,12 @@ export default class DynamicTable {
     $(`${this.id} tr`).eq(this.sel).removeClass('selected');
     $(`${this.id} tr`).eq(row).addClass('selected');
     this.sel = row;
+    this.scroll();
+  }
+
+  public scroll() {
+    const row = $(`${this.id} tr`).eq(this.sel);
+    const container = $('#table-container');
+    container.scrollTop(row.offset().top - container.offset().top + container.scrollTop());
   }
 }

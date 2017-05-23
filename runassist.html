@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<head>
+  <link rel="stylesheet" href="./lib/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="styles/styles.css">
+  <script data-main="ts/runassist" src="js/require.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div id="form-container">
+      <div class="row">
+        <div class="col-md-4">
+          <form id="encountersForm">
+            <div class="rng form-group">
+              <label class="rng" for="startRNG">Starting RNG</label>
+              <input class="rng form-control" id="startRNG" type="text" value="0x12">
+            </div>
+
+            <div class="iterations form-group">
+              <label class="iterations" for="iterations">Iterations</label>
+              <input class="iterations form-control" id="iterations" type="number" step="500" value="1000">
+            </div>
+
+            <div class="partyLvl form-group">
+              <label class="partyLvl" for="partyLvl">Party Level</label>
+              <input class="partyLvl form-control" id="partyLvl" type="number" value="0">
+            </div>
+
+            <div class="text-center">
+              <input class="btn btn-primary btn-md" id="run" type="button" value="Run">
+            </div>
+          </form>
+        </div>
+
+        <div class="col-md-8">
+          <div class="row" id="addable_options">
+            <div class="col-md-6 addable"></div>
+            <div class="col-md-6 addable"></div>
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+          <h4 class="text-center">Selected</h4>
+          <div id="currently_selected"></div>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+    </div>
+    <div>
+      <div class="table-responsive" id="table-container">
+        <table class="table" id="table"></table>
+      </div>
+      <div id="fight-search"/>
+    </div>
+  </div>
+</body>

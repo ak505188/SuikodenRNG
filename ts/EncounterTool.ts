@@ -99,8 +99,10 @@ export default class EncounterTool {
   }
 
   public undo() {
-    this.encounterIndex = this.encIndxStck.pop();
-    this.rngIndex = this.getSelectedFight().index;
+    if (this.encIndxStck.length > 0) {
+      this.encounterIndex = this.encIndxStck.pop();
+      this.rngIndex = this.getSelectedFight().index;
+    }
     return this;
   }
 

@@ -1,0 +1,13 @@
+.selected {
+	background-color: yellow;
+}
+
+table {
+	max-height: 800px;
+	overflow: scroll;
+}
+
+#table-container {
+	height: 800px;
+	overflow-y: scroll;
+}
