@@ -17,8 +17,7 @@ export default class EncounterTool {
   public encounterIndex: number = 0;
   public currentArea: string;
   public areas: IAreaMap;
-  public encIndxStck: number[];
-  public rngIndxStck: number[];
+  public encIndxStck: number[] = [];
 
   // TODO: Table will only display one area at a time.
   // Therefore only need to manipulate one area at a time.
@@ -38,11 +37,17 @@ export default class EncounterTool {
   public incrementRNG(jump: number) {
     this.encIndxStck.push(this.encounterIndex);
 
-    while (this.getSelectedFight().index < this.rngIndex + jump
-      || this.encounterIndex === this.fights.length - 1) {
-      this.encounterIndex++;
+    this.rngIndex += jump;
+
+    if (this.encounterIndex + 1 >= this.fights.length) {
+      return this;
     }
-    this.rngIndex = this.fights[this.encounterIndex].index;
+
+    while (this.rngIndex > this.fights[this.encounterIndex + 1].index) {
+      if (++this.encounterIndex + 1 >= this.fights.length) {
+        return this;
+      }
+    }
     return this;
   }
 
@@ -86,6 +91,13 @@ export default class EncounterTool {
     return this;
   }
 
+  public selectFight(num: number) {
+    this.encIndxStck.push(this.encounterIndex);
+    this.encounterIndex = num;
+    this.rngIndex = this.getSelectedFight().index;
+    return this;
+  }
+
   public undo() {
     this.encounterIndex = this.encIndxStck.pop();
     this.rngIndex = this.getSelectedFight().index;
@@ -103,11 +115,12 @@ export default class EncounterTool {
   // Rudimentary implementation that just advances forward
   // until it finds an matching fight
   public findFight(enemyGroup: string) {
-    const index = this.encounterIndex;
+    let index = this.encounterIndex + 1;
     while (index < this.fights.length) {
-      if (fights.enemyGroup.name === enemyGroup) {
-        return incrementFight(index - this.encounterIndex);
+      if (this.fights[index].enemyGroup.name === enemyGroup) {
+        return this.incrementFight(index - this.encounterIndex);
       }
+      index++;
     }
     return this;
   }
