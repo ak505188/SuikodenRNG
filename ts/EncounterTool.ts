@@ -17,7 +17,8 @@ export default class EncounterTool {
   public encounterIndex: number = 0;
   public currentArea: string;
   public areas: IAreaMap;
-  public encIndxStck: number[] = [];
+  private encIndxStck: number[] = [];
+  private fightList: Fight[];
 
   // TODO: Table will only display one area at a time.
   // Therefore only need to manipulate one area at a time.

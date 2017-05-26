@@ -1,0 +1,14 @@
+{
+     "compilerOptions": {
+          "outDir": "js",
+          "rootDir": "ts",
+          "module": "AMD",
+          "lib": [
+               "es2015",
+               "dom"
+          ]
+     },
+     "include": [
+          "ts/*"
+     ]
+}

@@ -2,12 +2,8 @@
 	background-color: yellow;
 }
 
-table {
-	max-height: 800px;
+#table {
+	max-height: 500px;
+	max-width: 500px;
 	overflow: scroll;
-}
-
-#table-container {
-	height: 800px;
-	overflow-y: scroll;
 }

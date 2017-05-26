@@ -2,7 +2,7 @@ import * as $ from 'jquery';
 import Area from './Area';
 import DynamicTable from './DynamicTable';
 import EncounterTool from './EncounterTool';
-import EncounterToolNavigator from './EncounterToolNavigator';
+import EncounterToolController from './EncounterToolController';
 import { enemies } from './enemies';
 import Fight from './Fight';
 import RNG from './rng';
@@ -94,24 +94,7 @@ function run(): void {
     return Areas[i];
   });
   const encounters = new EncounterTool(areas, new RNG(rng), iterations, partyLvl);
-  const fights = encounters.fights.map((fight) => {
-    return [
-      fight.area.name,
-      fight.enemyGroup.name,
-      fight.index,
-      fight.run ? 'Run' : 'Fail',
-      fight.wheel
-    ];
-  });
-  const headers = [
-    { key: 'area', name: 'Area' },
-    { key: 'enemyGroup', name: 'Enemy Group' },
-    { key: 'index', name: 'Index' },
-    { key: 'run', name: 'Run?' }
-  ];
-
-  table = new DynamicTable('table');
-  const encToolNav = new EncounterToolNavigator(encounters, table, 'fight-search');
+  const encToolNav = new EncounterToolController(encounters, 'table-container');
 
   $('#form-container').hide();
   $('#table-container').show();
