@@ -10,6 +10,11 @@ interface IAreas {
   [key: string]: Area;
 }
 
+interface ICalculatedDrop {
+  rng: number;
+  drop: string;
+}
+
 const Areas: IAreas = initAreas(enemies);
 let selectedAreas: string[] = [];
 let fightList: Fight[] = [];
@@ -254,7 +259,23 @@ function run(): void {
       $('#table').append(table.generateHTMLTable());
       break;
     case 'drops':
-      // dropTableMaker(enemyGroup, new RNG(rng), iterations);
+
+      const group = Areas[area].getEnemyGroup(enemyGroup);
+      const drops: ICalculatedDrop[] = group.calculateDrops(new RNG(rng), iterations);
+      const dropsData = drops.map((drop, index) => {
+        return {
+          drop: drop.drop,
+          index: index,
+          rng: drop.rng.toString(16)
+        };
+      });
+      const dropsHeaders = [
+        { key: 'index', name: 'index' },
+        { key: 'drop', name: 'Drop' },
+        { key: 'rng', name: 'RNG' }
+      ];
+      table = new Table(dropsHeaders, dropsData);
+      $('#table').append(table.generateHTMLTable());
       break;
     case 'sequence':
       const sequence = generateRNGSequence(new RNG(rng), iterations);

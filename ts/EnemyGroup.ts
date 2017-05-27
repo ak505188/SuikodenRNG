@@ -1,4 +1,4 @@
-import { IDrop, IEnemy, IStats } from './Enemy';
+import { IEnemy } from './Enemy';
 import { div32ulo } from './lib';
 import RNG from './rng';
 
@@ -14,17 +14,17 @@ export default class EnemyGroup {
     this.champVal = this.calcChampionVal(this.enemies);
   }
 
-  public calculateDrops(rng: RNG, iterations: number): object[] {
+  public calculateDrops(rng: RNG, iterations: number) {
     const drops = [];
     for (let i = 0; i < iterations; i++) {
       const drop = this.calculateDrop(rng);
-      drops.push({ rng: rng.getRNG().toString(16), drop });
+      drops.push({ rng: rng.getRNG(), drop });
       rng.next();
     }
     return drops;
   }
 
-  private calculateDrop(rng: RNG): any {
+  private calculateDrop(rng: RNG): string {
     for (const enemy in this.enemies) {
       let r2 = rng.getNext().rng2;
       const dropIndex = r2 % 3;
