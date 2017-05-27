@@ -47,6 +47,15 @@ export default class Area {
       ? this.isBattleDungeon(rng) : this.isBattleWorldMap(rng);
   }
 
+  public getEnemyGroup(name: string): EnemyGroup {
+    for (const enemyGroup of this.encounterTable) {
+      if (enemyGroup.name === name) {
+        return enemyGroup;
+      }
+    }
+    return null;
+  }
+
   private isBattleWorldMap(rng): boolean {
     let r2 = rng.getRNG2();
     const r3 = r2;
