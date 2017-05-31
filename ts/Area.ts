@@ -56,6 +56,16 @@ export default class Area {
     return null;
   }
 
+  public getEncounterIndex(rng: RNG): number {
+    const r2 = rng.getNext().rng2;
+    const r3 = div32ulo(0x7FFF, this.encounterTable.length);
+    let encounterIndex = div32ulo(r2, r3);
+    while (encounterIndex >= this.encounterTable.length) {
+      encounterIndex--;
+    }
+    return encounterIndex;
+  }
+
   private isBattleWorldMap(rng): boolean {
     let r2 = rng.getRNG2();
     const r3 = r2;
@@ -71,16 +81,6 @@ export default class Area {
     r2 = mflo;
     r2 = r2 & 0xFF;
     return r2 < this.encounterRate;
-  }
-
-  private getEncounterIndex(rng: RNG): number {
-    const r2 = rng.getNext().rng2;
-    const r3 = div32ulo(0x7FFF, this.encounterTable.length);
-    let encounterIndex = div32ulo(r2, r3);
-    while (encounterIndex >= this.encounterTable.length) {
-      encounterIndex--;
-    }
-    return encounterIndex;
   }
 
   private parseEncounterTable(encounters: IEncounter[]): EnemyGroup[] {

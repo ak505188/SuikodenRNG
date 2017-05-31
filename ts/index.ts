@@ -2,6 +2,7 @@ import * as $ from 'jquery';
 import Area from './Area';
 import { enemies } from './enemies';
 import Fight from './Fight';
+import { findRNG } from './findRNG';
 import RNG from './rng';
 import { Encounters, generateRNGSequence } from './rngCalc';
 import Table from './tables';
@@ -17,7 +18,7 @@ interface ICalculatedDrop {
 
 const Areas: IAreas = initAreas(enemies);
 let selectedAreas: string[] = [];
-let fightList: Fight[] = [];
+let fightList: number[] = [];
 let mode: string = 'encounters';
 let table: Table = null;
 
@@ -113,8 +114,8 @@ function addArea(area: string) {
   }
 }
 
-function addEnemyGroup(data) {
-  fightList.push(data.data);
+function addEnemyGroup(index: number) {
+  fightList.push(index);
   fillCurrentlySelectedEnemies();
 }
 
@@ -133,7 +134,7 @@ function fillAddableEnemies() {
       class: 'btn btn-primary btn-xs pull-right',
       text:  'Add'
     });
-    $(button).click(parseInt(i, 10), addEnemyGroup);
+    $(button).click(() => { addEnemyGroup(parseInt(i, 10)); });
     $(div).append(button);
     $(divs[index]).append(div);
     index = Math.floor(++count / (Object.keys(area.encounterTable).length / divs.length));
@@ -196,7 +197,7 @@ function fillCurrentlySelectedEnemies() {
       class: 'btn btn-danger btn-xs pull-right',
       text:  'Remove'
     });
-    $(div).text(fightList[fight].enemyGroup.name);
+    $(div).text(area.encounterTable[fight].name);
     $(button).click(fight, removeEnemy);
     $(div).append(button);
     $(currentlySelected).append(div);
@@ -290,7 +291,8 @@ function run(): void {
       $('#table').append(table.generateHTMLTable());
       break;
     case 'findRNG':
-      alert('RNG found: ' + areas[area].findRNG(fightList));
+      const frArea = Areas[area];
+      alert(findRNG(frArea, fightList, new RNG(0x12)).toString(16));
       break;
   }
   if (mode !== 'findRNG') {

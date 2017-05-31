@@ -1,7 +1,7 @@
 import Area from './Area';
 import RNG from './rng';
 
-export function findRNG(area: Area, encounters: string[], rng: RNG, progress?: () => void) {
+export function findRNG(area: Area, encounters: number[], rng: RNG, progress?: () => void) {
   const startTime = new Date().getTime();
   if (encounters.length <= 1) { return false; }
     // Smaller array size is slower but more space efficient. Performance drop should be negligable.
@@ -10,13 +10,13 @@ export function findRNG(area: Area, encounters: string[], rng: RNG, progress?: (
   const fightsRNG = new Array(arraySize);
   for (let i = 0, index = 0; i < 0xffffffff; i++) {
     if (area.isBattle(rng)) {
-      fights[index] = this.area.getEncounterIndex(this.rng);
+      fights[index] = area.getEncounterIndex(rng);
       fightsRNG[index] = rng.getRNG();
       index++;
       if (index === arraySize - 1) {
-        const result = bayerMoore(fights, encounters, this.encounterTable.length);
+        const result = bayerMoore(fights, encounters, area.encounterTable.length);
         if (result !== false) {
-          console.log('Runtime: ' + (new Date().getTime() - startTime)/1000 + ' seconds.');
+          console.log('Runtime: ' + (new Date().getTime() - startTime) / 1000 + ' seconds.');
           return fightsRNG[result].toString(16);
         }
 
