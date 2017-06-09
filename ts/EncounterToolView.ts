@@ -17,15 +17,16 @@ export default class EncounterToolView {
     this.container.append(this.tableContainer);
     this.container.append(this.controlContainer);
     this.table = new DynamicTable(this.tableContainer.attr('id'));
+    this.init();
   }
 
-  public init(fights: (string | number)[][], areas: string[], enemyGroups: string[], selRow: number = 0) {
-    this.generateTable(fights);
-    this.selectRow(selRow);
+  public init() {
+    this.generateTable(this.controller.getFights());
+    this.selectRow(this.controller.getEncounterIndex());
     this.controlContainer.empty();
-    this.generateAreaSelect(areas);
+    this.generateAreaSelect(this.controller.getAreas());
     this.generateNavigationButtons();
-    this.generateFightSelect(enemyGroups);
+    this.generateFightSelect(this.controller.getEnemyGroups());
   }
 
   public generateTable(fights: (string | number)[][]) {
@@ -43,6 +44,7 @@ export default class EncounterToolView {
       button.addClass('btn').addClass('btn-success').addClass('btn-sm')
         .click(() => {
           this.jumpToFight(name);
+          this.selectRow(this.controller.getEncounterIndex());
         });
       div.append(button);
     });
@@ -57,18 +59,21 @@ export default class EncounterToolView {
       button.addClass('btn').addClass('btn-success').addClass('btn-sm')
         .click(() => {
           this.controller.incrementRNG(jump);
+          this.selectRow(this.controller.getEncounterIndex());
         });
       div.append(button);
     });
 
     const undo = $('<button>Undo</button>').click(() => {
       this.controller.undo();
+      this.selectRow(this.controller.getEncounterIndex());
     });
     undo.addClass('btn').addClass('btn-success').addClass('btn-sm');
     div.append(undo);
 
     const next = $('<button>Next</button>').click(() => {
       this.controller.incrementFight();
+      this.selectRow(this.controller.getEncounterIndex());
     });
     next.addClass('btn').addClass('btn-success').addClass('btn-md');
     div.append(next);
@@ -83,6 +88,7 @@ export default class EncounterToolView {
       button.addClass('btn').addClass('btn-success').addClass('btn-sm')
         .click(() => {
           this.controller.switchArea(name);
+          this.init();
         });
       div.append(button);
     });
@@ -91,9 +97,6 @@ export default class EncounterToolView {
 
   public jumpToFight(name: string) {
     this.controller.findFight(name);
-  }
-
-  public switchArea(area: string) {
-    this.controller.switchArea(area);
+    this.selectRow(this.controller.getEncounterIndex());
   }
 }

@@ -4,16 +4,13 @@ import EncounterToolView from './EncounterToolView';
 
 export default class EncounterToolController {
   public encounterTool: EncounterTool;
-  public view: EncounterToolView;
 
-  constructor(encounterTool: EncounterTool, viewID: string) {
+  constructor(encounterTool: EncounterTool) {
     this.encounterTool = encounterTool;
-    this.view = new EncounterToolView(this, viewID);
-    this.modifyView();
   }
 
-  public modifyView() {
-    const fights = this.encounterTool.fights.map((fight) => {
+  public getFights(): (string | number)[][] {
+    return this.encounterTool.fights.map((fight) => {
       return [
         fight.area.name,
         fight.enemyGroup.name,
@@ -22,30 +19,28 @@ export default class EncounterToolController {
         fight.wheel
       ];
     });
-    const areas = Object.keys(this.encounterTool.areas).map((key) => {
+  }
+
+  public getAreas(): string[] {
+    return Object.keys(this.encounterTool.areas).map((key) => {
       return this.encounterTool.areas[key].name;
     });
-    this.view.init(fights, areas, this.getEnemyGroups());
   }
 
   public incrementRNG(jump: number) {
     this.encounterTool.incrementRNG(jump);
-    this.view.selectRow(this.encounterTool.getEncounterIndex());
   }
 
   public findFight(name: string) {
-    const index = this.encounterTool.findFight(name).getEncounterIndex();
-    this.view.selectRow(index);
+    this.encounterTool.findFight(name);
   }
 
   public undo() {
     this.encounterTool.undo();
-    this.view.selectRow(this.encounterTool.getEncounterIndex());
   }
 
   public incrementFight(num: number = 1) {
     this.encounterTool.incrementFight(num);
-    this.view.selectRow(this.encounterTool.getEncounterIndex());
   }
 
   public getEnemyGroups(): string[] {
@@ -56,8 +51,11 @@ export default class EncounterToolController {
     return enemyGroups;
   }
 
+  public getEncounterIndex(): number {
+    return this.encounterTool.getEncounterIndex();
+  }
+
   public switchArea(area: string) {
     this.encounterTool.switchArea(area);
-    this.modifyView();
   }
 }
