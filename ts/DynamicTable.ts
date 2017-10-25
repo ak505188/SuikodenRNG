@@ -23,9 +23,7 @@ export default class DynamicTable {
       this.container.append(this.table);
     }
     // This passes the clicked row's index to onRowClick
-    console.log('function passed:', onRowClick);
     if (onRowClick) {
-      console.log('onRowClick passed to constructor');
       this.container.on('click', 'tr', (e) => {
         onRowClick($(e.currentTarget).index());
       });
