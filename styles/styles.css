@@ -1,9 +1,50 @@
-.selected {
-	background-color: yellow;
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: auto;
 }
 
-#table {
-	max-height: 500px;
-	max-width: 500px;
-	overflow: scroll;
+table tr {
+  background: #f2f2f2;
+  border: 1px solid #808080;
 }
+
+table tr:nth-child(odd) {
+  background: #e6e6e6;
+}
+
+table tr.selected {
+  background-color: yellow;
+}
+
+.controls-small {
+  float: left;
+  width: 20%;
+}
+
+.controls-large {
+  float: left;
+  width: 60%;
+}
+
+#control-container {
+  display: none;
+  text-align: center;
+}
+
+.control-btn {
+  width: 33%;
+  background-color: #008CBA;
+  color: white;
+  border: solid 1px #008CBA;
+  border-radius: 2px;
+  margin: 1px;
+}
+
+.wide-btn {
+  width: 90%
+}
+
