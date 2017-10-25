@@ -11,11 +11,9 @@ export default class EncounterToolView {
 
   constructor(controller: EncounterToolController, containerID: string) {
     this.controller = controller;
-    this.tableContainer = $('<div/>', { id: 'table' });
-    this.controlContainer = $('<div/>');
+    this.tableContainer = $('#table-container');
+    this.controlContainer = $('#control-container');
     this.container = $(`#${containerID}`);
-    this.container.append(this.tableContainer);
-    this.container.append(this.controlContainer);
     this.table = new DynamicTable(this.tableContainer.attr('id'));
     this.init();
   }
@@ -23,14 +21,18 @@ export default class EncounterToolView {
   public init() {
     this.generateTable(this.controller.getFights());
     this.selectRow(this.controller.getEncounterIndex());
-    this.controlContainer.empty();
+    // this.controlContainer.empty();
     this.generateAreaSelect(this.controller.getAreas());
     this.generateNavigationButtons();
     this.generateFightSelect(this.controller.getEnemyGroups());
+    this.controlContainer.show();
   }
 
   public generateTable(fights: (string | number)[][]) {
-    this.table.generateTable(fights);
+    this.table.generateTable(fights, null, (index: number) => {
+      this.selectRow(index);
+      this.controller.selectFight(index);
+    });
   }
 
   public selectRow(row: number) {
@@ -38,25 +40,28 @@ export default class EncounterToolView {
   }
 
   public generateFightSelect(enemyGroups) {
-    const div = $('<div/>');
+    const div = $('#controls-enemies');
+    div.empty();
     $.each(enemyGroups, (i, name) => {
       const button = $(`<button>${name}</button>`);
-      button.addClass('btn').addClass('btn-success').addClass('btn-sm')
+      button.addClass('control-btn')
         .click(() => {
           this.jumpToFight(name);
           this.selectRow(this.controller.getEncounterIndex());
         });
       div.append(button);
     });
-    this.controlContainer.append(div);
+    // this.controlContainer.append(div);
   }
 
   public generateNavigationButtons() {
-    const div = $('<div/>');
+    const div = $('#controls-navigation');
+    div.empty();
     const jumps = [ 100, 500, 1000 ];
     $.each(jumps, (i, jump) => {
-      const button = $(`<button>RNG + ${jump}</button>`);
-      button.addClass('btn').addClass('btn-success').addClass('btn-sm')
+      const button = $(`<button>+${jump}</button>`);
+      button.addClass('control-btn wide-btn')
+        .addClass('wide-btn')
         .click(() => {
           this.controller.incrementRNG(jump);
           this.selectRow(this.controller.getEncounterIndex());
@@ -64,35 +69,38 @@ export default class EncounterToolView {
       div.append(button);
     });
 
-    const undo = $('<button>Undo</button>').click(() => {
-      this.controller.undo();
-      this.selectRow(this.controller.getEncounterIndex());
-    });
-    undo.addClass('btn').addClass('btn-success').addClass('btn-sm');
+    const undo = $('<button>Undo</button>')
+      .addClass('control-btn wide-btn')
+      .click(() => {
+        this.controller.undo();
+        this.selectRow(this.controller.getEncounterIndex());
+      });
     div.append(undo);
 
-    const next = $('<button>Next</button>').click(() => {
-      this.controller.incrementFight();
-      this.selectRow(this.controller.getEncounterIndex());
-    });
-    next.addClass('btn').addClass('btn-success').addClass('btn-md');
+    const next = $('<button>Next</button>')
+      .addClass('control-btn wide-btn')
+      .click(() => {
+        this.controller.incrementFight();
+        this.selectRow(this.controller.getEncounterIndex());
+      });
     div.append(next);
 
-    this.controlContainer.append(div);
+    // this.controlContainer.append(div);
   }
 
   public generateAreaSelect(areas: string[]) {
-    const div = $('<div/>');
+    const div = $('#controls-areas');
+    div.empty();
     $.each(areas, (k, name) => {
-      const button = $(`<button>${name}</button>`);
-      button.addClass('btn').addClass('btn-success').addClass('btn-sm')
+      const button = $(`<button>${name}</button>`)
+        .addClass('control-btn wide-btn')
         .click(() => {
           this.controller.switchArea(name);
           this.init();
         });
       div.append(button);
     });
-    this.controlContainer.append(div);
+    // this.controlContainer.append(div);
   }
 
   public jumpToFight(name: string) {

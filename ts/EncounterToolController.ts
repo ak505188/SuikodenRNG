@@ -43,6 +43,10 @@ export default class EncounterToolController {
     this.encounterTool.incrementFight(num);
   }
 
+  public selectFight(num: number) {
+    this.encounterTool.selectFight(num);
+  }
+
   public getEnemyGroups(): string[] {
     const currentArea = this.encounterTool.areas[this.encounterTool.currentArea];
     const enemyGroups = currentArea.encounterTable.map((enemyGroup) => {

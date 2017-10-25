@@ -1,4 +1,4 @@
 *.swp
 *.log
 tags
-ts/*.js
+js/

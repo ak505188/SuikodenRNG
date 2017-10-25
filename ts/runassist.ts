@@ -99,7 +99,7 @@ function run(): void {
   const encToolView = new EncounterToolView(encToolController, 'table-container');
 
   $('#form-container').hide();
-  $('#table-container').show();
+  // $('#encounter-gui').show();
 }
 
 $(document).ready(() => {
