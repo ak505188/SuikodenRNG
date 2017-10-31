@@ -5,64 +5,56 @@
   <script data-main="../js/runassist" src="../js/require.js"></script>
 </head>
 <body>
-  <div class="container">
-    <div id="form-container">
-      <div class="row">
-        <div class="col-md-4">
-          <form id="encountersForm">
-            <div class="rng form-group">
-              <label class="rng" for="startRNG">Starting RNG</label>
-              <input class="rng form-control" id="startRNG" type="text" value="0x12">
-            </div>
+  <header>
+    <h1>
+      The Suikoden RNG Manipulation Tool
+    </h1>
+    <nav>
+      <a href='index.html'>Home</a>
+      <a href='encounters.html'>Encounter Tool</a>
+      <a href='sequence.html'>RNG Sequence</a>
+      <a href='drops.html'>Item Drops</a>
+      <a href='rngfinder.html'>RNG Finder</a>
+      <a href='runassistant.html'>Run Assistant</a>
+    </nav>
+  </header>
+  <form id="form-data">
+    <label>
+      Starting RNG
+      <input id="rng" type="text" value="0x12">
+    </label>
 
-            <div class="iterations form-group">
-              <label class="iterations" for="iterations">Iterations</label>
-              <input class="iterations form-control" id="iterations" type="number" step="500" value="1000">
-            </div>
+    <label>
+      Iterations
+      <input id="iterations" type="number" step="500" value="1000">
+    </label>
 
-            <div class="partyLvl form-group">
-              <label class="partyLvl" for="partyLvl">Party Level</label>
-              <input class="partyLvl form-control" id="partyLvl" type="number" value="0">
-            </div>
+    <label class="partylvl">
+      Party Level
+      <input id="partylvl" type="number" value="0">
+    </label>
 
-            <div class="text-center">
-              <input class="btn btn-primary btn-md" id="run" type="button" value="Run">
-            </div>
-          </form>
-        </div>
+    <label>
+      Areas (Hold Shift to select multiple areas)
+      <select id="area-select" multiple></select>
+    </label>
 
-        <div class="col-md-8">
-          <div class="row" id="addable_options">
-            <div class="col-md-6 addable"></div>
-            <div class="col-md-6 addable"></div>
-          </div>
-        </div>
-
+    <input class="btn btn-primary btn-md" id="run" type="button" value="Run">
+  </form>
+  <div>
+    <div class="table-responsive" id="table-container"></div>
+    <div id="control-container">
+      <div class="controls-small">
+        <h5>Areas</h5>
+        <div id="controls-areas"></div>
       </div>
-      <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
-          <h4 class="text-center">Selected</h4>
-          <div id="currently_selected"></div>
-        </div>
-        <div class="col-md-4"></div>
+      <div class="controls-large">
+        <h5>Enemies</h5>
+        <div id="controls-enemies"></div>
       </div>
-    </div>
-    <div>
-      <div class="table-responsive" id="table-container"></div>
-      <div id="control-container">
-        <div class="controls-small">
-          <h5>Areas</h5>
-          <div id="controls-areas"></div>
-        </div>
-        <div class="controls-large">
-          <h5>Enemies</h5>
-          <div id="controls-enemies"></div>
-        </div>
-        <div class="controls-small">
-          <h5>Navigation</h5>
-          <div id="controls-navigation"></div>
-        </div>
+      <div class="controls-small">
+        <h5>Navigation</h5>
+        <div id="controls-navigation"></div>
       </div>
     </div>
   </div>

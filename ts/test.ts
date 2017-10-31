@@ -1,14 +1,19 @@
 import Area from './Area';
+import EncounterTool from './EncounterTool';
 import { enemies } from './enemies';
 import RNG from './rng';
-import { Encounters } from './rngCalc';
+import Table from './tables';
 
 const Areas = {};
 for (const area in enemies) {
   Areas[area] = new Area(area, enemies[area]);
 }
 
-const encounters = Encounters([Areas['Cave of the Past']], new RNG(0x12), 1000);
-console.log(encounters[0].enemyGroup.enemies[0].drops);
+const rng = new RNG(0);
 
-// console.log(JSON.stringify(encounters, null, 4));
+console.log('{');
+console.log(`  0: ${rng.next().getRNG},'`);
+
+while(rng.getRNG() !== 0) {
+  console.log(`${rng.getRNG()}: ${rng.next().getRNG()},`);
+}

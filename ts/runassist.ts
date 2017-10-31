@@ -27,62 +27,16 @@ function initAreas(enemies) {
   return areas;
 }
 
-function addArea(area: string) {
-  if ($.inArray(area, selectedAreas) === -1) {
-    selectedAreas.push(area);
-    fillCurrentlySelectedAreas();
-  }
-}
-
-function fillAddableAreas() {
-  const divs = $('.addable').empty();
-  let index = 0;
-  let count = 0;
-  let invalid = 0;
+function fillAreaSelect(selectId: string): void {
+  const areaSelect = $(`#${selectId}`);
 
   for (const area in Areas) {
-    if (Areas[area].areaType === null)  {
-      invalid++;
-    }
-  }
-
-  for (const area in Areas) {
-    const div = $('<div></div>', { class: 'clearfix' });
-    const button = $('<button></button>', {
-      class: 'btn btn-primary btn-xs pull-right',
-      text:  'Add'
-    });
     if (Areas[area].areaType !== null) {
-      $(div).text(area);
-      $(button).click(() => { addArea(area); });
-      $(div).append(button);
-      $(divs[index]).append(div);
-      index = Math.floor(++count / ((Object.keys(Areas).length - invalid) / divs.length));
+      areaSelect.append($('<option>', {
+        text: area,
+        value: area
+      }));
     }
-  }
-}
-
-function fillCurrentlySelectedAreas() {
-  const currentlySelected = $('#currently_selected').empty();
-
-  for (const area of selectedAreas) {
-    const div = $('<div></div>', { class: 'clearfix' });
-    const button = $('<button></button>', {
-      class: 'btn btn-danger btn-xs pull-right',
-      text:  'Remove'
-    });
-    $(div).text(Areas[area].name);
-    $(button).click(area, removeArea);
-    $(div).append(button);
-    $(currentlySelected).append(div);
-  }
-}
-
-function removeArea(area) {
-  const index = $.inArray(area.data, selectedAreas);
-  if (index !== -1) {
-    selectedAreas.splice(index, 1);
-    fillCurrentlySelectedAreas();
   }
 }
 
@@ -91,14 +45,15 @@ function run(): void {
   const iterations: number= parseInt($('#iterations').val());
   const partyLvl: number = parseInt($('#partyLvl').val());
 
-  const areas: Area[] = selectedAreas.map((i) => {
+  const areas: Area[] = $('#area-select').val().map((i) => {
     return Areas[i];
   });
+
   const encounters = new EncounterTool(areas, new RNG(rng), iterations, partyLvl);
   const encToolController = new EncounterToolController(encounters);
   const encToolView = new EncounterToolView(encToolController, 'table-container');
 
-  $('#form-container').hide();
+  $('#form-data').hide();
   // $('#encounter-gui').show();
 }
 
@@ -108,5 +63,5 @@ $(document).ready(() => {
   // $('#hide').click(() => {
   //   $('#table tr > *:nth-child(2)').hide();
   // });
-  fillAddableAreas();
+  fillAreaSelect('area-select');
 });

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<head>
+  <link rel="stylesheet" type="text/css" href="../styles/styles.css">
+  <link rel="stylesheet" href="../lib/bootstrap.min.css">
+  <script data-main="../js/rngfinder" src="../js/require.js"></script>
+</head>
+<body>
+  <header>
+    <h1>
+      The Suikoden RNG Manipulation Tool
+    </h1>
+    <nav>
+      <a href='index.html'>Home</a>
+      <a href='encounters.html'>Encounter Tool</a>
+      <a href='sequence.html'>RNG Sequence</a>
+      <a href='drops.html'>Item Drops</a>
+      <a href='rngfinder.html'>RNG Finder</a>
+      <a href='runassistant.html'>Run Assistant</a>
+    </nav>
+  </header>
+  <div id="form-container">
+    <div class="row">
+      <div class="col-md-4">
+        <form id="encountersForm">
+          <div class="rng form-group">
+            <label class="rng" for="startRNG">Starting RNG</label>
+            <input class="rng form-control" id="startRNG" type="text" value="0x12">
+          </div>
+
+          <div class="iterations form-group">
+            <label class="iterations" for="iterations">Iterations</label>
+            <input class="iterations form-control" id="iterations" type="number" step="500" value="1000">
+          </div>
+
+          <div class="area form-group">
+            <label class="area" for="area">Area(s)</label>
+            <select class="area form-control" id="area"></select>
+          </div>
+
+          <div class="text-center">
+            <input class="btn btn-primary btn-md" id="run" type="button" value="Run">
+          </div>
+        </form>
+      </div>
+      <div class="col-md-8">
+        <div class="row" id="addable_options">
+          <div class="col-md-6 addable"></div>
+          <div class="col-md-6 addable"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <h4 class="text-center">Selected</h4>
+        <div id="currently_selected"></div>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+  </div>
+  </div>
+</body>

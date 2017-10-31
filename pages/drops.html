@@ -6,7 +6,7 @@
     <title>Suikoden RNG Tool</title>
     <link rel="stylesheet" type="text/css" href="../styles/styles.css">
     <link rel="stylesheet" href="../lib/bootstrap.min.css">
-    <script data-main="../js/encounters" src="../js/require.js"></script>
+    <script data-main="../js/drops" src="../js/require.js"></script>
   </head>
   <body>
     <header>
@@ -22,7 +22,7 @@
         <a href='runassistant.html'>Run Assistant</a>
       </nav>
     </header>
-    <form id="form" id="form-data">
+    <form id="form-data">
       <label>
         Starting RNG
         <input class="rng form-control" id="rng" type="text" value="0x12">
@@ -32,12 +32,12 @@
         <input class="iterations form-control" id="iterations" type="number" step="500" value="1000">
       </label>
       <label>
-        Party Level
-        <input class="partylvl form-control" id="partyLvl" type="number" value="0">
+        Area
+        <select id="area-select"></select>
       </label>
       <label>
-        Areas (Hold Shift to select multiple areas)
-        <select id="area-select" multiple></select>
+        Enemy Group
+        <select id="enemy-select"></select>
       </label>
       <input class="btn btn-primary btn-md" id="run" type="button" value="Run">
     </form>

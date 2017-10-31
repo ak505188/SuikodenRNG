@@ -34,8 +34,8 @@ function modify(): void {
   $('#form-container').show();
 }
 
-function fillAreaSelect(selectId: string): void {
-  const areaSelect = $(`#${selectId}`);
+function fillAreaSelect(selectID: string): void {
+  const areaSelect = $(`#${selectID}`);
 
   for (const area in Areas) {
     if (Areas[area].areaType !== null) {
@@ -45,6 +45,22 @@ function fillAreaSelect(selectId: string): void {
       }));
     }
   }
+}
+
+function fillEnemySelect(selectID: string, area: Area): void {
+  const enemySelect = $(`#${selectID}`);
+  // const area: string = $('#area').find(':selected').text();
+  const encounterTable = area.encounterTable;
+
+  // Clear select element
+  enemySelect.find('option').remove().end();
+
+  $.each(encounterTable, (index, enemyGroup) => {
+    enemySelect.append($('<option>', {
+      text: enemyGroup.name,
+      value: enemyGroup.name
+    }));
+  });
 }
 
 function download(item, filename) {
@@ -61,36 +77,36 @@ function download(item, filename) {
 function run(): void {
   const rng: number = parseInt($('#startRNG').val());
   const iterations: number= parseInt($('#iterations').val());
-  const partyLvl: number = parseInt($('#partyLvl').val());
+  const area: string = $('#area-select').val();
+  const enemyGroup: string = $('#enemy-select').val();
 
-  const areas: Area[] = $('#area-select').val().map((i) => {
-    return Areas[i];
-  });
-  const encounters = Encounters(areas, new RNG(rng), iterations, partyLvl);
-  const data = encounters.map((enc) => {
+  const group = Areas[area].getEnemyGroup(enemyGroup);
+  const drops: ICalculatedDrop[] = group.calculateDrops(new RNG(rng), iterations);
+  const data = drops.map((drop, index) => {
     return {
-      area: enc.area.name,
-      enemyGroup: enc.enemyGroup.name,
-      index: enc.index,
-      run: enc.run ? 'Run' : 'Fail'
+      drop: drop.drop,
+      index: index,
+      rng: drop.rng.toString(16)
     };
   });
   const headers = [
-    { key: 'area', name: 'Area' },
-    { key: 'enemyGroup', name: 'Enemy Group' },
     { key: 'index', name: 'Index' },
-    { key: 'run', name: 'Run?' }
+    { key: 'drop', name: 'Drop' },
+    { key: 'rng', name: 'RNG' }
   ];
   table = new Table(headers, data);
+  $('#form-data').hide();
   $('#table').empty();
   $('#table').append(table.generateHTMLTable());
-  $('#form-data').hide();
   $('#table-container').show();
 }
 
 $(document).ready(() => {
-  $('#table-container').hide();
   fillAreaSelect('area-select');
+  fillEnemySelect('enemy-select', Areas['Cave of the Past']);
+  $('#area-select').change(() => {
+    fillEnemySelect('enemy-select', Areas[$('#area-select').val()]);
+  });
   // Bind events to buttons
   $('#run').click(run);
   $('#modify').click(modify);
