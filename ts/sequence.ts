@@ -31,8 +31,8 @@ function run(): void {
 
 $(document).ready(() => {
   // Bind events to buttons
-  $('#run').click(run);
-  $('#download').click(() => {
+  $(`#${IDs.Run}`).click(run);
+  $(`#${IDs.Download}`).click(() => {
     if (table !== null) {
       download(table.generateCSV(), 'table.csv');
     } else {

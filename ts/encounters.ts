@@ -35,10 +35,10 @@ function run(): void {
     { key: 'run', name: 'Run?' },
   ];
   table = new Table(headers, data);
-  $('#table').empty();
-  $('#table').append(table.generateHTMLTable());
-  $('#form-data').hide();
-  $('#table-container').show();
+  $(`#${IDs.Table}`).empty();
+  $(`#${IDs.Table}`).append(table.generateHTMLTable());
+  $(`#${IDs.Form}`).hide();
+  $(`#${IDs.TableContainer}`).show();
 }
 
 $(document).ready(() => {

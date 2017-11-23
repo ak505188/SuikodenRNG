@@ -6,7 +6,8 @@
     "jsRules": {},
     "rules": {
         "no-bitwise": false,
-        "quotemark": "single"
+        "quotemark": "single",
+        "radix", false
     },
     "rulesDirectory": []
 }

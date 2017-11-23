@@ -28,11 +28,11 @@ function run(): void {
   const encToolController = new EncounterToolController(encounters);
   const encToolView = new EncounterToolView(encToolController, 'table-container');
 
-  $('#form-data').hide();
+  $(`#${IDs.Form}`).hide();
   $(`#${IDs.TableContainer}`).show();
 }
 
 $(document).ready(() => {
   fillAreaSelect(Areas);
-  $('#run').click(run);
+  $(`#${IDs.Run}`).click(run);
 });

@@ -46,10 +46,10 @@ function run(): void {
     { key: 'rng', name: 'RNG' },
   ];
   table = new Table(headers, data);
-  $('#form-data').hide();
-  $('#table').empty();
-  $('#table').append(table.generateHTMLTable());
-  $('#table-container').show();
+  $(`#${IDs.Table}`).empty();
+  $(`#${IDs.Table}`).append(table.generateHTMLTable());
+  $(`#${IDs.Form}`).hide();
+  $(`#${IDs.TableContainer}`).show();
 }
 
 $(document).ready(() => {
@@ -60,8 +60,8 @@ $(document).ready(() => {
     fillEnemySelect(area);
   });
   // Bind events to buttons
-  $('#run').click(run);
-  $('#download').click(() => {
+  $(`#${IDs.Run}`).click(run);
+  $(`#${IDs.Download}`).click(() => {
     if (table !== null) {
       download(table.generateCSV(), 'table.csv');
     } else {

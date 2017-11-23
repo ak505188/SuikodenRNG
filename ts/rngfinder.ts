@@ -39,6 +39,10 @@ function fillSelectedEnemiesList() {
   const area: Area = Areas[areaName];
   const ul = $('#selected-enemy-groups').empty();
 
+  if (fightList.length === 0) {
+    ul.append($('<i>Selected fights show here.</i>'));
+  }
+
   for (let i = 0; i < fightList.length; i++) {
     const li = $('<li></li>', { class: 'removable' });
     const button = $('<button></button>', {
@@ -73,11 +77,13 @@ function run(): void {
 $(document).ready(() => {
   fillAreaSelect(Areas);
   fillAddableEnemiesList();
+
+  fillSelectedEnemiesList();
   // Bind events to buttons
   $(`#${IDs.AreaSelect}`).change(() => {
     fillAddableEnemiesList();
     fightList = [];
     fillSelectedEnemiesList();
   });
-  $('#run').click(run);
+  $(`#${IDs.Run}`).click(run);
 });
