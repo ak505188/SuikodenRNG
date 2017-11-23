@@ -1,3 +1,70 @@
+li.navbar {
+  float: left;
+}
+
+ul.navbar {
+  background-color: #001f3f;
+  color: hsla(210, 100%, 75%, 1.0);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style-type: none;
+}
+
+li a {
+  text-align: center;
+  display: block;
+  text-decoration: none;
+  padding: 14px 16px;
+  color: hsla(210, 100%, 75%, 1.0);
+}
+
+li a:hover {
+  background-color: black;
+}
+
+form {
+  display: inline-block;
+  margin-top: 15px;
+}
+
+#form-container {
+  text-align: center;
+}
+
+.input-container {
+  text-align: left;
+  width: 600px;
+}
+
+input, select {
+  border: 1px solid #808080;
+  border-radius: 2px;
+}
+
+input[type="text"], input[type="number"] {
+  padding: 5px;
+}
+
+option {
+  padding: 2.5px;
+}
+
+label, input[type="text"], input[type="number"], select {
+  width: 98%;
+  height: 98%;
+  margin: 1%;
+  -webkit-box-sizing: border-box; /* For legacy WebKit based browsers */
+     -moz-box-sizing: border-box; /* For legacy (Firefox <29) Gecko based browsers */
+          box-sizing: border-box;
+}
+
+#table-container {
+  display: none;
+  overflow-y: scroll;
+  height: 500px;
+}
+
 table {
   border: 1px solid #ccc;
   border-collapse: collapse;
@@ -7,17 +74,21 @@ table {
   table-layout: auto;
 }
 
-table tr {
+tbody tr {
   background: #f2f2f2;
   border: 1px solid #808080;
 }
 
-table tr:nth-child(odd) {
+tbody tr:nth-child(odd) {
   background: #e6e6e6;
 }
 
-table tr.selected {
+tbody tr.selected {
   background-color: yellow;
+}
+
+th {
+  text-align: left;
 }
 
 .controls-small {
@@ -48,3 +119,28 @@ table tr.selected {
   width: 90%
 }
 
+ul.list {
+}
+
+li.addable {
+  display: block;
+}
+
+button.addable {
+  background-color: #008CBA;
+  border: solid 1px #008CBA;
+  color: white;
+}
+
+button.removable {
+  background-color: red;
+  border: solid 1px red;
+  color: white;
+}
+
+button.option {
+  cursor: pointer;
+  width: 100%;
+  border-radius: 2px;
+  margin: 1px;
+}

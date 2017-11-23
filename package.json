@@ -1,0 +1,22 @@
+{
+  "name": "suikodenrng",
+  "version": "1.0.0",
+  "description": "This is a RNG calculator for the PS1 game Suikoden. It can predict RNG based events, such as future encounters and enemy drops(coming later).",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/ak505188/SuikodenRNG.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jquery": "^3.2.16"
+  }
+}

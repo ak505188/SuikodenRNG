@@ -29,7 +29,16 @@ export default class EncounterToolView {
   }
 
   public generateTable(fights: (string | number)[][]) {
-    this.table.generateTable(fights, null, (index: number) => {
+    const headers: string[] = [
+      'Area',
+      'Enemy Group',
+      'RNG Index',
+      'Run',
+      'Encounter RNG',
+      'Battle RNG',
+      'Wheel attempts'
+    ];
+    this.table.generateTable(fights, headers, (index: number) => {
       this.selectRow(index);
       this.controller.selectFight(index);
     });
@@ -37,6 +46,15 @@ export default class EncounterToolView {
 
   public selectRow(row: number) {
     this.table.selectRow(row);
+  }
+
+  // Column methods index from 1
+  public hideColumn(column: number) {
+    this.table.hideColumn(column);
+  }
+
+  public showColumn(column: number) {
+    this.table.showColumn(column);
   }
 
   public generateFightSelect(enemyGroups) {

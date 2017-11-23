@@ -16,6 +16,8 @@ export default class EncounterToolController {
         fight.enemyGroup.name,
         fight.index,
         fight.run ? 'Run' : 'Fail',
+        `0x${fight.startRNG.toString(16)}`,
+        `0x${fight.battleRNG.toString(16)}`,
         fight.wheel
       ];
     });

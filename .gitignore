@@ -2,3 +2,4 @@
 *.log
 tags
 js/
+node_modules/

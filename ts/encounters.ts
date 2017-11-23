@@ -1,85 +1,38 @@
 import * as $ from 'jquery';
 import Area from './Area';
-import { enemies } from './enemies';
-import Fight from './Fight';
-import { findRNG } from './findRNG';
+import { IDs } from './constants';
+import { IAreas } from './interfaces';
+import { download, fillAreaSelect, initAreas } from './lib';
 import RNG from './rng';
 import { Encounters, generateRNGSequence } from './rngCalc';
 import Table from './tables';
 
-interface IAreas {
-  [key: string]: Area;
-}
-
-interface ICalculatedDrop {
-  rng: number;
-  drop: string;
-}
-
-const Areas: IAreas = initAreas(enemies);
+const Areas: IAreas = initAreas();
 let table: Table = null;
 
-function initAreas(enemies) {
-  const areas = {};
-  for (const area in enemies) {
-    if (enemies.hasOwnProperty(area)) {
-      areas[area] = new Area(area, enemies[area]);
-    }
-  }
-  return areas;
-}
-
-function modify(): void {
-  $('#table-container').hide();
-  $('#form-container').show();
-}
-
-function fillAreaSelect(selectId: string): void {
-  const areaSelect = $(`#${selectId}`);
-
-  for (const area in Areas) {
-    if (Areas[area].areaType !== null) {
-      areaSelect.append($('<option>', {
-        text: area,
-        value: area
-      }));
-    }
-  }
-}
-
-function download(item, filename) {
-  // http://stackoverflow.com/questions/3665115/create-a-file-in-memory-for-user-to-download-not-through-server
-  const element = document.createElement('a');
-  element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(item));
-  element.setAttribute('download', filename);
-  element.style.display = 'none';
-  document.body.appendChild(element);
-  element.click();
-  document.body.removeChild(element);
-}
-
 function run(): void {
-  const rng: number = parseInt($('#startRNG').val());
-  const iterations: number= parseInt($('#iterations').val());
-  const partyLvl: number = parseInt($('#partyLvl').val());
+  const rng: number = parseInt($(`#${IDs.RNG}`).val() as string);
+  const iterations: number = $(`#${IDs.Iterations}`).val() as number;
+  const partyLevel: number = $(`#${IDs.PartyLevel}`).val() as number;
 
-  const areas: Area[] = $('#area-select').val().map((i) => {
+  const selectAreas = $(`#${IDs.AreaSelect}`).val() as string[];
+  const areas: Area[] = selectAreas.map((i) => {
     return Areas[i];
   });
-  const encounters = Encounters(areas, new RNG(rng), iterations, partyLvl);
+  const encounters = Encounters(areas, new RNG(rng), iterations, partyLevel);
   const data = encounters.map((enc) => {
     return {
       area: enc.area.name,
       enemyGroup: enc.enemyGroup.name,
       index: enc.index,
-      run: enc.run ? 'Run' : 'Fail'
+      run: enc.run ? 'Run' : 'Fail',
     };
   });
   const headers = [
     { key: 'area', name: 'Area' },
     { key: 'enemyGroup', name: 'Enemy Group' },
     { key: 'index', name: 'Index' },
-    { key: 'run', name: 'Run?' }
+    { key: 'run', name: 'Run?' },
   ];
   table = new Table(headers, data);
   $('#table').empty();
@@ -89,12 +42,10 @@ function run(): void {
 }
 
 $(document).ready(() => {
-  $('#table-container').hide();
-  fillAreaSelect('area-select');
+  fillAreaSelect(Areas);
   // Bind events to buttons
-  $('#run').click(run);
-  $('#modify').click(modify);
-  $('#download').click(() => {
+  $(`#${IDs.Run}`).click(run);
+  $(`#${IDs.Download}`).click(() => {
     if (table !== null) {
       download(table.generateCSV(), 'table.csv');
     } else {

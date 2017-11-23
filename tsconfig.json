@@ -2,13 +2,17 @@
      "compilerOptions": {
           "outDir": "js",
           "rootDir": "ts",
-          "module": "AMD",
+          "module": "umd",
           "lib": [
                "es2015",
                "dom"
+          ],
+          "types": [
+               "jquery"
           ]
      },
      "include": [
-          "ts/*"
+          "ts/*",
+          "node_modules/*"
      ]
 }

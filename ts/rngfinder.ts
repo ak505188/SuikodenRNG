@@ -1,101 +1,83 @@
 import * as $ from 'jquery';
 import Area from './Area';
+import { IDs } from './constants';
 import { enemies } from './enemies';
 import Fight from './Fight';
 import { findRNG } from './findRNG';
+import { IAreas } from './interfaces';
+import { fillAreaSelect, initAreas } from './lib';
 import RNG from './rng';
 import { Encounters, generateRNGSequence } from './rngCalc';
 import Table from './tables';
 
-interface IAreas {
-  [key: string]: Area;
-}
-
-const Areas: IAreas = initAreas(enemies);
+const Areas: IAreas = initAreas();
+const table: Table = null;
 let fightList: number[] = [];
-let table: Table = null;
 
-function initAreas(enemies) {
-  const areas = {};
-  for (const area in enemies) {
-    if (enemies.hasOwnProperty(area)) {
-      areas[area] = new Area(area, enemies[area]);
-    }
+function fillAddableEnemiesList() {
+  const areaName: string = $(`#${IDs.AreaSelect}`).val() as string;
+  const area: Area = Areas[areaName];
+  const ul = $('#addable-enemy-groups').empty();
+
+  for (let i = 0; i < area.encounterTable.length; i++) {
+    const li = $('<li></li>', { class: 'addable' });
+    const button = $('<button></button>', {
+      class: 'option addable',
+      text: area.encounterTable[i].name,
+      value: i,
+    });
+    $(button).click(() => {
+      addEnemyGroup(i);
+    });
+    $(li).append(button);
+    $(ul).append(li);
   }
-  return areas;
 }
 
-function createAreaSelector() {
-  $.each(Areas, (name, area) => {
-    $('#area').append($('<option>', { value: name }).text(name));
-  });
+function fillSelectedEnemiesList() {
+  const areaName: string = $(`#${IDs.AreaSelect}`).val() as string;
+  const area: Area = Areas[areaName];
+  const ul = $('#selected-enemy-groups').empty();
+
+  for (let i = 0; i < fightList.length; i++) {
+    const li = $('<li></li>', { class: 'removable' });
+    const button = $('<button></button>', {
+      class: 'option removable',
+      text: area.encounterTable[fightList[i]].name,
+    });
+    $(button).click(() => {
+      removeEnemy(i);
+    });
+    $(li).append(button);
+    $(ul).append(li);
+  }
 }
 
 function addEnemyGroup(index: number) {
   fightList.push(index);
-  fillCurrentlySelectedEnemies();
+  fillSelectedEnemiesList();
 }
 
-function fillAddableEnemies() {
-  const area: Area = Areas[$('#area').val()];
-  const divs = $('.addable').empty();
-  let count = 0;
-  let index = 0;
-
-  for (const i in area.encounterTable) {
-    console.log(i);
-    const div = $('<div></div>', {
-      class: 'clearfix',
-      text: area.encounterTable[i].name
-    });
-    const button = $('<button></button>', {
-      class: 'btn btn-primary btn-xs pull-right',
-      text:  'Add'
-    });
-    $(button).click(() => {
-      addEnemyGroup(parseInt(i, 10)); });
-    $(div).append(button);
-    $(divs[index]).append(div);
-    index = Math.floor(++count / (Object.keys(area.encounterTable).length / divs.length));
-  }
-}
-
-function fillCurrentlySelectedEnemies() {
-  const currentlySelected = $('#currently_selected').empty();
-  const area = Areas[$('#area').val()];
-
-  for (const fight in fightList) {
-    const div = $('<div></div>', { class: 'clearfix' });
-    const button = $('<button></button>', {
-      class: 'btn btn-danger btn-xs pull-right',
-      text:  'Remove'
-    });
-    $(div).text(area.encounterTable[fightList[fight]].name);
-    $(button).click(fight, removeEnemy);
-    $(div).append(button);
-    $(currentlySelected).append(div);
-  }
-}
-
-function removeEnemy(data) {
-  const index = data.data;
+function removeEnemy(index: number) {
   fightList.splice(index, 1);
-  fillCurrentlySelectedEnemies();
+  fillSelectedEnemiesList();
 }
 
 function run(): void {
-  const area: string = $('#area').find(':selected').text();
-  const rng: number = parseInt($('#startRNG').val());
+  const area: string = $(`#${IDs.AreaSelect}`).val() as string;
+  const rng: number = parseInt($('#startRNG').val() as string);
   const frArea = Areas[area];
   alert(findRNG(frArea, fightList, new RNG(0x12)).toString(16));
 }
 
 $(document).ready(() => {
-  createAreaSelector();
-  fillAddableEnemies();
+  fillAreaSelect(Areas);
+  fillAddableEnemiesList();
   // Bind events to buttons
-  $('#area').change(() => {
-    fillAddableEnemies();
+  $(`#${IDs.AreaSelect}`).change(() => {
+    fillAddableEnemiesList();
+    fightList = [];
+    fillSelectedEnemiesList();
   });
   $('#run').click(run);
 });
