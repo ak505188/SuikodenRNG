@@ -1,26 +1,39 @@
-function Encounters(rng, iterations, areas, partyLvl, callback) {
-  var encounters = [];
-  for (var i = 0; i < iterations; i++) {
-    for (var j in areas) {
-      var area = areas[j];
-      var encounterVal = area.isBattle(rng);
-      if (encounterVal < area.encounterRate) {
-        var encounter = area.getEncounter(rng);
-        var fight = new Fight(areas[j], encounter, rng, i, encounterVal);
-        encounters.push(fight);
-      }
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
     }
-    rng.next();
-  }
-  callback(encounters, partyLvl);
-}
-
-function generateRNGSequence(rng, iterations) {
-  var sequence = [];
-  for (var i = 0; i < iterations; i++) {
-    sequence.push({index: i, rng: rng.getRNG()});
-    rng.next();
-  }
-  return sequence;
-}
-
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports"], factory);
+    }
+})(function (require, exports) {
+    "use strict";
+    exports.__esModule = true;
+    function Encounters(areas, rng, iterations, partyLvl) {
+        if (partyLvl === void 0) { partyLvl = 0; }
+        var encounters = [];
+        for (var i = 0; i < iterations; i++) {
+            for (var j in areas) {
+                var area = areas[j];
+                if (area.isBattle(rng)) {
+                    var fight = area.getEncounter(rng);
+                    if (!(partyLvl > 0 && partyLvl > fight.enemyGroup.champVal)) {
+                        encounters.push(fight);
+                    }
+                }
+            }
+            rng.next();
+        }
+        return encounters;
+    }
+    exports.Encounters = Encounters;
+    function generateRNGSequence(rng, iterations) {
+        var sequence = [];
+        for (var i = 0; i < iterations; i++) {
+            sequence.push(rng.getRNG());
+            rng.next();
+        }
+        return sequence;
+    }
+    exports.generateRNGSequence = generateRNGSequence;
+});

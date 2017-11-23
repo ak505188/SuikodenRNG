@@ -1,86 +1,82 @@
-function encounterTableMaker(encounters, partyLvl) {
-  var headers = [
-    'Area Name',
-    'Enemy Group',
-    'Run?',
-    'RNG Index',
-    'Start RNG',
-    'Battle RNG',
-    'Encounter Value',
-    'Wheel Attempt'
-  ];
-
-  if (partyLvl > 0) {
-    encounters = encounters.filter(function(fight) {
-      return fight.EnemyGroup.champVal > partyLvl;
-    });
-  }
-
-  var fights = encounters.map(function(fight) {
-    var arr = [];
-    arr.push(fight.area.name);
-    arr.push(fight.EnemyGroup.name);
-    arr.push(fight.run ? 'Run' : 'Fail');
-    arr.push(fight.index);
-    arr.push(fight.startingRNG.toString(16));
-    arr.push(fight.battleRNG.toString(16));
-    arr.push(fight.encounterValue);
-    arr.push(fight.wheel);
-    return arr;
-  });
-
-  tableMaker(fights, headers);
-}
-
-function dropTableMaker(group, rng, iterations) {
-  var drops = group.calculateDrops(rng, iterations);
-  var headers = [
-    'Index',
-    'RNG',
-    'Drop'
-  ];
-  drops = drops.map(function(drop, index) {
-    var arr = [];
-    arr.push(index);
-    arr.push(drop.rng);
-    arr.push(drop.drop === null ? '---' : drop.drop);
-    return arr;
-  });
-  tableMaker(drops, headers);
-}
-
-function sequenceTableMaker(rng, iterations) {
-  sequence = generateRNGSequence(rng, iterations).map(function(data) {
-    var arr = [];
-    arr.push(data.index);
-    arr.push(data.rng.toString(16));
-    return arr;
-  });
-  tableMaker(sequence, ['Index', 'RNG']);
-}
-
-function tableMaker(data, headers) {
-  var table = document.getElementById('table');
-  table.innerHTML = '';
-
-  if (headers) {
-    var header = table.createTHead();
-    var headerRow = header.insertRow();
-    var headerColumns = [];
-    for (var k in headers) {
-      headerColumns.push(headerRow.insertCell(k));
-      headerColumns[k].innerHTML = headers[k];
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
     }
-  }
-
-  var body = table.appendChild(document.createElement('tbody'));
-  for (var i in data) {
-    var row = body.insertRow();
-    var columns = [];
-    for (var j in data[i]) {
-      columns.push(row.insertCell(j));
-      columns[j].innerHTML = data[i][j];
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports"], factory);
     }
-  }
-}
-
+})(function (require, exports) {
+    "use strict";
+    exports.__esModule = true;
+    var Table = /** @class */ (function () {
+        function Table(headers, data) {
+            this.headers = headers;
+            this.data = data;
+        }
+        Table.prototype.generateHTMLTable = function () {
+            var table = document.createElement('table');
+            var header = table.createTHead();
+            var headerRow = header.insertRow();
+            var headerColumns = [];
+            for (var i = 0; i < this.headers.length; i++) {
+                headerColumns.push(headerRow.insertCell(i));
+                headerColumns[i].innerHTML = this.headers[i].name;
+            }
+            var body = document.createElement('tbody');
+            table.appendChild(body);
+            for (var j = 0; j < this.data.length; j++) {
+                var row = body.insertRow();
+                var columns = [];
+                for (var k = 0; k < this.headers.length; k++) {
+                    columns.push(row.insertCell(k));
+                    columns[k].innerHTML = this.data[j][this.headers[k].key];
+                }
+            }
+            return table;
+        };
+        Table.prototype.generateCSV = function () {
+            var CSV = '';
+            var headers = this.headers.map(function (header) {
+                return header.name;
+            });
+            CSV += this.generateCSVRow(headers);
+            for (var _i = 0, _a = this.data; _i < _a.length; _i++) {
+                var row = _a[_i];
+                var columns = [];
+                for (var _b = 0, _c = this.headers; _b < _c.length; _b++) {
+                    var h = _c[_b];
+                    columns.push(row[h.key]);
+                }
+                CSV += this.generateCSVRow(columns);
+            }
+            return CSV;
+        };
+        // Used for node only.
+        Table.prototype.printToConsole = function () {
+            for (var _i = 0, _a = this.data; _i < _a.length; _i++) {
+                var row = _a[_i];
+                var line = '| ';
+                for (var _b = 0, _c = this.headers; _b < _c.length; _b++) {
+                    var k = _c[_b];
+                    line += row[k.key] + ' | ';
+                }
+                // tslint:disable-next-line
+                console.log(line);
+            }
+        };
+        Table.prototype.generateCSVRow = function (arr) {
+            var row = '';
+            for (var i = 0; i < arr.length; i++) {
+                row += '"' + arr[i] + '"';
+                if (i < arr.length - 1) {
+                    row += ',';
+                }
+            }
+            row += String.fromCharCode(13);
+            return row;
+        };
+        return Table;
+    }());
+    exports["default"] = Table;
+});

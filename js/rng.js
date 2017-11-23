@@ -1,64 +1,64 @@
-class RNG {
-  // rng used to determine next rng
-  // rng2 used for most calculations
-  constructor(rng, psp, rng2) {
-    this.rng = rng;
-    if (psp === true) {
-      this.psp = true;
-      this.rng2 = rng2;
-    } else {
-      this.rng2 = calcR2FromRng(rng);
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        var v = factory(require, exports);
+        if (v !== undefined) module.exports = v;
     }
-  }
-
-  clone() {
-    return new RNG(this.rng, this.psp, this.rng2);
-  }
-
-  getRNG() {
-    return this.rng;
-  }
-
-  getRNG2() {
-    return this.rng2;
-  }
-
-  // Returns the next set of RNG values
-  // Used when you don't want to advance
-  // the RNG but need to see next value
-  getNext(iterations) {
-    iterations = iterations === undefined ? 1 : iterations;
-    var rng = this.rng;
-    var rng2 = this.rng2;
-    for (var i = 0; i < iterations; i++) {
-      if (!this.psp) {
-        rng = mult32ulo(rng, 0x41c64e6d) + 0x3039;
-        rng2 = rng >> 16 & 0x7FFF;
-      } else {
-        var a2 = 0x4c957f2d;
-        var a3 = 0x5851f42d;
-        var t1 = 0x7fffffff;
-        var v0 = rng;
-        var v1 = rng2;
-        var t0 = mult32ulo(v0, a3);
-        var a0 = mult32ulo(v0, a2);
-        var a1 = mult32uhi(v0, a2);
-        rng += 1;
-        t0 += a1;
-        v0 = rng < 1 ? 1 : 0;
-        var a2 = mult32ulo(v1, a2);
-        rng2 = t0 + a2 + v0;
-        v0 = a1;
-      }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "./lib"], factory);
     }
-    return { rng:rng, rng2: rng2 };
-  }
-
-  // Advances the RNG internally
-  next() {
-    var next = this.getNext();
-    this.rng = next.rng;
-    this.rng2 = next.rng2;
-    return this;
-  }
-}
+})(function (require, exports) {
+    "use strict";
+    exports.__esModule = true;
+    var lib_1 = require("./lib");
+    var RNG = /** @class */ (function () {
+        function RNG(rng) {
+            this.rng = rng;
+            this.rng2 = this.calcRNG2(rng);
+            this.originalRNG = rng;
+            this.count = 0;
+        }
+        RNG.prototype.clone = function () {
+            return new RNG(this.rng);
+        };
+        RNG.prototype.getRNG = function () {
+            return this.rng;
+        };
+        RNG.prototype.getRNG2 = function () {
+            return this.rng2;
+        };
+        RNG.prototype.getCount = function () {
+            return this.count;
+        };
+        RNG.prototype.reset = function () {
+            this.rng = this.originalRNG;
+            this.rng2 = this.calcRNG2(this.rng);
+            this.count = 0;
+        };
+        // Returns the next set of RNG values
+        // Used when you don't want to advance
+        // the RNG but need to see next value
+        RNG.prototype.getNext = function (iterations) {
+            iterations = iterations ? iterations : 1;
+            var rng = this.getRNG();
+            var rng2 = this.getRNG2();
+            for (var i = 0; i < iterations; i++) {
+                rng = lib_1.mult32ulo(rng, 0x41c64e6d) + 0x3039;
+                rng2 = rng >> 16 & 0x7FFF;
+            }
+            return { rng: rng, rng2: rng2 };
+        };
+        // Advances the RNG internally
+        RNG.prototype.next = function () {
+            var next = this.getNext();
+            this.rng = next.rng;
+            this.rng2 = next.rng2;
+            this.count++;
+            return this;
+        };
+        RNG.prototype.calcRNG2 = function (rng) {
+            return rng >> 16 & 0x7FFF;
+        };
+        return RNG;
+    }());
+    exports["default"] = RNG;
+});
