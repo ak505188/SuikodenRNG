@@ -7,7 +7,9 @@
 <body>
   <header>
     <nav>
-      <ul class="navbar">
+      <label for="show-menu" class="show-menu">Menu</label>
+      <input type="checkbox" class="show-menu" id="show-menu" role="button">
+      <ul class="navbar" id="menu">
         <li class="navbar"><a href="../index.html">Home</a></li>
         <li class="navbar"><a href="encounters.html">Encounter Tool</a></li>
         <li class="navbar"><a href="sequence.html">RNG Sequence</a></li>
@@ -17,39 +19,41 @@
       </ul>
     </nav>
   </header>
-  <div id="form-container">
-    <form id="form-data">
-      <h4>Run Assist Tool</h4>
-      <div class="input-container">
-        <label>
-          Starting RNG
-          <input id="rng" type="text" value="0x12">
-        </label>
-      </div>
+  <div id="grid-container">
+    <div id="form-container">
+      <form id="form-data">
+        <h4>Run Assist Tool</h4>
+        <div class="input-container">
+          <label>
+            Starting RNG
+            <input id="rng" type="text" value="0x12">
+          </label>
+        </div>
 
-      <div class="input-container">
-        <label>
-          Iterations
-          <input id="iterations" type="number" step="500" value="1000">
-        </label>
-      </div>
+        <div class="input-container">
+          <label>
+            Iterations
+            <input id="iterations" type="number" step="500" value="1000">
+          </label>
+        </div>
 
-      <div class="input-container">
-        <label>
-          Party Level
-          <input id="partylvl" type="number" value="0">
-        </label>
-      </div>
+        <div class="input-container">
+          <label>
+            Party Level
+            <input id="partylvl" type="number" value="0">
+          </label>
+        </div>
 
-      <div class="input-container">
-        <label>
-          Areas (Hold Shift to select multiple areas)
-          <select id="area-select" multiple></select>
-        </label>
-      </div>
+        <div class="input-container">
+          <label>
+            Areas (Hold Shift to select multiple areas)
+            <select id="area-select" multiple></select>
+          </label>
+        </div>
 
-      <input class="btn btn-primary btn-md" id="run" type="button" value="Run">
-    </form>
+        <input class="btn btn-primary btn-md" id="run" type="button" value="Run">
+      </form>
+    </div>
   </div>
   <div>
     <div class="table-container" id="table-container"></div>

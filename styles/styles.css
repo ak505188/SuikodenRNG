@@ -1,31 +1,8 @@
-li.navbar {
-  float: left;
-}
-
-ul.navbar {
-  background-color: #001f3f;
-  color: hsla(210, 100%, 75%, 1.0);
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  list-style-type: none;
-}
-
-li a {
-  text-align: center;
-  display: block;
-  text-decoration: none;
-  padding: 14px 16px;
-  color: hsla(210, 100%, 75%, 1.0);
-}
-
-li a:hover {
-  background-color: black;
-}
-
 form {
   display: inline-block;
   margin-top: 15px;
+  width: 100%;
+  max-width: 900px;
 }
 
 #form-container {
@@ -34,7 +11,7 @@ form {
 
 .input-container {
   text-align: left;
-  width: 600px;
+  width: 100%;
 }
 
 input, select {
@@ -42,7 +19,8 @@ input, select {
   border-radius: 2px;
 }
 
-input[type="text"], input[type="number"] {
+input[type="text"], input[type="number"], select:not([multiple]) {
+  background-color: white;
   padding: 5px;
 }
 
@@ -143,4 +121,76 @@ button.option {
   width: 100%;
   border-radius: 2px;
   margin: 1px;
+}
+
+li.navbar {
+  float: left;
+}
+
+ul.navbar {
+  background-color: #001f3f;
+  color: hsla(210, 100%, 75%, 1.0);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style-type: none;
+}
+
+.show-menu {
+  display: none;
+}
+
+input[type=checkbox].show-menu {
+  display: none;
+}
+
+li a {
+  text-align: center;
+  display: block;
+  text-decoration: none;
+  padding: 14px 16px;
+  color: hsla(210, 100%, 75%, 1.0);
+}
+
+li a:hover {
+  background-color: #404040;
+}
+
+input[type=checkbox]:checked ~ #menu {
+    display: block;
+}
+
+@media screen and (max-width : 763px){
+  label.show-menu {
+    width: 100%;
+    display: block;
+    text-align: center;
+    background-color: black;
+    color: white;
+    margin: 0;
+    padding: 14px 16px;
+    overflow: hidden;
+    font-weight: 500;
+  }
+
+  label.show-menu:hover {
+    cursor: pointer;
+    background-color: #404040;
+  }
+
+  #menu {
+    display: none;
+  }
+
+  li.navbar {
+    width: 100%;
+  }
+
+  ul.navbar {
+    background-color: #001f3f;
+    color: hsla(210, 100%, 75%, 1.0);
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+  }
 }
