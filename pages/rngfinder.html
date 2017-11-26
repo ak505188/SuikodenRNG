@@ -5,6 +5,7 @@
   <title>Suikoden RNG Tool</title>
   <link rel="stylesheet" type="text/css" href="../styles/reset.css">
   <link rel="stylesheet" type="text/css" href="../styles/styles.css">
+  <link rel="stylesheet" type="text/css" href="../styles/grid.css">
   <script data-main="../js/rngfinder" src="../js/require.js"></script>
 </head>
 <body>
@@ -22,35 +23,41 @@
       </ul>
     </nav>
   </header>
-  <div id="form-container">
-    <form id="form-data">
-      <h4>RNG Finder</h4>
-      <div class="input-container">
-        <label>
-          Starting RNG
-          <input id="rng" type="text" value="0x12">
-        </label>
-      </div>
+  <div class="grid-container">
+    <div id="form-container">
+      <form id="form-data">
+        <h4>RNG Finder</h4>
+        <div class="input-container">
+          <label>
+            Starting RNG
+            <input id="rng" type="text" value="0x12">
+          </label>
+        </div>
 
-      <div class="input-container">
-        <label>
-          Starting RNG
-          <input id="iterations" type="number" value=1000>
-        </label>
-      </div>
+        <div class="input-container">
+          <label>
+            Starting RNG
+            <input id="iterations" type="number" value=1000>
+          </label>
+        </div>
 
-      <div class="input-container">
-        <label>
-          Area
-          <select id="area-select"></select>
-        </label>
-      </div>
+        <div class="input-container">
+          <label>
+            Area
+            <select id="area-select"></select>
+          </label>
+        </div>
 
-      <input id="run" type="button" value="Run">
-    </form>
+        <input id="run" type="button" value="Run">
+      </form>
+    </div>
+    <div class="addable">
+      <h4>Addable</h4>
+      <ul class="list.addable" id="addable-enemy-groups"></ul>
+    </div>
+    <div class="removable">
+      <h4>Selected</h4>
+      <ul class="list.removable" id="selected-enemy-groups"></ul>
+    </div>
   </div>
-  <h4>Addable</h4>
-  <ul class="list.addable" id="addable-enemy-groups"></ul>
-  <h4>Selected</h4>
-  <ul class="list.removable" id="selected-enemy-groups"></ul>
 </body>

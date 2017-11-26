@@ -1,0 +1,32 @@
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "form"
+    "addable"
+    "removable";
+}
+
+#form-container {
+  grid-area: form;
+}
+
+div.addable {
+  grid-area: addable;
+  text-align: center;
+  margin: 0 1%;
+}
+
+div.removable {
+  grid-area: removable;
+  text-align: center;
+  margin: 0 1%;
+}
+
+@media (min-width: 500px) {
+  .grid-container {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "form	form"
+      "addable	removable";
+  }
+}
