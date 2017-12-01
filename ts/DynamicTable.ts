@@ -16,6 +16,7 @@ export default class DynamicTable {
 
   public generateTable(data: (string | number)[][], headers?: string[], onRowClick?: (number) => void) {
     this.table.empty();
+    this.body.empty();
     if (headers) {
       const row = $('<tr/>');
       for (const h of headers) {
