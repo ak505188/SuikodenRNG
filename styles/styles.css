@@ -40,7 +40,7 @@ label, input[type="text"], input[type="number"], select {
 #table-container {
   display: none;
   overflow-y: scroll;
-  height: 500px;
+  height: 450px;
 }
 
 table {
@@ -50,6 +50,10 @@ table {
   padding: 0;
   width: 100%;
   table-layout: auto;
+}
+
+th, td {
+  padding: 10px;
 }
 
 tbody tr {
@@ -86,11 +90,30 @@ th {
 
 .control-btn {
   width: 33%;
-  background-color: #008CBA;
   color: white;
-  border: solid 1px #008CBA;
   border-radius: 2px;
   margin: 1px;
+  padding: 10px 0;
+  font-weight: 600;
+}
+
+.area-btn {
+  background-color: green;
+  border: solid 1px green;
+}
+
+.enemy-btn {
+  background-color: red;
+  border: solid 1px red;
+}
+
+.nav-btn {
+  background-color: black;
+  border: solid 1px black;
+}
+
+.control-btn:hover {
+  cursor: pointer;
 }
 
 .wide-btn {
