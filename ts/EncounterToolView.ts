@@ -21,7 +21,7 @@ export default class EncounterToolView {
   public init() {
     this.generateTable(this.controller.getFights());
     this.selectRow(this.controller.getEncounterIndex());
-    // this.controlContainer.empty();
+    this.table.generateTableControls('controls-table');
     this.generateAreaSelect(this.controller.getAreas());
     this.generateNavigationButtons();
     this.generateFightSelect(this.controller.getEnemyGroups());
@@ -62,7 +62,7 @@ export default class EncounterToolView {
     div.empty();
     $.each(enemyGroups, (i, name) => {
       const button = $(`<button>${name}</button>`);
-      button.addClass('control-btn')
+      button.addClass('control-btn enemy-btn')
         .click(() => {
           this.jumpToFight(name);
           this.selectRow(this.controller.getEncounterIndex());
@@ -78,7 +78,7 @@ export default class EncounterToolView {
     const jumps = [ 100, 500, 1000 ];
     $.each(jumps, (i, jump) => {
       const button = $(`<button>+${jump}</button>`);
-      button.addClass('control-btn wide-btn')
+      button.addClass('control-btn wide-btn nav-btn')
         .addClass('wide-btn')
         .click(() => {
           this.controller.incrementRNG(jump);
@@ -88,7 +88,7 @@ export default class EncounterToolView {
     });
 
     const undo = $('<button>Undo</button>')
-      .addClass('control-btn wide-btn')
+      .addClass('control-btn wide-btn nav-btn')
       .click(() => {
         this.controller.undo();
         this.selectRow(this.controller.getEncounterIndex());
@@ -96,7 +96,7 @@ export default class EncounterToolView {
     div.append(undo);
 
     const next = $('<button>Next</button>')
-      .addClass('control-btn wide-btn')
+      .addClass('control-btn wide-btn nav-btn')
       .click(() => {
         this.controller.incrementFight();
         this.selectRow(this.controller.getEncounterIndex());
@@ -111,7 +111,7 @@ export default class EncounterToolView {
     div.empty();
     $.each(areas, (k, name) => {
       const button = $(`<button>${name}</button>`)
-        .addClass('control-btn wide-btn')
+        .addClass('control-btn wide-btn area-btn')
         .click(() => {
           this.controller.switchArea(name);
           this.init();
