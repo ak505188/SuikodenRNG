@@ -4,25 +4,25 @@ import Fight from './Fight';
 export default class DynamicTable {
   public sel: number = 0;
   public container: JQuery;
-  public table: JQuery;
-  public body: JQuery;
+  public table: JQuery = $('<table/>');
+  public body: JQuery = $('<tbody/>');
+  public headers: string[];
 
   constructor(containerID: string) {
     this.container = $(`#${containerID}`);
-    this.table     = $('<table/>');
-    this.body      = $('<tbody/>');
-    this.container.append(this.table);
   }
 
   public generateTable(data: (string | number)[][], headers?: string[], onRowClick?: (number) => void) {
+    this.container.empty();
     this.table.empty();
     this.body.empty();
     if (headers) {
-      const row = $('<tr/>');
+      this.headers = headers;
+      const thead = $('<thead/>');
       for (const h of headers) {
-        row.append($(`<th>${h}</th>`));
+        thead.append($(`<th>${h}</th>`));
       }
-      this.table.append(row);
+      this.table.append(thead);
     }
     for (const r of data) {
       const row = $('<tr/>');
@@ -38,6 +38,28 @@ export default class DynamicTable {
       this.container.on('click', 'tr', (e) => {
         onRowClick($(e.currentTarget).index());
       });
+    }
+  }
+
+  // Simple checkbox controls to hide columns
+  // If a more complex method is desired it should be created manually
+  // and binded to DynamicTable functions
+  // Appends to element of ID passed
+  public generateTableControls(id: string) {
+    $(`#${id}`).empty();
+    for (let i = 0; i < this.headers.length; i++) {
+      const label = $(`<label>${this.headers[i]}</label>`);
+      const checkbox = $('<input/>', { type: 'checkbox' });
+      checkbox.prop('checked', true);
+      checkbox.change(() => {
+        if (checkbox.is(':checked')) {
+          this.showColumn(i + 1);
+        } else {
+          this.hideColumn(i + 1);
+        }
+      });
+      label.append(checkbox);
+      $(`#${id}`).append(label);
     }
   }
 
