@@ -13,20 +13,22 @@
     var DynamicTable = /** @class */ (function () {
         function DynamicTable(containerID) {
             this.sel = 0;
-            this.container = $("#" + containerID);
             this.table = $('<table/>');
             this.body = $('<tbody/>');
-            this.container.append(this.table);
+            this.container = $("#" + containerID);
         }
         DynamicTable.prototype.generateTable = function (data, headers, onRowClick) {
+            this.container.empty();
             this.table.empty();
+            this.body.empty();
             if (headers) {
-                var row = $('<tr/>');
+                this.headers = headers;
+                var thead = $('<thead/>');
                 for (var _i = 0, headers_1 = headers; _i < headers_1.length; _i++) {
                     var h = headers_1[_i];
-                    row.append($("<th>" + h + "</th>"));
+                    thead.append($("<th>" + h + "</th>"));
                 }
-                this.table.append(row);
+                this.table.append(thead);
             }
             for (var _a = 0, data_1 = data; _a < data_1.length; _a++) {
                 var r = data_1[_a];
@@ -44,6 +46,33 @@
                 this.container.on('click', 'tr', function (e) {
                     onRowClick($(e.currentTarget).index());
                 });
+            }
+        };
+        // Simple checkbox controls to hide columns
+        // If a more complex method is desired it should be created manually
+        // and binded to DynamicTable functions
+        // Appends to element of ID passed
+        DynamicTable.prototype.generateTableControls = function (id) {
+            var _this = this;
+            $("#" + id).empty();
+            var _loop_1 = function (i) {
+                var label = $("<label>" + this_1.headers[i] + "</label>");
+                var checkbox = $('<input/>', { type: 'checkbox' });
+                checkbox.prop('checked', true);
+                checkbox.change(function () {
+                    if (checkbox.is(':checked')) {
+                        _this.showColumn(i + 1);
+                    }
+                    else {
+                        _this.hideColumn(i + 1);
+                    }
+                });
+                label.append(checkbox);
+                $("#" + id).append(label);
+            };
+            var this_1 = this;
+            for (var i = 0; i < this.headers.length; i++) {
+                _loop_1(i);
             }
         };
         DynamicTable.prototype.selectRow = function (row) {

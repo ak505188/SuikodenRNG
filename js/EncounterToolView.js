@@ -23,7 +23,7 @@
         EncounterToolView.prototype.init = function () {
             this.generateTable(this.controller.getFights());
             this.selectRow(this.controller.getEncounterIndex());
-            // this.controlContainer.empty();
+            this.table.generateTableControls('controls-table');
             this.generateAreaSelect(this.controller.getAreas());
             this.generateNavigationButtons();
             this.generateFightSelect(this.controller.getEnemyGroups());
@@ -61,7 +61,7 @@
             div.empty();
             $.each(enemyGroups, function (i, name) {
                 var button = $("<button>" + name + "</button>");
-                button.addClass('control-btn')
+                button.addClass('control-btn enemy-btn')
                     .click(function () {
                     _this.jumpToFight(name);
                     _this.selectRow(_this.controller.getEncounterIndex());
@@ -77,7 +77,7 @@
             var jumps = [100, 500, 1000];
             $.each(jumps, function (i, jump) {
                 var button = $("<button>+" + jump + "</button>");
-                button.addClass('control-btn wide-btn')
+                button.addClass('control-btn wide-btn nav-btn')
                     .addClass('wide-btn')
                     .click(function () {
                     _this.controller.incrementRNG(jump);
@@ -86,14 +86,14 @@
                 div.append(button);
             });
             var undo = $('<button>Undo</button>')
-                .addClass('control-btn wide-btn')
+                .addClass('control-btn wide-btn nav-btn')
                 .click(function () {
                 _this.controller.undo();
                 _this.selectRow(_this.controller.getEncounterIndex());
             });
             div.append(undo);
             var next = $('<button>Next</button>')
-                .addClass('control-btn wide-btn')
+                .addClass('control-btn wide-btn nav-btn')
                 .click(function () {
                 _this.controller.incrementFight();
                 _this.selectRow(_this.controller.getEncounterIndex());
@@ -107,7 +107,7 @@
             div.empty();
             $.each(areas, function (k, name) {
                 var button = $("<button>" + name + "</button>")
-                    .addClass('control-btn wide-btn')
+                    .addClass('control-btn wide-btn area-btn')
                     .click(function () {
                     _this.controller.switchArea(name);
                     _this.init();

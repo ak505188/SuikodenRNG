@@ -3,9 +3,9 @@ import { IDs } from './constants';
 import { download, fillAreaSelect, initAreas } from './lib';
 import RNG from './rng';
 import { generateRNGSequence } from './rngCalc';
-import Table from './tables';
+import DynamicTable from './DynamicTable';
 
-let table: Table = null;
+let table: DynamicTable = null;
 
 function run(): void {
   const rng: number = parseInt($(`#${IDs.RNG}`).val() as string);
@@ -13,30 +13,23 @@ function run(): void {
 
   const sequence = generateRNGSequence(new RNG(rng), iterations);
   const data = sequence.map((r, index) => {
-    return {
+    return [
       index,
-      rng: r.toString(16),
-    };
+      r.toString(16),
+    ]
   });
   const headers = [
-    { key: 'index', name: 'Index' },
-    { key: 'rng', name: 'RNG' },
+    'Index',
+    'RNG',
   ];
-  table = new Table(headers, data);
+  table = new DynamicTable(IDs.TableContainer);
+  table.generateTable(data, headers);
   $(`#${IDs.Form}`).hide();
-  $(`#${IDs.Table}`).empty();
-  $(`#${IDs.Table}`).append(table.generateHTMLTable());
+  $('#output-container').show();
   $(`#${IDs.TableContainer}`).show();
 }
 
 $(document).ready(() => {
   // Bind events to buttons
   $(`#${IDs.Run}`).click(run);
-  $(`#${IDs.Download}`).click(() => {
-    if (table !== null) {
-      download(table.generateCSV(), 'table.csv');
-    } else {
-      alert('No table to download!');
-    }
-  });
 });
